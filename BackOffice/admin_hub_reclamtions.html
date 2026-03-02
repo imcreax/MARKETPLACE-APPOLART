@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appolart — Réclamations &amp; Avis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="temp-back.css">
+  <link rel="stylesheet" href="style_hub_reclamations.css">
+</head>
+<body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-mark">
+        <img src="logo_app.png" alt="Appolart" class="logo-img">
+        <span class="logo-text">Appolart</span>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item" onclick="window.location.href='back_temp.html'" style="cursor:pointer;"><span class="nav-icon">&#9638;</span> Dashboard</div>
+      <div class="nav-item"><span class="nav-icon">&#128722;</span> Produits</div>
+      <div class="nav-item"><span class="nav-icon">&#128101;</span> Utilisateurs</div>
+      <div class="nav-item"><span class="nav-icon">&#10084;</span> Artisans</div>
+      <div class="nav-item"><span class="nav-icon">&#128722;</span> Commandes</div>
+      <div class="nav-item active"><span class="nav-icon">&#9888;</span> Réclamations</div>
+      <div class="nav-item"><span class="nav-icon">&#127991;</span> Promotions</div>
+      <div class="nav-item"><span class="nav-icon">&#128202;</span> Statistiques</div>
+    </nav>
+    <div class="sidebar-footer">
+      <span class="sidebar-version">Appolart Admin · v1.0</span>
+    </div>
+  </aside>
+
+  <div class="main-wrapper">
+    <header class="topbar">
+    
+      <div class="topbar-actions">
+        <div class="topbar-btn">
+          <span class="topbar-icon">&#128276;</span>
+          <span class="topbar-badge" id="badge-notif">2</span>
+        </div>
+        <div class="admin-chip">
+          <div class="admin-avatar">A</div>
+          <span class="admin-name">Admin</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+
+      <!-- ═══ TAB NAVIGATION ═══ -->
+      <div class="tab-nav">
+        <button class="tab-btn active" onclick="switchTab('hub', this)">
+          <span class="tab-icon">&#9638;</span>Accueil
+        </button>
+        <button class="tab-btn tab-recl" onclick="switchTab('recl', this)">
+          <span class="tab-icon">&#128203;</span>Réclamations
+        </button>
+        <button class="tab-btn tab-avis" onclick="switchTab('avis', this)">
+          <span class="tab-icon">&#11088;</span>Avis Produits
+        </button>
+        <button class="tab-btn tab-stats" onclick="switchTab('stats', this)">
+          <span class="tab-icon">&#128202;</span>Statistiques
+        </button>
+      </div>
+
+      <!-- ═══ ONGLET 1 : HUB ═══ -->
+      <div class="tab-panel active" id="panel-hub">
+        <div class="hub-wrapper">
+          <div class="hub-intro">
+            <h1 class="page-title" style="margin-bottom:8px;">&#9888; Réclamations &amp; Avis</h1>
+            <p>Gérez les réclamations clients et modérez les avis produits depuis ce panneau</p>
+          </div>
+          <div class="hub-cards">
+            <a href="#" onclick="switchTabById('recl'); return false;" class="hub-card hub-card--rouge">
+              <span class="hub-card-icon">&#128203;</span>
+              <div class="hub-card-title">Réclamations</div>
+              <div class="hub-card-desc">Consultez, filtrez et répondez aux réclamations clients directement depuis l'interface.</div>
+              <span class="hub-card-btn">&#128203; Gérer les réclamations</span>
+            </a>
+            <a href="#" onclick="switchTabById('avis'); return false;" class="hub-card hub-card--bleu">
+              <span class="hub-card-icon">&#11088;</span>
+              <div class="hub-card-title">Avis Produits</div>
+              <div class="hub-card-desc">Consultez tous les avis, filtrez par artisan, note ou recommandation.</div>
+              <span class="hub-card-btn">&#11088; Gérer les avis</span>
+            </a>
+            <a href="#" onclick="switchTabById('stats'); return false;" class="hub-card hub-card--violet">
+              <span class="hub-card-icon">&#128202;</span>
+              <div class="hub-card-title">Statistiques</div>
+              <div class="hub-card-desc">Visualisez les indicateurs clés, distributions et tendances globales.</div>
+              <span class="hub-card-btn">&#128202; Voir les statistiques</span>
+            </a>
+          </div>
+          <div class="hub-stats">
+            <div class="hub-stat hs-rouge"><div class="hub-stat-val" id="hs-total-recl">—</div><div class="hub-stat-label">Réclamations total</div></div>
+            <div class="hub-stat hs-orange"><div class="hub-stat-val" id="hs-pending">—</div><div class="hub-stat-label">En attente</div></div>
+            <div class="hub-stat hs-vert"><div class="hub-stat-val" id="hs-total-avis">—</div><div class="hub-stat-label">Avis publiés</div></div>
+            <div class="hub-stat hs-bleu"><div class="hub-stat-val" id="hs-note-moy">—</div><div class="hub-stat-label">Note moyenne</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ ONGLET 2 : RÉCLAMATIONS ═══ -->
+      <div class="tab-panel" id="panel-recl">
+        <h1 class="page-title">&#9888; Réclamations</h1>
+
+      <!-- ---- Mini stats ---- -->
+      <div class="mini-stats">
+        <div class="mini-stat stat-total">
+          <div class="mini-stat-val" id="stat-total">5</div>
+          <div class="mini-stat-label">Total réclamations</div>
+        </div>
+        <div class="mini-stat stat-pending">
+          <div class="mini-stat-val" id="stat-pending">2</div>
+          <div class="mini-stat-label">En attente</div>
+        </div>
+        <div class="mini-stat stat-done">
+          <div class="mini-stat-val" id="stat-done">3</div>
+          <div class="mini-stat-label">Répondues</div>
+        </div>
+        <div class="mini-stat stat-urgent">
+          <div class="mini-stat-val" id="stat-urgent">1</div>
+          <div class="mini-stat-label">Urgence haute</div>
+        </div>
+      </div>
+
+      <!-- ---- Barre de recherche ---- -->
+      <div class="search-section">
+        <h3>&#128269; Rechercher une réclamation</h3>
+        <div class="search-row">
+          <div class="search-field">
+            <label>ID Réclamation</label>
+            <input type="text" id="s-id" placeholder="Ex: RCL-001">
+            <span class="error-msg" id="err-s-id">Format invalide (ex: RCL-001)</span>
+          </div>
+          <div class="search-field">
+            <label>Utilisateur / Email</label>
+            <input type="text" id="s-user" placeholder="Nom ou email">
+          </div>
+          <div class="search-field">
+            <label>Objet</label>
+            <select id="s-objet">
+              <option value="">-- Tous --</option>
+              <option value="livraison">Livraison</option>
+              <option value="produit">Produit défectueux</option>
+              <option value="vendeur">Vendeur</option>
+              <option value="remboursement">Remboursement</option>
+              <option value="paiement">Paiement</option>
+              <option value="autre">Autre</option>
+            </select>
+          </div>
+          <div class="search-field">
+            <label>Statut</label>
+            <select id="s-statut">
+              <option value="">-- Tous --</option>
+              <option value="pending">En attente</option>
+              <option value="done">Répondu</option>
+            </select>
+          </div>
+          <button class="btn-search" onclick="rechercherReclamations()">&#128269; Rechercher</button>
+          <button class="btn-reset" onclick="resetRecherche()">&#8635; Réinitialiser</button>
+        </div>
+
+        <!-- Filtres rapides -->
+        <div class="filter-pills">
+          <span class="pill pill-all active" onclick="filtrerPill('all', this)">Toutes</span>
+          <span class="pill pill-pending" onclick="filtrerPill('pending', this)">&#8987; En attente</span>
+          <span class="pill pill-done" onclick="filtrerPill('done', this)">&#10004; Répondues</span>
+        </div>
+      </div>
+
+      <!-- Résultat recherche -->
+      <div class="result-banner" id="result-banner"></div>
+
+      <!-- ---- Tableau ---- -->
+      <div class="table-section">
+        <div class="table-header">
+          <h2>&#128203; Liste des réclamations</h2>
+          <span class="table-count" id="table-count">5 réclamations</span>
+        </div>
+
+        <div style="overflow-x:auto;">
+          <table id="table-reclamations">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Utilisateur</th>
+                <th>Objet</th>
+                <th>Urgence</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Statut</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-reclamations">
+              <!-- Rempli par JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="no-result" id="no-result">
+          <div class="empty-icon">&#128203;</div>
+          <p>Aucune réclamation trouvée pour cette recherche.</p>
+        </div>
+      </div>
+      </div>
+
+      <!-- ═══ ONGLET 3 : AVIS ═══ -->
+      <div class="tab-panel" id="panel-avis">
+        <h1 class="page-title">&#11088; Avis Produits</h1>
+
+      <!-- Mini stats -->
+      <div class="mini-stats">
+        <div class="mini-stat stat-total">
+          <div class="mini-stat-val" id="avis-stat-total">—</div>
+          <div class="mini-stat-label">Total avis</div>
+        </div>
+        <div class="mini-stat stat-moy">
+          <div class="mini-stat-val" id="avis-stat-moy">—</div>
+          <div class="mini-stat-label">Note moyenne</div>
+        </div>
+        <div class="mini-stat stat-pos">
+          <div class="mini-stat-val" id="avis-stat-pos">—</div>
+          <div class="mini-stat-label">Avis positifs (4-5★)</div>
+        </div>
+        <div class="mini-stat stat-neg">
+          <div class="mini-stat-val" id="avis-stat-neg">—</div>
+          <div class="mini-stat-label">Avis négatifs (1-2★)</div>
+        </div>
+      </div>
+
+      <!-- Filtres -->
+      <div class="filter-section">
+        <h3>&#128269; Filtrer les avis</h3>
+        <div class="filter-row">
+          <div class="filter-field">
+            <label>Artisan / Produit</label>
+            <input type="text" id="f-artisan" placeholder="Nom artisan ou produit...">
+          </div>
+          <div class="filter-field">
+            <label>Note (min → max)</label>
+            <div class="note-range">
+              <input type="number" id="f-note-min" value="1" min="1" max="5">
+              <span>→</span>
+              <input type="number" id="f-note-max" value="5" min="1" max="5">
+            </div>
+          </div>
+          <div class="filter-field">
+            <label>Recommandation</label>
+            <select id="f-recomm">
+              <option value="">-- Toutes --</option>
+              <option value="oui">&#10003; Recommandé</option>
+              <option value="non">&#10007; Non recommandé</option>
+            </select>
+          </div>
+          <button class="btn-filtrer" onclick="filtrerAvis()">&#128269; Filtrer</button>
+          <button class="btn-reset-f" onclick="resetFiltresAvis()">&#8635; Réinitialiser</button>
+        </div>
+
+        <!-- Filtres rapides par étoiles -->
+        <div class="rating-pills">
+          <span class="rpill rpill-all active" onclick="filtreRapideNote('all', this)">Tous</span>
+          <span class="rpill rpill-5" onclick="filtreRapideNote(5, this)">&#9733; 5 étoiles</span>
+          <span class="rpill rpill-4" onclick="filtreRapideNote(4, this)">&#9733; 4 étoiles</span>
+          <span class="rpill rpill-3" onclick="filtreRapideNote(3, this)">&#9733; 3 étoiles</span>
+          <span class="rpill rpill-neg" onclick="filtreRapideNote('neg', this)">&#9733; 1-2 étoiles</span>
+        </div>
+      </div>
+
+      <!-- Tableau -->
+      <div class="table-section">
+        <div class="table-header">
+          <h2>&#11088; Liste des avis</h2>
+          <span class="table-count" id="avis-count">—</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Produit</th>
+                <th>Artisan</th>
+                <th>Note</th>
+                <th>Titre</th>
+                <th>Commentaire</th>
+                <th>Recommandation</th>
+                <th>Date</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-avis"></tbody>
+          </table>
+        </div>
+        <div class="no-result" id="no-result-avis">
+          <div class="empty-icon">&#11088;</div>
+          <p>Aucun avis trouvé pour ces filtres.</p>
+        </div>
+      </div>
+      </div>
+
+      <!-- ═══ ONGLET 4 : STATISTIQUES ═══ -->
+      <div class="tab-panel" id="panel-stats">
+        <div class="stats-page">
+
+        <h1 class="page-title">&#128202; Tableau de bord statistiques</h1>
+        <p style="color:var(--text-400);font-size:14px;margin-bottom:28px;">Données agrégées — Réclamations &amp; Avis produits · Période : Janvier – Février 2026</p>
+
+        <!-- ── KPI GLOBAUX ── -->
+        <div class="kpi-grid">
+          <div class="kpi-card kpi-rouge">
+            <span class="kpi-icon">&#128203;</span>
+            <div class="kpi-val">5</div>
+            <div class="kpi-label">Réclamations totales</div>
+          </div>
+          <div class="kpi-card kpi-orange">
+            <span class="kpi-icon">&#8987;</span>
+            <div class="kpi-val">2</div>
+            <div class="kpi-label">En attente</div>
+          </div>
+          <div class="kpi-card kpi-bleu">
+            <span class="kpi-icon">&#11088;</span>
+            <div class="kpi-val">5</div>
+            <div class="kpi-label">Avis publiés</div>
+          </div>
+          <div class="kpi-card kpi-vert">
+            <span class="kpi-icon">&#9733;</span>
+            <div class="kpi-val">3.8</div>
+            <div class="kpi-label">Note moyenne / 5</div>
+          </div>
+        </div>
+
+        <!-- ── SECTION RÉCLAMATIONS ── -->
+        <div class="section-sep"><h2>&#128203; Réclamations</h2></div>
+
+        <div class="two-col">
+
+          <!-- Réclamations par objet -->
+          <div class="chart-card">
+            <h3>&#128269; Répartition par objet</h3>
+            <div class="bar-chart">
+              <div class="bar-row">
+                <span class="bar-label">Livraison</span>
+                <div class="bar-track"><div class="bar-fill bar-rouge" style="width:60%;">1</div></div>
+                <span class="bar-val rouge">1</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">Produit défectueux</span>
+                <div class="bar-track"><div class="bar-fill bar-orange" style="width:60%;">1</div></div>
+                <span class="bar-val orange">1</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">Vendeur</span>
+                <div class="bar-track"><div class="bar-fill bar-bleu" style="width:60%;">1</div></div>
+                <span class="bar-val bleu">1</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">Remboursement</span>
+                <div class="bar-track"><div class="bar-fill bar-rouge" style="width:60%;">1</div></div>
+                <span class="bar-val rouge">1</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">Paiement</span>
+                <div class="bar-track"><div class="bar-fill bar-vert" style="width:60%;">1</div></div>
+                <span class="bar-val vert">1</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Statut réclamations -->
+          <div class="chart-card">
+            <h3>&#9874; Statut des réclamations</h3>
+            <div class="donut-wrap">
+              <svg class="donut-svg" viewBox="0 0 42 42">
+                <!-- Total 5: 3 done (60%), 2 pending (40%) -->
+                <circle cx="21" cy="21" r="15.91549" fill="transparent"
+                  stroke="#5aaa7e" stroke-width="6"
+                  stroke-dasharray="60 40"
+                  stroke-dashoffset="25"
+                  transform="rotate(-90 21 21)"/>
+                <circle cx="21" cy="21" r="15.91549" fill="transparent"
+                  stroke="#e8984e" stroke-width="6"
+                  stroke-dasharray="40 60"
+                  stroke-dashoffset="-35"
+                  transform="rotate(-90 21 21)"/>
+                <text x="21" y="21.5" text-anchor="middle" dy=".3em"
+                  fill="#2c1e1e" font-size="7" font-family="DM Sans,sans-serif" font-weight="700">5 total</text>
+              </svg>
+              <div class="donut-legend">
+                <div class="legend-item">
+                  <div class="legend-dot" style="background:#5aaa7e;"></div>
+                  <span><strong>3</strong> Répondues (60%)</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background:#e8984e;"></div>
+                  <span><strong>2</strong> En attente (40%)</span>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:20px;">
+              <div class="bar-chart">
+                <div class="bar-row">
+                  <span class="bar-label">Répondues</span>
+                  <div class="bar-track"><div class="bar-fill bar-vert" style="width:60%;">3</div></div>
+                  <span class="bar-val vert">3</span>
+                </div>
+                <div class="bar-row">
+                  <span class="bar-label">En attente</span>
+                  <div class="bar-track"><div class="bar-fill bar-orange" style="width:40%;">2</div></div>
+                  <span class="bar-val orange">2</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="two-col">
+
+          <!-- Urgence -->
+          <div class="chart-card">
+            <h3>&#128680; Niveau d'urgence</h3>
+            <div class="bar-chart">
+              <div class="bar-row">
+                <span class="bar-label">🔴 Haute</span>
+                <div class="bar-track"><div class="bar-fill bar-rouge" style="width:40%;">2</div></div>
+                <span class="bar-val rouge">2</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">🟡 Moyenne</span>
+                <div class="bar-track"><div class="bar-fill bar-yellow" style="width:40%;">2</div></div>
+                <span class="bar-val" style="color:#f5a623;">2</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">🟢 Faible</span>
+                <div class="bar-track"><div class="bar-fill bar-vert" style="width:20%;">1</div></div>
+                <span class="bar-val vert">1</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Décisions -->
+          <div class="chart-card">
+            <h3>&#9989; Décisions administratives</h3>
+            <div class="bar-chart">
+              <div class="bar-row">
+                <span class="bar-label">✅ Acceptée</span>
+                <div class="bar-track"><div class="bar-fill bar-vert" style="width:60%;">3</div></div>
+                <span class="bar-val vert">3</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">🔶 Partielle</span>
+                <div class="bar-track"><div class="bar-fill bar-orange" style="width:0%;">0</div></div>
+                <span class="bar-val orange">0</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">❌ Rejetée</span>
+                <div class="bar-track"><div class="bar-fill bar-rouge" style="width:0%;">0</div></div>
+                <span class="bar-val rouge">0</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">⏳ En attente</span>
+                <div class="bar-track"><div class="bar-fill bar-bleu" style="width:40%;">2</div></div>
+                <span class="bar-val bleu">2</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ── SECTION AVIS ── -->
+        <div class="section-sep"><h2>&#11088; Avis Produits</h2></div>
+
+        <div class="two-col">
+
+          <!-- Distribution des notes -->
+          <div class="chart-card">
+            <h3>&#9733; Distribution des notes</h3>
+            <div style="margin-top:4px;">
+              <div class="star-row">
+                <span class="star-label">5 ★</span>
+                <div class="star-bar"><div class="star-fill" style="width:40%;"></div></div>
+                <span class="star-count">2</span>
+              </div>
+              <div class="star-row">
+                <span class="star-label">4 ★</span>
+                <div class="star-bar"><div class="star-fill" style="width:20%;opacity:0.7;"></div></div>
+                <span class="star-count">1</span>
+              </div>
+              <div class="star-row">
+                <span class="star-label">3 ★</span>
+                <div class="star-bar"><div class="star-fill" style="width:20%;opacity:0.5;"></div></div>
+                <span class="star-count">1</span>
+              </div>
+              <div class="star-row">
+                <span class="star-label">2 ★</span>
+                <div class="star-bar"><div class="star-fill" style="width:20%;background:var(--rouge);opacity:0.8;"></div></div>
+                <span class="star-count">1</span>
+              </div>
+              <div class="star-row">
+                <span class="star-label">1 ★</span>
+                <div class="star-bar"><div class="star-fill" style="width:0%;background:var(--rouge);"></div></div>
+                <span class="star-count">0</span>
+              </div>
+            </div>
+            <div style="margin-top:18px;padding:14px;background:var(--creme);border-radius:10px;text-align:center;">
+              <div style="font-size:38px;font-weight:700;color:#f5a623;">3.8</div>
+              <div style="font-size:22px;color:#f5a623;">★★★★☆</div>
+              <div style="font-size:12px;color:var(--text-400);margin-top:4px;">Note moyenne sur 5 avis</div>
+            </div>
+          </div>
+
+          <!-- Recommandations -->
+          <div class="chart-card">
+            <h3>&#128077; Taux de recommandation</h3>
+            <div class="donut-wrap">
+              <svg class="donut-svg" viewBox="0 0 42 42">
+                <!-- 3 oui / 2 non => 60% / 40% -->
+                <circle cx="21" cy="21" r="15.91549" fill="transparent"
+                  stroke="#5aaa7e" stroke-width="6"
+                  stroke-dasharray="60 40"
+                  stroke-dashoffset="25"
+                  transform="rotate(-90 21 21)"/>
+                <circle cx="21" cy="21" r="15.91549" fill="transparent"
+                  stroke="#bf4646" stroke-width="6"
+                  stroke-dasharray="40 60"
+                  stroke-dashoffset="-35"
+                  transform="rotate(-90 21 21)"/>
+                <text x="21" y="20" text-anchor="middle" fill="#2c1e1e" font-size="6.5" font-family="DM Sans,sans-serif" font-weight="700">60%</text>
+                <text x="21" y="27" text-anchor="middle" fill="#5aaa7e" font-size="5" font-family="DM Sans,sans-serif">recommandé</text>
+              </svg>
+              <div class="donut-legend">
+                <div class="legend-item">
+                  <div class="legend-dot" style="background:#5aaa7e;"></div>
+                  <span><strong>3</strong> Recommandent (60%)</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background:var(--rouge);"></div>
+                  <span><strong>2</strong> Ne recommandent pas (40%)</span>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:20px;">
+              <div class="bar-chart">
+                <div class="bar-row">
+                  <span class="bar-label">✅ Recommandés</span>
+                  <div class="bar-track"><div class="bar-fill bar-vert" style="width:60%;">3</div></div>
+                  <span class="bar-val vert">3</span>
+                </div>
+                <div class="bar-row">
+                  <span class="bar-label">❌ Non recommandés</span>
+                  <div class="bar-track"><div class="bar-fill bar-rouge" style="width:40%;">2</div></div>
+                  <span class="bar-val rouge">2</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Avis par artisan -->
+        <div class="one-col">
+          <div class="chart-card">
+            <h3>&#127912; Notes moyennes par artisan</h3>
+            <div class="bar-chart">
+              <div class="bar-row">
+                <span class="bar-label">selim louati</span>
+                <div class="bar-track"><div class="bar-fill bar-yellow" style="width:100%;">★★★★★</div></div>
+                <span class="bar-val" style="color:#f5a623;">5 / 5</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">asma talbi</span>
+                <div class="bar-track"><div class="bar-fill bar-yellow" style="width:100%;">★★★★★</div></div>
+                <span class="bar-val" style="color:#f5a623;">5 / 5</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">karim tounsi</span>
+                <div class="bar-track"><div class="bar-fill bar-yellow" style="width:80%;">★★★★☆</div></div>
+                <span class="bar-val" style="color:#f5a623;">4 / 5</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">asala nasri</span>
+                <div class="bar-track"><div class="bar-fill bar-bleu" style="width:60%;">★★★☆☆</div></div>
+                <span class="bar-val bleu">3 / 5</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">lina mejri</span>
+                <div class="bar-track"><div class="bar-fill bar-rouge" style="width:40%;">★★☆☆☆</div></div>
+                <span class="bar-val rouge">2 / 5</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SECTION TIMELINE ── -->
+        <div class="section-sep"><h2>&#128197; Évolution mensuelle</h2></div>
+
+        <div class="one-col">
+          <div class="chart-card">
+            <h3>&#128202; Réclamations &amp; Avis par mois (2025–2026)</h3>
+            <div class="timeline-row">
+              <!-- Nov 2025 -->
+              <div class="tl-col">
+                <div class="tl-bar" style="height:20px;background:var(--rouge);width:70%;"></div>
+                <div class="tl-val" style="color:var(--rouge);">1</div>
+              </div>
+              <div class="tl-col">
+                <div class="tl-bar" style="height:20px;background:var(--bleu);width:70%;"></div>
+                <div class="tl-val" style="color:var(--bleu);">1</div>
+              </div>
+              <!-- Déc 2025 -->
+              <div class="tl-col">
+                <div class="tl-bar" style="height:0px;background:var(--rouge);width:70%;"></div>
+                <div class="tl-val" style="color:var(--rouge);">0</div>
+              </div>
+              <div class="tl-col">
+                <div class="tl-bar" style="height:20px;background:var(--bleu);width:70%;"></div>
+                <div class="tl-val" style="color:var(--bleu);">1</div>
+              </div>
+              <!-- Jan 2026 -->
+              <div class="tl-col">
+                <div class="tl-bar" style="height:40px;background:var(--rouge);width:70%;"></div>
+                <div class="tl-val" style="color:var(--rouge);">2</div>
+              </div>
+              <div class="tl-col">
+                <div class="tl-bar" style="height:40px;background:var(--bleu);width:70%;"></div>
+                <div class="tl-val" style="color:var(--bleu);">2</div>
+              </div>
+              <!-- Fév 2026 -->
+              <div class="tl-col">
+                <div class="tl-bar" style="height:60px;background:var(--rouge);width:70%;"></div>
+                <div class="tl-val" style="color:var(--rouge);">3</div>
+              </div>
+              <div class="tl-col">
+                <div class="tl-bar" style="height:20px;background:var(--bleu);width:70%;"></div>
+                <div class="tl-val" style="color:var(--bleu);">1</div>
+              </div>
+            </div>
+            <div class="tl-labels">
+              <div class="tl-label" style="flex:2;">Nov 2025</div>
+              <div class="tl-label" style="flex:2;">Déc 2025</div>
+              <div class="tl-label" style="flex:2;">Jan 2026</div>
+              <div class="tl-label" style="flex:2;">Fév 2026</div>
+            </div>
+            <div class="legend-row" style="margin-top:14px;">
+              <div class="legend-item-sm"><div class="legend-sq" style="background:var(--rouge);"></div> Réclamations</div>
+              <div class="legend-item-sm"><div class="legend-sq" style="background:var(--bleu);"></div> Avis</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── INSIGHTS ── -->
+        <div class="section-sep"><h2>&#128161; Indicateurs clés</h2></div>
+
+        <div class="insights-grid" style="margin-bottom:40px;">
+          <div class="insight-card ic-vert">
+            <span class="ic-icon">&#9989;</span>
+            <div class="ic-val">60%</div>
+            <div class="ic-label">Taux de résolution réclamations</div>
+          </div>
+          <div class="insight-card ic-orange">
+            <span class="ic-icon">&#8987;</span>
+            <div class="ic-val">2</div>
+            <div class="ic-label">Réclamations en attente</div>
+          </div>
+          <div class="insight-card ic-yellow">
+            <span class="ic-icon">&#9733;</span>
+            <div class="ic-val">3.8 / 5</div>
+            <div class="ic-label">Score de satisfaction clients</div>
+          </div>
+          <div class="insight-card ic-rouge">
+            <span class="ic-icon">&#128680;</span>
+            <div class="ic-val">2</div>
+            <div class="ic-label">Réclamations urgence haute</div>
+          </div>
+          <div class="insight-card ic-vert">
+            <span class="ic-icon">&#128077;</span>
+            <div class="ic-val">60%</div>
+            <div class="ic-label">Taux de recommandation produits</div>
+          </div>
+          <div class="insight-card ic-bleu">
+            <span class="ic-icon">&#127912;</span>
+            <div class="ic-val">Atelier Bleu</div>
+            <div class="ic-label">Meilleur artisan noté (5/5)</div>
+          </div>
+        </div>
+
+      </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ═══ MODALS RÉCLAMATIONS ═══ -->
+</div><!-- .main-wrapper -->
+
+  <!-- ====================================================
+       MODAL : Répondre à une réclamation
+  ==================================================== -->
+  <div class="modal-overlay" id="modal-repondre">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">&#128203; Répondre à la réclamation</span>
+        <button class="modal-close" onclick="fermerModalRepondre()">&times;</button>
+      </div>
+
+      <!-- Info réclamation -->
+      <div class="recl-info-box" id="modal-info-box">
+        <p><strong>ID :</strong> <span id="modal-id">—</span> &nbsp;|&nbsp; <strong>Utilisateur :</strong> <span id="modal-user">—</span></p>
+        <p><strong>Objet :</strong> <span id="modal-objet">—</span> &nbsp;|&nbsp; <strong>Urgence :</strong> <span id="modal-urgence">—</span></p>
+        <div class="recl-desc-full" id="modal-desc">—</div>
+      </div>
+
+      <form id="form-reponse" novalidate>
+        <input type="hidden" id="hidden-recl-id">
+
+        <!-- Statut de résolution -->
+        <div class="form-group">
+          <label for="reponse-statut">Décision <span class="req">*</span></label>
+          <select id="reponse-statut">
+            <option value="">-- Sélectionner --</option>
+            <option value="acceptee">✅ Réclamation acceptée — Traitement en cours</option>
+            <option value="partielle">🔶 Réclamation partiellement acceptée</option>
+            <option value="rejetee">❌ Réclamation rejetée</option>
+            <option value="info">ℹ️ Demande d'informations complémentaires</option>
+            <option value="cloturee">📁 Dossier clôturé</option>
+          </select>
+          <span class="err" id="err-statut">Veuillez sélectionner une décision.</span>
+        </div>
+
+        <!-- Réponse texte -->
+        <div class="form-group">
+          <label for="reponse-texte">Réponse à l'utilisateur <span class="req">*</span></label>
+          <textarea id="reponse-texte" placeholder="Rédigez votre réponse détaillée (min 20 caractères)..."></textarea>
+          <div class="char-counter" id="counter-reponse">0 / 20 min</div>
+          <span class="err" id="err-texte">La réponse doit contenir au moins 20 caractères.</span>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-envoyer">&#128203; Envoyer la réponse</button>
+          <button type="button" class="btn-annuler" onclick="fermerModalRepondre()">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ====================================================
+       MODAL : Voir détail
+  ==================================================== -->
+  <div class="modal-overlay" id="modal-detail">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">&#128203; Détail de la réclamation <span id="detail-id-title"></span></span>
+        <button class="modal-close" onclick="fermerModalDetail()">&times;</button>
+      </div>
+      <div id="detail-content"></div>
+      <div style="margin-top:24px; text-align:right;">
+        <button class="btn-annuler" onclick="fermerModalDetail()" style="padding:10px 24px;">Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MODALS AVIS ═══ -->
+</div>
+
+  <!-- Modal détail avis -->
+  <div class="modal-overlay" id="modal-avis-detail">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">&#11088; Détail de l'avis</span>
+        <button class="modal-close" onclick="fermerModalAvisDetail()">&times;</button>
+      </div>
+      <div id="detail-avis-content"></div>
+      <div style="margin-top:22px;text-align:right;">
+        <button onclick="fermerModalAvisDetail()" style="background:var(--sable);border:none;border-radius:8px;padding:10px 24px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;">Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="script_admin_reclamations.js"></script>
+  <script>
+    // Filtre rapide par note (pilule)
+    var filtreNoteActif = 'all';
+    function filtreRapideNote(note, el) {
+      filtreNoteActif = note;
+      document.querySelectorAll('.rpill').forEach(function(p){ p.classList.remove('active'); });
+      el.classList.add('active');
+      var all = chargerAvis();
+      var filtered = all.filter(function(a) {
+        if (note === 'all') return true;
+        if (note === 'neg') return a.note <= 2;
+        return a.note === note;
+      });
+      renderAvisAdmin(filtered);
+    }
+  </script>
+  <script>
+    // ── Tab switching ──────────────────────────────
+    function switchTab(id, btn) {
+      document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+      document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+      document.getElementById('panel-' + id).classList.add('active');
+      btn.classList.add('active');
+      if (id === 'recl') { renderTable(chargerRecl()); }
+      if (id === 'avis') { renderAvisAdmin(chargerAvis()); }
+    }
+    function switchTabById(id) {
+      var btn = document.querySelector('.tab-btn.tab-' + id);
+      if (!btn) {
+        // hub tab
+        btn = document.querySelectorAll('.tab-btn')[0];
+      }
+      if (id === 'hub') btn = document.querySelectorAll('.tab-btn')[0];
+      switchTab(id, btn);
+    }
+
+    // ── Hub stats ──────────────────────────────────
+    function majHubStats() {
+      var STORAGE_RECL = 'appolart_reclamations_admin';
+      var STORAGE_AVIS = 'appolart_avis';
+      var reclDef = [{statut:'done'},{statut:'pending'},{statut:'done'},{statut:'pending'},{statut:'done'}];
+      var avisDef = [{note:5},{note:4},{note:2},{note:5},{note:3}];
+      var recl = JSON.parse(localStorage.getItem(STORAGE_RECL) || 'null') || reclDef;
+      var avis = JSON.parse(localStorage.getItem(STORAGE_AVIS) || 'null') || avisDef;
+      var pending = recl.filter(function(r){ return r.statut==='pending'; }).length;
+      var moy = avis.length > 0 ? (avis.reduce(function(s,a){ return s+a.note; },0)/avis.length).toFixed(1) : 0;
+      var el;
+      el = document.getElementById('hs-total-recl'); if(el) el.textContent = recl.length;
+      el = document.getElementById('hs-pending');    if(el) el.textContent = pending;
+      el = document.getElementById('hs-total-avis'); if(el) el.textContent = avis.length;
+      el = document.getElementById('hs-note-moy');   if(el) el.textContent = moy + ' ★';
+      el = document.getElementById('badge-notif');   if(el) el.textContent = pending;
+    }
+
+    window.onload = function() {
+      majHubStats();
+      // Close modals on overlay click
+      var md = document.getElementById('modal-detail');
+      if (md) md.addEventListener('click', function(e){ if(e.target===md) fermerModalDetail(); });
+      var mr = document.getElementById('modal-repondre');
+      if (mr) mr.addEventListener('click', function(e){ if(e.target===mr) fermerModalRepondre(); });
+      var mav = document.getElementById('modal-avis-detail');
+      if (mav) mav.addEventListener('click', function(e){ if(e.target===mav) fermerModalAvisDetail(); });
+      initFormRepondreModal();
+    };
+  </script>
+</body>
+</html>
