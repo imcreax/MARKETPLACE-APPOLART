@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Réclamations &amp; Avis - Appolart</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style_reclamtions.css">
+  
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════
+       HEADER COMPLET APPOLART
+  ══════════════════════════════════════════════ -->
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="top-bar-content">
+      <div class="top-bar-left">
+        <span>&#128222; Assistance: +216 15 15 15 15</span>
+      </div>
+      <div class="top-bar-right">
+        <a href="#login">&#128100; Connexion</a>
+        <a href="#register">&#128221; Inscription</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-content">
+      <a href="front_temp.html" class="logo">
+        <img src="logo_haut.png" alt="Appolart" class="logo-img" style="transform:scaleX(-1);">
+        <span>Appolart</span>
+      </a>
+      <div class="search-bar">
+        <select class="category-select">
+          <option>Toutes cat&#233;gories</option>
+          <option>Poterie &amp; C&#233;ramique</option>
+          <option>Tissage &amp; Textile</option>
+          <option>Bijouterie</option>
+          <option>Sculpture</option>
+          <option>Maroquinerie</option>
+          <option>Travail du Bois</option>
+          <option>Soufflage de Verre</option>
+          <option>Peinture &amp; Art</option>
+          <option>Autre</option>
+        </select>
+        <input type="text" class="search-input" placeholder="Rechercher plus de 20,000 produits...">
+        <button class="search-btn">&#128269;</button>
+      </div>
+      <div class="header-actions">
+        <a href="#account" class="header-action">
+          <span class="header-action-icon">&#128100;</span>
+          <span>Compte</span>
+        </a>
+        <a href="#wishlist" class="header-action">
+          <span class="header-action-icon">&#10084;&#65039;</span>
+        </a>
+        <a href="#cart" class="header-action">
+          <span class="header-action-icon">&#128722;</span>
+          <span>Panier: 1290.00 DT</span>
+          <span class="cart-badge">2</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-content">
+      <button class="departments-btn">&#9776; Cat&#233;gories</button>
+      <ul class="nav-links">
+        <li><a href="produits.html">&#128230; Produits</a></li>
+        <li><a href="#artisans">&#127912; Artisans</a></li>
+        <li><a href="reclamations.html" class="active">&#128203; R&#233;clamations</a></li>
+        <li><a href="#promotions">&#127991;&#65039; Promotions</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════
+       VUE 1 : HUB
+  ══════════════════════════════════════════════ -->
+  <div class="vue active" id="vue-hub">
+    <div class="page-hero" style="padding-top:40px;">
+      <h1>&#128203; Réclamations &amp; Avis</h1>
+      <p>Choisissez une section pour gérer vos avis ou suivre vos réclamations</p>
+    </div>
+    <div class="hub-tab-bar">
+      <button class="hub-tab-btn" onclick="afficherVue('avis')">
+        <span class="htb-icon">&#11088;</span>
+        <span>Mes Avis</span>
+      </button>
+      <button class="hub-tab-btn btn-recl" onclick="afficherVue('recl')">
+        <span class="htb-icon">&#128203;</span>
+        <span>Mes Réclamations</span>
+      </button>
+    </div>
+    <div class="info-strip">
+      <div class="info-item"><span class="info-icon">&#9889;</span><span>Réponse rapide sous 24h</span></div>
+      <div class="info-item"><span class="info-icon">&#128274;</span><span>Traitement confidentiel</span></div>
+      <div class="info-item"><span class="info-icon">&#128202;</span><span>Suivi en temps réel</span></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       VUE 2 : MES AVIS
+  ══════════════════════════════════════════════ -->
+  <div class="vue" id="vue-avis">
+    <div class="breadcrumb">
+      <a href="reclamations.html">&#127968; Accueil</a>
+      <span class="sep">&rsaquo;</span>
+      <a href="#" onclick="afficherVue('hub');return false;">Réclamations &amp; Avis</a>
+      <span class="sep">&rsaquo;</span>
+      <span class="current-avis">Mes Avis</span>
+    </div>
+    <div class="page-avis">
+      <div class="page-hero">
+        <h1>&#11088; Mes Avis</h1>
+        <p>Partagez votre expérience et consultez l'historique de vos avis sur les produits</p>
+      </div>
+      <div class="page-header-row">
+        <button class="btn-faire" onclick="ouvrirModalAjouterAvis()">&#10133; Faire un avis</button>
+      </div>
+      <div class="table-wrapper">
+        <div class="table-toolbar">
+          <h3>&#11088; Historique de mes avis</h3>
+          <span class="table-count-avis" id="tableCount">0 avis</span>
+        </div>
+        <table class="avis-table">
+          <thead>
+            <tr>
+              <th>Produit</th><th>Note</th><th>Titre</th>
+              <th>Commentaire</th><th>Recommandation</th><th>Date</th><th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyAvis"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       VUE 3 : MES RÉCLAMATIONS
+  ══════════════════════════════════════════════ -->
+  <div class="vue" id="vue-recl">
+    <div class="breadcrumb">
+      <a href="reclamations.html">&#127968; Accueil</a>
+      <span class="sep">&rsaquo;</span>
+      <a href="#" onclick="afficherVue('hub');return false;">Réclamations &amp; Avis</a>
+      <span class="sep">&rsaquo;</span>
+      <span class="current-recl">Mes Réclamations</span>
+    </div>
+    <div class="page-recl">
+      <div class="page-hero">
+        <h1>&#128203; Mes Réclamations</h1>
+        <p>Gérez vos réclamations et suivez les réponses de l'administration en temps réel</p>
+      </div>
+      <div class="page-header-row">
+        <button class="btn-faire btn-faire-recl" onclick="ouvrirModalReclamation()">&#43; Faire une Réclamation</button>
+      </div>
+      <div class="table-wrapper">
+        <div class="table-toolbar">
+          <h3>&#128203; Historique de mes réclamations</h3>
+          <span class="table-count-recl" id="tableCount2">0 réclamations</span>
+        </div>
+        <table class="recl-table">
+          <thead>
+            <tr>
+              <th>ID</th><th>Objet</th><th>Référence</th><th>Urgence</th>
+              <th>Date</th><th>Statut</th><th>Réponse admin</th><th>Détail</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyRecl"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       MODALS AVIS
+  ══════════════════════════════════════════════ -->
+
+  <!-- Modal : Ajouter avis -->
+  <div class="modal-overlay" id="modal-ajouter-avis">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">&#11088; Donner un Avis</span>
+        <button class="modal-close" onclick="fermerModalAjouterAvis()">&times;</button>
+      </div>
+      <form id="avisForm" novalidate>
+        <div class="form-group">
+          <label for="avProduit">Produit concerné <span class="req">*</span></label>
+          <select id="avProduit">
+            <option value="">-- Sélectionnez un produit acheté --</option>
+            <option value="Vase artisanal bleu|12500">Vase artisanal bleu (Commande #12500)</option>
+            <option value="Sac en cuir vintage|12450">Sac en cuir vintage (Commande #12450)</option>
+            <option value="Assiettes artisanales|12390">Assiettes artisanales (Commande #12390)</option>
+            <option value="Couverture en laine|12289">Couverture en laine (Commande #12289)</option>
+            <option value="Collier artisanal argent|12100">Collier artisanal argent (Commande #12100)</option>
+          </select>
+          <span class="error-msg" id="errProduit">Veuillez sélectionner un produit.</span>
+        </div>
+        <div class="form-group">
+          <label>Note globale <span class="req">*</span></label>
+          <div class="star-rating">
+            <input type="radio" name="note" id="star5" value="5"><label for="star5">&#9733;</label>
+            <input type="radio" name="note" id="star4" value="4"><label for="star4">&#9733;</label>
+            <input type="radio" name="note" id="star3" value="3"><label for="star3">&#9733;</label>
+            <input type="radio" name="note" id="star2" value="2"><label for="star2">&#9733;</label>
+            <input type="radio" name="note" id="star1" value="1"><label for="star1">&#9733;</label>
+          </div>
+          <span class="error-msg" id="errNote">Veuillez attribuer une note.</span>
+        </div>
+        <div class="form-group">
+          <label for="avTitre">Titre <span class="req">*</span></label>
+          <input type="text" id="avTitre" placeholder="Résumez votre expérience" maxlength="80">
+          <span class="error-msg" id="errTitre">Titre obligatoire (min. 5 caractères).</span>
+        </div>
+        <div class="form-group">
+          <label for="avCommentaire">Commentaire <span class="req">*</span></label>
+          <textarea id="avCommentaire" placeholder="Décrivez votre expérience... (min. 20 caractères)" maxlength="500"></textarea>
+          <div class="char-counter" id="counterComm">0 / 20 min</div>
+          <span class="error-msg" id="errComm">Commentaire obligatoire (min. 20 caractères).</span>
+        </div>
+        <div class="form-group">
+          <label for="avRecommande">Recommandation <span class="req">*</span></label>
+          <select id="avRecommande">
+            <option value="">-- Choisissez --</option>
+            <option value="oui">&#10003; Oui, je recommande</option>
+            <option value="non">&#10007; Non, je ne recommande pas</option>
+          </select>
+          <span class="error-msg" id="errRec">Veuillez indiquer votre recommandation.</span>
+        </div>
+        <div class="modal-form-actions">
+          <button type="button" class="btn-cancel" onclick="fermerModalAjouterAvis()">Annuler</button>
+          <button type="submit" class="btn-submit">&#10003; Publier l'avis</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal : Modifier avis -->
+  <div class="modal-overlay" id="modal-modifier-avis">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">&#9998; Modifier un Avis</span>
+        <button class="modal-close" onclick="fermerModalModifierAvis()">&times;</button>
+      </div>
+      <form id="modifierAvisForm" novalidate>
+        <input type="hidden" id="modIndex">
+        <div class="form-group">
+          <label>Produit</label>
+          <input type="text" id="modProduit" readonly style="background:#f5f5f5;color:#888;cursor:not-allowed;">
+        </div>
+        <div class="form-group">
+          <label>Nouvelle note <span class="req">*</span></label>
+          <div class="star-rating">
+            <input type="radio" name="noteMod" id="mStar5" value="5"><label for="mStar5">&#9733;</label>
+            <input type="radio" name="noteMod" id="mStar4" value="4"><label for="mStar4">&#9733;</label>
+            <input type="radio" name="noteMod" id="mStar3" value="3"><label for="mStar3">&#9733;</label>
+            <input type="radio" name="noteMod" id="mStar2" value="2"><label for="mStar2">&#9733;</label>
+            <input type="radio" name="noteMod" id="mStar1" value="1"><label for="mStar1">&#9733;</label>
+          </div>
+          <span class="error-msg" id="errModNote">Veuillez attribuer une note.</span>
+        </div>
+        <div class="form-group">
+          <label for="modTitre">Titre <span class="req">*</span></label>
+          <input type="text" id="modTitre" placeholder="Titre de l'avis" maxlength="80">
+          <span class="error-msg" id="errModTitre">Titre obligatoire (min. 5 caractères).</span>
+        </div>
+        <div class="form-group">
+          <label for="modCommentaire">Commentaire <span class="req">*</span></label>
+          <textarea id="modCommentaire" placeholder="Votre commentaire (min. 20 caractères)" maxlength="500"></textarea>
+          <div class="char-counter" id="counterModComm">0 / 20 min</div>
+          <span class="error-msg" id="errModComm">Commentaire obligatoire (min. 20 caractères).</span>
+        </div>
+        <div class="form-group">
+          <label for="modRecommande">Recommandation <span class="req">*</span></label>
+          <select id="modRecommande">
+            <option value="">-- Choisissez --</option>
+            <option value="oui">&#10003; Oui, je recommande</option>
+            <option value="non">&#10007; Non, je ne recommande pas</option>
+          </select>
+          <span class="error-msg" id="errModRec">Veuillez indiquer votre recommandation.</span>
+        </div>
+        <div class="modal-form-actions">
+          <button type="button" class="btn-cancel" onclick="fermerModalModifierAvis()">Annuler</button>
+          <button type="submit" class="btn-submit">&#9998; Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       MODALS RÉCLAMATIONS
+  ══════════════════════════════════════════════ -->
+
+  <!-- Modal : Nouvelle réclamation -->
+  <div class="modal-overlay" id="modal-reclamation">
+    <div class="modal-box" style="max-width:620px;">
+      <div class="modal-header">
+        <span class="modal-title" style="color:var(--secondary);">&#128203; Nouvelle Réclamation</span>
+        <button class="modal-close" onclick="fermerModalReclamation()">&times;</button>
+      </div>
+      <div class="info-modal-box">&#128204; Tous les champs marqués d'un astérisque (*) sont obligatoires.</div>
+      <form id="reclamationForm" novalidate>
+        <div class="form-group">
+          <label for="reclId">Identifiant Réclamation <span class="req">*</span></label>
+          <input type="text" id="reclId" placeholder="Ex: RCL-042">
+          <small>Format requis : <code>RCL-</code> suivi de 3 chiffres (ex: RCL-042)</small>
+          <span class="error-msg" id="errId">Format invalide. Exemple correct : RCL-042</span>
+        </div>
+        <div class="form-group">
+          <label for="reclObjet">Objet de la demande <span class="req">*</span></label>
+          <select id="reclObjet">
+            <option value="">-- Choisir un objet --</option>
+            <option value="livraison">Problème de Livraison</option>
+            <option value="produit">Produit défectueux / non conforme</option>
+            <option value="vendeur">Comportement du vendeur</option>
+            <option value="remboursement">Demande de remboursement</option>
+            <option value="paiement">Incident de Paiement</option>
+            <option value="autre">Autre</option>
+          </select>
+          <span class="error-msg" id="errObjet">Veuillez sélectionner un objet.</span>
+        </div>
+        <div class="form-group">
+          <label for="reclRef">Référence commande / vendeur <span class="req">*</span></label>
+          <input type="text" id="reclRef" placeholder="Ex: CMD-2024-0451 ou Artisan XYZ">
+          <span class="error-msg" id="errRef">Ce champ est obligatoire (min. 5 caractères).</span>
+        </div>
+        <div class="form-group">
+          <label>Niveau d'urgence <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="urgence" value="faible"> &#128993; Faible</label>
+            <label class="radio-label"><input type="radio" name="urgence" value="moyenne"> &#128994; Moyenne</label>
+            <label class="radio-label"><input type="radio" name="urgence" value="haute"> &#128308; Haute</label>
+          </div>
+          <span class="error-msg" id="errUrgence">Veuillez sélectionner un niveau d'urgence.</span>
+        </div>
+        <div class="form-group">
+          <label for="reclDesc">Description détaillée <span class="req">*</span></label>
+          <textarea id="reclDesc" placeholder="Expliquez votre problème... (min. 20 caractères)" maxlength="1000"></textarea>
+          <div class="char-counter" id="counterDesc">0 / 20 min</div>
+          <span class="error-msg" id="errDesc">La description doit contenir au moins 20 caractères.</span>
+        </div>
+        <label>Photo de l'article (Preuve)</label>
+            <input type="file" name="image_x">
+        <div class="form-group">
+          <label for="reclContact">Email ou téléphone <span class="req">*</span></label>
+          <input type="text" id="reclContact" placeholder="Ex: monmail@email.com ou +216 XX XXX XXX">
+          <span class="error-msg" id="errContact">Veuillez entrer un email ou numéro valide.</span>
+        </div>
+        <div class="modal-form-actions">
+          <button type="button" class="btn-cancel" onclick="fermerModalReclamation()">Annuler</button>
+          <button type="submit" class="btn-submit btn-submit-recl">&#128203; Envoyer la réclamation</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal : Détail réclamation -->
+  <div class="modal-overlay" id="modalDetail">
+    <div class="modal-box" style="max-width:500px;">
+      <div class="modal-header">
+        <span class="modal-title">&#128203; Détail Réclamation</span>
+        <button class="modal-close" onclick="fermerModalDetail()">&times;</button>
+      </div>
+      <div id="detailContent"></div>
+      <div style="margin-top:18px;text-align:right;">
+        <button onclick="fermerModalDetail()" style="background:#f0e8df;border:none;border-radius:8px;padding:10px 24px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;">Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- ══════════════════════════════════════════════
+       FOOTER COMPLET APPOLART
+  ══════════════════════════════════════════════ -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-about">
+        <div class="footer-logo">
+          <img src="logo_footer.png" alt="Appolart" class="footer-logo-img">
+          <h3>Appolart</h3>
+        </div>
+        <p>Votre marketplace de r&#233;f&#233;rence pour d&#233;couvrir et acheter des cr&#233;ations artisanales authentiques. Nous connectons artisans passionn&#233;s et clients exigeants.</p>
+      </div>
+      <div class="footer-contacts">
+        <h4>Contacts</h4>
+        <ul>
+          <li><a href="#contact">Nous contacter</a></li>
+          <li><a href="tel:+21615151515">&#128222; +216 15 15 15 15</a></li>
+          <li><a href="mailto:contact@appolart.com">&#128231; contact@appolart.com</a></li>
+          <li><a href="#support">Support client</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Appolart. Tous droits r&#233;serv&#233;s. Marketplace artisanale.</p>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════════════
+       SCRIPTS
+  ══════════════════════════════════════════════ -->
+  <script src="script_avis.js"></script>
+  <script src="script_reclamations.js"></script>
+  <script>
+
+    /* ── Navigation entre vues ────────────────────── */
+    function afficherVue(id) {
+      document.querySelectorAll('.vue').forEach(function(v) { v.classList.remove('active'); });
+      document.getElementById('vue-' + id).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (id === 'avis') renderTableAvis();
+      if (id === 'recl') renderTableRecl();
+    }
+
+    /* ── Stars ────────────────────────────────────── */
+    function starsLocal(n) {
+      var s = ''; for (var i = 1; i <= 5; i++) s += i <= n ? '★' : '☆'; return s;
+    }
+
+    /* ── Toast ────────────────────────────────────── */
+    function toast(msg, color) {
+      var t = document.getElementById('toast');
+      if (!t) return;
+      t.textContent = msg; t.style.background = color || '#2e7d32';
+      t.classList.add('show'); setTimeout(function() { t.classList.remove('show'); }, 3500);
+    }
+
+    /* ── Render : table avis ─────────────────────── */
+    function renderTableAvis() {
+      var tbody = document.getElementById('tbodyAvis'); if (!tbody) return;
+      var data = chargerAvis(); tbody.innerHTML = '';
+      data.forEach(function(a, i) {
+        var badge = a.recommande === 'oui'
+          ? '<span class="badge-recommande">&#10003; Recommandé</span>'
+          : '<span class="badge-non-recommande">&#10007; Non recommandé</span>';
+        var tr = document.createElement('tr');
+        tr.innerHTML =
+          '<td><div class="td-produit">' + a.produit + '</div><div class="td-ref">Commande #' + a.ref + '</div></td>' +
+          '<td class="td-stars">' + starsLocal(a.note) + '</td>' +
+          '<td>' + a.titre + '</td>' +
+          '<td class="td-commentaire">' + a.commentaire + '</td>' +
+          '<td>' + badge + '</td>' +
+          '<td>' + a.date + '</td>' +
+          '<td><button class="btn-modifier-row" onclick="ouvrirModalModifierAvis(' + i + ')">&#9998; Modifier</button></td>';
+        tbody.appendChild(tr);
+      });
+      var tc = document.getElementById('tableCount');
+      if (tc) tc.textContent = data.length + ' avis';
+    }
+
+    /* ── Render : table réclamations ─────────────── */
+    function renderTableRecl() {
+      var tbody = document.getElementById('tbodyRecl'); if (!tbody) return;
+      var data = chargerRecl(); tbody.innerHTML = '';
+      data.forEach(function(r) {
+        var urgIcon = r.urgence === 'haute' ? '🔴' : (r.urgence === 'moyenne' ? '🟡' : '🟢');
+        var badge = r.statut === 'done'
+          ? '<span class="badge-answered">&#10004; Répondu</span>'
+          : '<span class="badge-pending">&#8987; En attente</span>';
+        var repCell = r.reponse
+          ? '<div class="reponse-cell"><div class="resp-label">Réponse admin</div>' + r.reponse + '</div>'
+          : '<div class="attente-cell">&#8987; En attente de réponse...</div>';
+        var tr = document.createElement('tr');
+        var btnVoir = document.createElement('button');
+        btnVoir.className = 'btn-voir';
+        btnVoir.innerHTML = '&#128203; Voir';
+        btnVoir.onclick = (function(rid) { return function() { ouvrirDetailFront(rid); }; })(r.id);
+        tr.innerHTML =
+          '<td class="td-id">' + r.id + '</td>' +
+          '<td>' + r.objetLabel + '</td>' +
+          '<td>' + (r.ref || '—') + '</td>' +
+          '<td>' + urgIcon + ' ' + r.urgence.charAt(0).toUpperCase() + r.urgence.slice(1) + '</td>' +
+          '<td>' + r.date + '</td>' +
+          '<td>' + badge + '</td>' +
+          '<td>' + repCell + '</td>' +
+          '<td></td>';
+        tr.querySelector('td:last-child').appendChild(btnVoir);
+        tbody.appendChild(tr);
+      });
+      var tc = document.getElementById('tableCount2');
+      if (tc) tc.textContent = data.length + ' réclamation' + (data.length > 1 ? 's' : '');
+    }
+
+    /* ── Détail réclamation ──────────────────────── */
+    function ouvrirDetailFront(id) {
+      var r = chargerRecl().find(function(x) { return x.id === id; }); if (!r) return;
+      var dec = { acceptee: '✅ Acceptée', partielle: '🔶 Partiellement acceptée', rejetee: '❌ Rejetée', info: 'ℹ️ Infos demandées', cloturee: '📁 Clôturée' };
+      var html =
+        '<p><strong>ID :</strong> ' + r.id + '</p>' +
+        '<p><strong>Objet :</strong> ' + r.objetLabel + '</p>' +
+        '<p><strong>Urgence :</strong> ' + r.urgence + ' | <strong>Date :</strong> ' + r.date + '</p>' +
+        '<hr style="margin:12px 0;border:1px solid #eee;">' +
+        '<p><strong>Description :</strong></p><p style="color:#555;margin-top:6px;">' + r.description + '</p>';
+      if (r.reponse) {
+        html +=
+          '<hr style="margin:12px 0;border:1px solid #eee;"><p><strong>Réponse admin :</strong></p>' +
+          '<div style="background:#f0f9f0;border-left:3px solid #4caf50;padding:10px;border-radius:6px;margin-top:6px;color:#2e7d32;">' + r.reponse + '</div>' +
+          '<p style="font-size:12px;color:#aaa;margin-top:6px;">Le ' + r.dateReponse + (r.decision ? ' — ' + (dec[r.decision] || r.decision) : '') + '</p>';
+      }
+      document.getElementById('detailContent').innerHTML = html;
+      document.getElementById('modalDetail').classList.add('active');
+    }
+    function fermerModalDetail() { document.getElementById('modalDetail').classList.remove('active'); }
+
+    /* ── Modals avis ─────────────────────────────── */
+    function ouvrirModalAjouterAvis() {
+      document.getElementById('avisForm').reset();
+      document.querySelectorAll('#avisForm .error-msg').forEach(function(e) { e.classList.remove('show'); });
+      document.querySelectorAll('#avisForm .invalid').forEach(function(e) { e.classList.remove('invalid'); });
+      document.getElementById('counterComm').textContent = '0 / 20 min';
+      document.getElementById('counterComm').classList.remove('warn');
+      document.getElementById('modal-ajouter-avis').classList.add('active');
+    }
+    function fermerModalAjouterAvis() { document.getElementById('modal-ajouter-avis').classList.remove('active'); }
+
+    function ouvrirModalModifierAvis(index) {
+      var a = chargerAvis()[index]; if (!a) return;
+      document.getElementById('modIndex').value = index;
+      document.getElementById('modProduit').value = a.produit + ' (Commande #' + a.ref + ')';
+      document.getElementById('modTitre').value = a.titre;
+      document.getElementById('modCommentaire').value = a.commentaire;
+      document.getElementById('modRecommande').value = a.recommande;
+      var si = document.getElementById('mStar' + a.note); if (si) si.checked = true;
+      var cc = document.getElementById('counterModComm');
+      if (cc) { cc.textContent = a.commentaire.length + ' / 20 min'; cc.classList[a.commentaire.length < 20 ? 'add' : 'remove']('warn'); }
+      document.querySelectorAll('#modifierAvisForm .error-msg').forEach(function(e) { e.classList.remove('show'); });
+      document.getElementById('modal-modifier-avis').classList.add('active');
+    }
+    function fermerModalModifierAvis() { document.getElementById('modal-modifier-avis').classList.remove('active'); }
+
+    /* ── Modal réclamation ───────────────────────── */
+    function ouvrirModalReclamation() {
+      document.getElementById('reclamationForm').reset();
+      document.querySelectorAll('#reclamationForm .error-msg').forEach(function(e) { e.classList.remove('show'); });
+      document.querySelectorAll('#reclamationForm .invalid').forEach(function(e) { e.classList.remove('invalid'); });
+      document.getElementById('counterDesc').textContent = '0 / 20 min';
+      document.getElementById('counterDesc').classList.remove('warn');
+      document.getElementById('modal-reclamation').classList.add('active');
+    }
+    function fermerModalReclamation() { document.getElementById('modal-reclamation').classList.remove('active'); }
+
+    /* ── Init ────────────────────────────────────── */
+    window.onload = function() {
+
+      /* Fermeture modals au clic sur l'overlay */
+      ['modal-ajouter-avis', 'modal-modifier-avis', 'modal-reclamation', 'modalDetail'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.addEventListener('click', function(e) { if (e.target === this) this.classList.remove('active'); });
+      });
+
+      /* Compteurs live */
+      document.getElementById('avCommentaire').addEventListener('keyup', function() {
+        var len = this.value.trim().length, c = document.getElementById('counterComm');
+        if (c) { c.textContent = len + ' / 20 min'; c.classList[len < 20 ? 'add' : 'remove']('warn'); }
+        if (len >= 20) { this.classList.remove('invalid'); var e = document.getElementById('errComm'); if (e) e.classList.remove('show'); }
+      });
+      document.getElementById('modCommentaire').addEventListener('keyup', function() {
+        var len = this.value.trim().length, c = document.getElementById('counterModComm');
+        if (c) { c.textContent = len + ' / 20 min'; c.classList[len < 20 ? 'add' : 'remove']('warn'); }
+        if (len >= 20) { this.classList.remove('invalid'); var e = document.getElementById('errModComm'); if (e) e.classList.remove('show'); }
+      });
+      document.getElementById('reclDesc').addEventListener('keyup', function() {
+        var len = this.value.trim().length, c = document.getElementById('counterDesc');
+        if (c) { c.textContent = len + ' / 20 min'; c.classList[len < 20 ? 'add' : 'remove']('warn'); }
+        if (len >= 20) { this.classList.remove('invalid'); var e = document.getElementById('errDesc'); if (e) e.classList.remove('show'); }
+      });
+
+      /* Submit : ajouter avis */
+      document.getElementById('avisForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var pv = document.getElementById('avProduit').value;
+        var nt = document.querySelector('input[name="note"]:checked');
+        var ti = document.getElementById('avTitre').value.trim();
+        var cm = document.getElementById('avCommentaire').value;
+        var rc = document.getElementById('avRecommande').value;
+        var ok = true;
+        function se(id, s) { var el = document.getElementById(id); if (el) el.classList[s ? 'add' : 'remove']('show'); }
+        function si(id, s) { var el = document.getElementById(id); if (el) el.classList[s ? 'add' : 'remove']('invalid'); }
+        if (!pv)              { se('errProduit', 1); si('avProduit', 1);    ok = false; }
+        if (!nt)              { se('errNote', 1);                            ok = false; }
+        if (ti.length < 5)   { se('errTitre', 1);  si('avTitre', 1);      ok = false; }
+        if (cm.trim().length < 20) { se('errComm', 1); si('avCommentaire', 1); ok = false; }
+        if (!rc)              { se('errRec', 1);    si('avRecommande', 1); ok = false; }
+        if (!ok) return;
+        if (!confirm('Publier votre avis sur "' + pv.split('|')[0] + '" ?')) return;
+        var pts = pv.split('|');
+        var today = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
+        var ad = chargerAvis();
+        ad.unshift({ produit: pts[0], ref: pts[1] || '—', note: parseInt(nt.value), titre: ti, commentaire: cm.trim(), recommande: rc, date: today });
+        sauvegarderAvis(ad); fermerModalAjouterAvis(); renderTableAvis();
+        toast('✅ Avis publié avec succès !');
+      });
+
+      /* Submit : modifier avis */
+      document.getElementById('modifierAvisForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var idx = parseInt(document.getElementById('modIndex').value);
+        var nt  = document.querySelector('input[name="noteMod"]:checked');
+        var ti  = document.getElementById('modTitre').value.trim();
+        var cm  = document.getElementById('modCommentaire').value;
+        var rc  = document.getElementById('modRecommande').value;
+        var ok  = true;
+        function se(id, s) { var el = document.getElementById(id); if (el) el.classList[s ? 'add' : 'remove']('show'); }
+        function si(id, s) { var el = document.getElementById(id); if (el) el.classList[s ? 'add' : 'remove']('invalid'); }
+        if (!nt)              { se('errModNote', 1);                        ok = false; }
+        if (ti.length < 5)   { se('errModTitre', 1); si('modTitre', 1);   ok = false; }
+        if (cm.trim().length < 20) { se('errModComm', 1); si('modCommentaire', 1); ok = false; }
+        if (!rc)              { se('errModRec', 1); si('modRecommande', 1); ok = false; }
+        if (!ok) return;
+        if (!confirm('Confirmer la modification ?')) return;
+        var ad = chargerAvis();
+        if (ad[idx]) { ad[idx].note = parseInt(nt.value); ad[idx].titre = ti; ad[idx].commentaire = cm.trim(); ad[idx].recommande = rc; sauvegarderAvis(ad); }
+        fermerModalModifierAvis(); renderTableAvis();
+        toast('✅ Avis modifié avec succès !');
+      });
+
+      /* Submit : nouvelle réclamation */
+      document.getElementById('reclamationForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var idV = document.getElementById('reclId').value.trim();
+        var oj  = document.getElementById('reclObjet').value;
+        var rf  = document.getElementById('reclRef').value.trim();
+        var ug  = document.querySelector('input[name="urgence"]:checked');
+        var dc  = document.getElementById('reclDesc').value;
+        var ct  = document.getElementById('reclContact').value.trim();
+        var eR  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var pR  = /^\+?[\d\s]{8,15}$/;
+        var ok  = true;
+        function se(id, s) { var el = document.getElementById(id); if (el) el.classList[s ? 'add' : 'remove']('show'); }
+        function si(id, s) { var el = document.getElementById(id); if (el) el.classList[s ? 'add' : 'remove']('invalid'); }
+        if (!/^RCL-[0-9]{3}$/.test(idV)) { se('errId', 1);      si('reclId', 1);     ok = false; }
+        if (!oj)                           { se('errObjet', 1);   si('reclObjet', 1);  ok = false; }
+        if (rf.length < 5)                 { se('errRef', 1);     si('reclRef', 1);    ok = false; }
+        if (!ug)                           { se('errUrgence', 1);                      ok = false; }
+        if (dc.trim().length < 20)         { se('errDesc', 1);    si('reclDesc', 1);   ok = false; }
+        if (!eR.test(ct) && !pR.test(ct)) { se('errContact', 1); si('reclContact', 1); ok = false; }
+        if (!ok) return;
+        var all = chargerRecl();
+        if (all.find(function(r) { return r.id === idV; })) { alert('Cet identifiant ' + idV + ' existe déjà.'); si('reclId', 1); return; }
+        if (!confirm('Soumettre la réclamation ' + idV + ' ?')) return;
+        var lbs = { livraison: 'Livraison', produit: 'Produit défectueux', vendeur: 'Vendeur', remboursement: 'Remboursement', paiement: 'Paiement', autre: 'Autre' };
+        var today = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
+        all.push({ id: idV, user: 'Moi', email: ct, objet: oj, objetLabel: lbs[oj] || oj, ref: rf, urgence: ug.value, description: dc.trim(), date: today, statut: 'pending', reponse: null, dateReponse: null, decision: null });
+        sauvegarderRecl(all); fermerModalReclamation(); renderTableRecl();
+        toast('✅ Réclamation ' + idV + ' soumise !');
+      });
+    };
+  </script>
+</body>
+</html>
