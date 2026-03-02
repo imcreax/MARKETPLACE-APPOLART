@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestion des Produits - BackOffice Appolart</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="temp-back.css">
+  <link rel="stylesheet" href="styles_form.css">
+</head>
+<body>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-mark">
+        <span>Appolart</span>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item" onclick="window.location.href='back_temp.html'"><span class="nav-icon">&#9638;</span> Dashboard</div>
+      <div class="nav-item active"><span class="nav-icon">&#128722;</span> Produits</div>
+      <div class="nav-item"><span class="nav-icon">&#128101;</span> Utilisateurs</div>
+      <div class="nav-item"><span class="nav-icon">&#10084;</span> Artisans</div>
+      <div class="nav-item"><span class="nav-icon">&#128722;</span> Commandes</div>
+      <div class="nav-item"><span class="nav-icon">&#9888;</span> Réclamations</div>
+      <div class="nav-item"><span class="nav-icon">&#127991;</span> Promotions</div>
+      <div class="nav-item"><span class="nav-icon">&#128197;</span> évenement</div>
+      <div class="nav-item"><span class="nav-icon">&#128202;</span> Statistiques</div>
+    </nav>
+    <div class="sidebar-footer">
+      <span class="sidebar-version">Appolart Admin · v1.0</span>
+    </div>
+  </aside>
+
+  <!-- CONTENU PRINCIPAL -->
+  <div class="main-wrapper">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-actions">
+        <div class="topbar-btn">
+          <span class="topbar-icon">&#128276;</span>
+          <span class="topbar-badge">3</span>
+        </div>
+        <div class="admin-chip">
+          <div class="admin-avatar">A</div>
+          <span class="admin-name">Admin</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+
+      <!-- PAGE HEADER -->
+      <div class="bo-page-header">
+        <div class="bo-page-title">
+          <h1>Gestion des Produits</h1>
+          <p>Validation, modération et gestion du catalogue</p>
+        </div>
+        <div class="bo-page-stats">
+          <div class="bo-stat-chip bo-stat-pending"><span class="bo-stat-num">12</span><span class="bo-stat-lbl">En attente</span></div>
+          <div class="bo-stat-chip bo-stat-approved"><span class="bo-stat-num">48</span><span class="bo-stat-lbl">Approuvés</span></div>
+          <div class="bo-stat-chip bo-stat-rejected"><span class="bo-stat-num">5</span><span class="bo-stat-lbl">Refusés</span></div>
+        </div>
+      </div>
+
+            <!-- Recherche et filtres -->
+            <div class="search-filter">
+              <input type="text" placeholder="&#128269; Rechercher un produit par titre, cat&#233;gorie ou artisan..." id="searchInput" oninput="filtrerRecherche()">
+              <div class="filter-buttons">
+                <button class="filter-btn active" id="btn-all"      onclick="filtrerStatut('all',      this)">Tous</button>
+                <button class="filter-btn"         id="btn-pending"  onclick="filtrerStatut('pending',  this)">En attente</button>
+                <button class="filter-btn"         id="btn-approved" onclick="filtrerStatut('approved', this)">Approuv&#233;s</button>
+                <button class="filter-btn"         id="btn-rejected" onclick="filtrerStatut('rejected', this)">Refus&#233;s</button>
+              </div>
+            </div>
+
+            <!-- ===== ONGLETS ===== -->
+            <div class="tabs">
+              <button class="tab active" id="tab-validation" onclick="switchBackTab('validation', this)">&#128203; Validation</button>
+              <button class="tab"        id="tab-gestion"    onclick="switchBackTab('gestion',    this)">&#9999;&#65039; Gestion</button>
+              <button class="tab"        id="tab-categorie"  onclick="switchBackTab('categorie',  this)">&#127991;&#65039; Cat&#233;gorie</button>
+              <button class="tab" id="tab-statistiques" onclick="switchBackTab('statistiques', this)">&#128202; Statistiques</button>
+            </div>
+
+            <!-- ===== CONTENU : VALIDATION ===== -->
+            <div id="back-validation" class="tab-content active">
+              <h2 style="color:var(--primary);margin-bottom:20px;">Produits en attente de validation</h2>
+
+              <div class="prod-table-wrapper">
+                <table class="prod-table" id="tableValidation">
+                  <thead>
+                    <tr>
+                      <th>Photo</th>
+                      <th>Produit &amp; Artisan</th>
+                      <th>Cat&#233;gorie</th>
+                      <th>Prix</th>
+                      <th>Stock</th>
+                      <th>Statut</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <!-- Ligne 1 -->
+                    <tr data-status="pending">
+                      <td class="td-img">
+                        <img src="https://via.placeholder.com/56" alt="Produit">
+                      </td>
+                      <td>
+                        <div class="prod-name">Vase en c&#233;ramique artisanale bleu</div>
+                        <div class="prod-artisan">&#128100; Ahmed Ben Salem</div>
+                        <div class="prod-desc">Vase unique fait &#224; la main, &#233;maill&#233; avec des couleurs naturelles inspir&#233;es de la mer.</div>
+                      </td>
+                      <td><span class="prod-cat">&#127994; Poterie</span></td>
+                      <td class="td-prix">45.00 DT</td>
+                      <td class="td-stock stock-low">5</td>
+                      <td><span class="badge badge-pending">En attente</span></td>
+                      <td>
+                        <div class="td-actions">
+                          <button class="btn btn-approve" onclick="ouvrirValidation(1)">Valider</button>
+                          <button class="btn btn-reject"  onclick="ouvrirRefus(1)">Refuser</button>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <!-- Ligne 2 -->
+                    <tr data-status="pending">
+                      <td class="td-img">
+                        <img src="https://via.placeholder.com/56" alt="Produit">
+                      </td>
+                      <td>
+                        <div class="prod-name">Tapis berb&#232;re traditionnel</div>
+                        <div class="prod-artisan">&#128100; Fatma Mejri</div>
+                        <div class="prod-desc">Tapis tiss&#233; &#224; la main avec de la laine naturelle et motifs g&#233;om&#233;triques berb&#232;res.</div>
+                      </td>
+                      <td><span class="prod-cat">&#129525; Tissage</span></td>
+                      <td class="td-prix">280.00 DT</td>
+                      <td class="td-stock stock-low">2</td>
+                      <td><span class="badge badge-pending">En attente</span></td>
+                      <td>
+                        <div class="td-actions">
+                          <button class="btn btn-approve" onclick="ouvrirValidation(2)">Valider</button>
+                          <button class="btn btn-reject"  onclick="ouvrirRefus(2)">Refuser</button>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <!-- Ligne 3 -->
+                    <tr data-status="pending">
+                      <td class="td-img">
+                        <img src="https://via.placeholder.com/56" alt="Produit">
+                      </td>
+                      <td>
+                        <div class="prod-name">Collier berb&#232;re en corail</div>
+                        <div class="prod-artisan">&#128100; Sonia Belhaj</div>
+                        <div class="prod-desc">Collier artisanal en corail naturel et argent, inspir&#233; des parures de mari&#233;e traditionnelles.</div>
+                      </td>
+                      <td><span class="prod-cat">&#128142; Bijouterie</span></td>
+                      <td class="td-prix">95.00 DT</td>
+                      <td class="td-stock stock-med">8</td>
+                      <td><span class="badge badge-pending">En attente</span></td>
+                      <td>
+                        <div class="td-actions">
+                          <button class="btn btn-approve" onclick="ouvrirValidation(3)">Valider</button>
+                          <button class="btn btn-reject"  onclick="ouvrirRefus(3)">Refuser</button>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <!-- Ligne 4 -->
+                    <tr data-status="pending">
+                      <td class="td-img">
+                        <img src="https://via.placeholder.com/56" alt="Produit">
+                      </td>
+                      <td>
+                        <div class="prod-name">Plat en poterie &#233;maill&#233;e verte</div>
+                        <div class="prod-artisan">&#128100; Youssef Ghariani</div>
+                        <div class="prod-desc">Plat de service fait main, &#233;mail naturel vert olive, cuisson traditionnelle au bois.</div>
+                      </td>
+                      <td><span class="prod-cat">&#127994; Poterie</span></td>
+                      <td class="td-prix">60.00 DT</td>
+                      <td class="td-stock stock-med">10</td>
+                      <td><span class="badge badge-pending">En attente</span></td>
+                      <td>
+                        <div class="td-actions">
+                          <button class="btn btn-approve" onclick="ouvrirValidation(4)">Valider</button>
+                          <button class="btn btn-reject"  onclick="ouvrirRefus(4)">Refuser</button>
+                        </div>
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- ===== CONTENU : GESTION ===== -->
+            <div id="back-gestion" class="tab-content">
+              <h2 style="color:var(--primary);margin-bottom:20px;">Tous les produits</h2>
+
+              <div class="prod-table-wrapper">
+                <table class="prod-table" id="tableGestion">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Photo</th>
+                      <th>Produit &amp; Artisan</th>
+                      <th>Cat&#233;gorie</th>
+                      <th>Prix</th>
+                      <th>Stock</th>
+                      <th>Statut</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <!-- Ligne 1 -->
+                    <tr data-status="approved">
+                      <td class="td-num">001</td>
+                      <td class="td-img">
+                        <img src="https://via.placeholder.com/56" alt="Produit">
+                      </td>
+                      <td>
+                        <div class="prod-name">Bracelet en argent grav&#233;</div>
+                        <div class="prod-artisan">&#128100; Karim Trabelsi</div>
+                        <div class="prod-desc">Bracelet en argent 925 avec gravures inspir&#233;es de motifs arabes traditionnels.</div>
+                      </td>
+                      <td><span class="prod-cat">&#128142; Bijouterie</span></td>
+                      <td class="td-prix">120.00 DT</td>
+                      <td class="td-stock stock-ok">15</td>
+                      <td><span class="badge badge-approved">Approuv&#233;</span></td>
+                      <td>
+                        <div class="td-actions">
+                          <button class="btn btn-edit"   onclick="ouvrirModifier(3)">Modifier</button>
+                          <button class="btn btn-delete" onclick="supprimerProduit(3)">Supprimer</button>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <!-- Ligne 2 -->
+                    <tr data-status="rejected">
+                      <td class="td-num">002</td>
+                      <td class="td-img">
+                        <img src="https://via.placeholder.com/56" alt="Produit">
+                      </td>
+                      <td>
+                        <div class="prod-name">Sculpture en bois</div>
+                        <div class="prod-artisan">&#128100; Mohamed Arbi</div>
+                        <div class="prod-desc">Sculpture repr&#233;sentant un lion taill&#233; dans le bois d'olivier.</div>
+                      </td>
+                      <td><span class="prod-cat">&#128511; Sculpture</span></td>
+                      <td class="td-prix">90.00 DT</td>
+                      <td class="td-stock stock-low">3</td>
+                      <td><span class="badge badge-approved">Approuvé</span></td>
+                      <td>
+                        <div class="td-actions">
+                          <button class="btn btn-edit"   onclick="ouvrirModifier(4)">Modifier</button>
+                          <button class="btn btn-delete" onclick="supprimerProduit(4)">Supprimer</button>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <!-- Ligne 3 -->
+                    <tr data-status="approved">
+                      <td class="td-num">003</td>
+                      <td class="td-img">
+                        <img src="https://via.placeholder.com/56" alt="Produit">
+                      </td>
+                      <td>
+                        <div class="prod-name">Vase en c&#233;ramique bleue</div>
+                        <div class="prod-artisan">&#128100; Ahmed Ben Salem</div>
+                        <div class="prod-desc">Vase unique fait &#224; la main, &#233;maill&#233; avec des couleurs naturelles inspir&#233;es de la mer.</div>
+                      </td>
+                      <td><span class="prod-cat">&#127994; Poterie</span></td>
+                      <td class="td-prix">45.00 DT</td>
+                      <td class="td-stock stock-med">7</td>
+                      <td><span class="badge badge-approved">Approuv&#233;</span></td>
+                      <td>
+                        <div class="td-actions">
+                          <button class="btn btn-edit"   onclick="ouvrirModifier(5)">Modifier</button>
+                          <button class="btn btn-delete" onclick="supprimerProduit(5)">Supprimer</button>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <!-- Ligne 4 -->
+                    <tr data-status="approved">
+                      <td class="td-num">004</td>
+                      <td class="td-img">
+                        <img src="https://via.placeholder.com/56" alt="Produit">
+                      </td>
+                      <td>
+                        <div class="prod-name">Tapis berb&#232;re traditionnel</div>
+                        <div class="prod-artisan">&#128100; Fatma Mejri</div>
+                        <div class="prod-desc">Tapis tiss&#233; &#224; la main avec de la laine naturelle, motifs g&#233;om&#233;triques berb&#232;res.</div>
+                      </td>
+                      <td><span class="prod-cat">&#129525; Tissage</span></td>
+                      <td class="td-prix">280.00 DT</td>
+                      <td class="td-stock stock-low">2</td>
+                      <td><span class="badge badge-approved">Approuv&#233;</span></td>
+                      <td>
+                        <div class="td-actions">
+                          <button class="btn btn-edit"   onclick="ouvrirModifier(6)">Modifier</button>
+                          <button class="btn btn-delete" onclick="supprimerProduit(6)">Supprimer</button>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <!-- Ligne 5 -->
+                    <tr data-status="approved">
+                      <td class="td-num">005</td>
+                      <td class="td-img">
+                        <img src="https://via.placeholder.com/56" alt="Produit">
+                      </td>
+                      <td>
+                        <div class="prod-name">Panier en osier tress&#233;</div>
+                        <div class="prod-artisan">&#128100; Rim Sassi</div>
+                        <div class="prod-desc">Panier de rangement tress&#233; &#224; la main en osier naturel, forme ronde traditionelle.</div>
+                      </td>
+                      <td><span class="prod-cat">&#129517; Vannerie</span></td>
+                      <td class="td-prix">35.00 DT</td>
+                      <td class="td-stock stock-ok">20</td>
+                      <td><span class="badge badge-approved">Approuv&#233;</span></td>
+                      <td>
+                        <div class="td-actions">
+                          <button class="btn btn-edit"   onclick="ouvrirModifier(7)">Modifier</button>
+                          <button class="btn btn-delete" onclick="supprimerProduit(7)">Supprimer</button>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <!-- Ligne 6 -->
+                    <tr data-status="pending">
+                      <td class="td-num">006</td>
+                      <td class="td-img">
+                        <img src="https://via.placeholder.com/56" alt="Produit">
+                      </td>
+                      <td>
+                        <div class="prod-name">Sac en cuir artisanal</div>
+                        <div class="prod-artisan">&#128100; Habib Mansour</div>
+                        <div class="prod-desc">Sac &#224; main en cuir de vachette tanin&#233; naturellement, coutures &#224; la main.</div>
+                      </td>
+                      <td><span class="prod-cat">&#128092; Maroquinerie</span></td>
+                      <td class="td-prix">175.00 DT</td>
+                      <td class="td-stock stock-med">6</td>
+                      <td><span class="badge badge-approved">Approuvé</span></td>
+                      <td>
+                        <div class="td-actions">
+                          <button class="btn btn-edit"   onclick="ouvrirModifier(8)">Modifier</button>
+                          <button class="btn btn-delete" onclick="supprimerProduit(8)">Supprimer</button>
+                        </div>
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- ===== CONTENU : CATEGORIE ===== -->
+            <div id="back-categorie" class="tab-content">
+              <div style="text-align:center; padding: 60px 20px; color: #aaa;">
+                <div style="font-size:50px; margin-bottom:15px;">&#127991;&#65039;</div>
+                <h3 style="color:#bbb; margin-bottom:10px; font-size:20px;">Gestion des Cat&#233;gories</h3>
+                <p style="margin-bottom:25px; font-size:14px;">Ajoutez ou g&#233;rez les cat&#233;gories de produits</p>
+                <button class="btn btn-approve" onclick="ouvrirCategorie()" style="padding:14px 35px; font-size:15px;">
+                  &#10133; Ajouter une cat&#233;gorie
+                </button>
+              </div>
+            </div>
+
+            <!-- ===== CONTENU : STATISTIQUES ===== -->
+            <div id="back-statistiques" class="tab-content">
+
+              <!-- KPIs Principaux -->
+              <div class="stats-grid">
+                <div class="stat-card">
+                  <div class="stat-header">
+                    <div class="stat-icon">&#128230;</div>
+                    <div class="stat-trend trend-up">&#8593; 12.5%</div>
+                  </div>
+                  <div class="stat-label">Total Produits Catalogue</div>
+                  <div class="stat-value">127</div>
+                  <div class="stat-details">
+                    <div class="stat-detail-item">&#128197; +14 ce mois</div>
+                    <div class="stat-detail-item">&#128200; +42 cette ann&#233;e</div>
+                  </div>
+                </div>
+
+                <div class="stat-card">
+                  <div class="stat-header">
+                    <div class="stat-icon">&#128176;</div>
+                    <div class="stat-trend trend-up">&#8593; 8.2%</div>
+                  </div>
+                  <div class="stat-label">Prix Moyen Produit</div>
+                  <div class="stat-value">85.50 DT</div>
+                  <div class="stat-details">
+                    <div class="stat-detail-item">Min: 15 DT</div>
+                    <div class="stat-detail-item">Max: 450 DT</div>
+                  </div>
+                </div>
+
+                <div class="stat-card">
+                  <div class="stat-header">
+                    <div class="stat-icon">&#128202;</div>
+                    <div class="stat-trend trend-up">&#8593; 5.7%</div>
+                  </div>
+                  <div class="stat-label">Valeur Stock Total</div>
+                  <div class="stat-value">3,450 DT</div>
+                  <div class="stat-details">
+                    <div class="stat-detail-item">&#128142; Stock actif</div>
+                    <div class="stat-detail-item">&#128260; Rotation: 45j</div>
+                  </div>
+                </div>
+
+                <div class="stat-card">
+                  <div class="stat-header">
+                    <div class="stat-icon">&#9989;</div>
+                    <div class="stat-trend trend-up">&#8593; 3.1%</div>
+                  </div>
+                  <div class="stat-label">Taux d&#8217;Approbation</div>
+                  <div class="stat-value">94.2%</div>
+                  <div class="stat-details">
+                    <div class="stat-detail-item">112 approuv&#233;s</div>
+                    <div class="stat-detail-item">&#10007; 7 refus&#233;s</div>
+                  </div>
+                </div>
+
+                <div class="stat-card">
+                  <div class="stat-header">
+                    <div class="stat-icon">&#9201;&#65039;</div>
+                    <div class="stat-trend trend-up">&#8595; 0.5j</div>
+                  </div>
+                  <div class="stat-label">D&#233;lai Moyen Validation</div>
+                  <div class="stat-value">2.4 j</div>
+                  <div class="stat-details">
+                    <div class="stat-detail-item">&#9889; Record: 0.5j</div>
+                    <div class="stat-detail-item">&#128012; Max: 7j</div>
+                  </div>
+                </div>
+
+                <div class="stat-card">
+                  <div class="stat-header">
+                    <div class="stat-icon">&#128293;</div>
+                    <div class="stat-trend trend-up">&#8593; 18%</div>
+                  </div>
+                  <div class="stat-label">Ventes Total (Mois)</div>
+                  <div class="stat-value">342</div>
+                  <div class="stat-details">
+                    <div class="stat-detail-item">&#128197; 11.4 / jour</div>
+                    <div class="stat-detail-item">&#128181; 28,900 DT</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Performance par Catégorie -->
+              <h2 class="section-title">&#128194; Performance par Cat&#233;gorie</h2>
+              <div class="performance-table">
+                <div class="table-header">
+                  <div>Cat&#233;gorie</div>
+                  <div>Produits</div>
+                  <div>Part Catalogue</div>
+                  <div>Ventes (mois)</div>
+                  <div>Chiffre d&#8217;Affaires</div>
+                </div>
+                <div class="table-row">
+                  <div class="category-name">&#128142; Bijouterie</div>
+                  <div><strong>34</strong></div>
+                  <div><span class="percentage">27%</span><div class="progress-bar"><div class="progress-fill" style="width:27%"></div></div></div>
+                  <div><strong>142</strong></div>
+                  <div><strong>12,450 DT</strong></div>
+                </div>
+                <div class="table-row">
+                  <div class="category-name">&#127866; Poterie &amp; C&#233;ramique</div>
+                  <div><strong>28</strong></div>
+                  <div><span class="percentage">22%</span><div class="progress-bar"><div class="progress-fill" style="width:22%"></div></div></div>
+                  <div><strong>98</strong></div>
+                  <div><strong>7,820 DT</strong></div>
+                </div>
+                <div class="table-row">
+                  <div class="category-name">&#129525; Tissage &amp; Textile</div>
+                  <div><strong>22</strong></div>
+                  <div><span class="percentage">17%</span><div class="progress-bar"><div class="progress-fill" style="width:17%"></div></div></div>
+                  <div><strong>67</strong></div>
+                  <div><strong>4,280 DT</strong></div>
+                </div>
+                <div class="table-row">
+                  <div class="category-name">&#128511; Sculpture</div>
+                  <div><strong>15</strong></div>
+                  <div><span class="percentage">12%</span><div class="progress-bar"><div class="progress-fill" style="width:12%"></div></div></div>
+                  <div><strong>28</strong></div>
+                  <div><strong>2,950 DT</strong></div>
+                </div>
+                <div class="table-row">
+                  <div class="category-name">&#128092; Maroquinerie</div>
+                  <div><strong>18</strong></div>
+                  <div><span class="percentage">14%</span><div class="progress-bar"><div class="progress-fill" style="width:14%"></div></div></div>
+                  <div><strong>52</strong></div>
+                  <div><strong>6,180 DT</strong></div>
+                </div>
+                <div class="table-row">
+                  <div class="category-name">&#10024; Autres</div>
+                  <div><strong>10</strong></div>
+                  <div><span class="percentage">8%</span><div class="progress-bar"><div class="progress-fill" style="width:8%"></div></div></div>
+                  <div><strong>15</strong></div>
+                  <div><strong>1,220 DT</strong></div>
+                </div>
+              </div>
+
+              <!-- Top 5 Produits -->
+              <h2 class="section-title">&#127942; Top 5 Produits du Mois</h2>
+              <div class="top-products">
+                <div class="product-item">
+                  <div class="product-rank gold">1</div>
+                  <div class="product-name">Bracelet en argent grav&#233;</div>
+                  <div class="product-stat"><div class="product-stat-value">28</div><div class="product-stat-label">Ventes</div></div>
+                  <div class="product-stat"><div class="product-stat-value">3,360 DT</div><div class="product-stat-label">CA</div></div>
+                  <div class="product-stat"><div class="product-stat-value">85%</div><div class="product-stat-label">Conversion</div></div>
+                </div>
+                <div class="product-item">
+                  <div class="product-rank silver">2</div>
+                  <div class="product-name">Vase en c&#233;ramique bleue</div>
+                  <div class="product-stat"><div class="product-stat-value">24</div><div class="product-stat-label">Ventes</div></div>
+                  <div class="product-stat"><div class="product-stat-value">1,080 DT</div><div class="product-stat-label">CA</div></div>
+                  <div class="product-stat"><div class="product-stat-value">72%</div><div class="product-stat-label">Conversion</div></div>
+                </div>
+                <div class="product-item">
+                  <div class="product-rank bronze">3</div>
+                  <div class="product-name">Panier en osier tress&#233;</div>
+                  <div class="product-stat"><div class="product-stat-value">22</div><div class="product-stat-label">Ventes</div></div>
+                  <div class="product-stat"><div class="product-stat-value">770 DT</div><div class="product-stat-label">CA</div></div>
+                  <div class="product-stat"><div class="product-stat-value">68%</div><div class="product-stat-label">Conversion</div></div>
+                </div>
+                <div class="product-item">
+                  <div class="product-rank">4</div>
+                  <div class="product-name">Collier berb&#232;re traditionnel</div>
+                  <div class="product-stat"><div class="product-stat-value">19</div><div class="product-stat-label">Ventes</div></div>
+                  <div class="product-stat"><div class="product-stat-value">2,850 DT</div><div class="product-stat-label">CA</div></div>
+                  <div class="product-stat"><div class="product-stat-value">65%</div><div class="product-stat-label">Conversion</div></div>
+                </div>
+                <div class="product-item">
+                  <div class="product-rank">5</div>
+                  <div class="product-name">Plat en poterie &#233;maill&#233;e</div>
+                  <div class="product-stat"><div class="product-stat-value">17</div><div class="product-stat-label">Ventes</div></div>
+                  <div class="product-stat"><div class="product-stat-value">1,020 DT</div><div class="product-stat-label">CA</div></div>
+                  <div class="product-stat"><div class="product-stat-value">61%</div><div class="product-stat-label">Conversion</div></div>
+                </div>
+              </div>
+
+              <!-- Graphiques -->
+              <h2 class="section-title">&#128200; Graphiques de Performance</h2>
+              <div class="chart-section">
+                <div class="chart-card">
+                  <div class="chart-title">&#201;volution des Ventes (6 derniers mois)</div>
+                  <div class="chart-placeholder">&#128202; Graphique lin&#233;aire<br>(Int&#233;gration Chart.js recommand&#233;e)</div>
+                </div>
+                <div class="chart-card">
+                  <div class="chart-title">R&#233;partition par Cat&#233;gorie</div>
+                  <div class="chart-placeholder">&#129383; Graphique circulaire<br>(Int&#233;gration Chart.js recommand&#233;e)</div>
+                </div>
+              </div>
+
+            </div>
+
+    </main>
+  </div>
+
+
+  <!-- =========================================================
+       OVERLAY : FORMULAIRE VALIDATION
+       ========================================================= -->
+  <div class="form-overlay" id="overlay-validation">
+    <div class="form-overlay-inner">
+      <button class="overlay-close" onclick="fermerOverlay('validation')">&times;</button>
+
+    <div class="container">
+        <div class="header">
+            <h1>Validation de Produit</h1>
+            <p>V&#233;rifiez tous les d&#233;tails avant d'approuver ou refuser le produit</p>
+        </div>
+
+        <div class="form-content">
+            <form id="validationForm" onsubmit="soumettreValidation(event)">
+                <!-- Aper&#231;u complet du produit -->
+                <div class="product-preview">
+                    <h3>&#128230; Informations Compl&#232;tes du Produit</h3>
+
+                    <div class="section-subtitle">&#128203; Identification</div>
+                    <div class="info-row">
+                        <div class="info-label">ID du produit :</div>
+                        <div class="info-value"><strong>PROD-2026-001</strong></div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Artisan :</div>
+                        <div class="info-value">Ahmed Ben Salem</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Date de soumission :</div>
+                        <div class="info-value">15 f&#233;vrier 2026, 14:30</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Titre :</div>
+                        <div class="info-value"><strong style="font-size: 16px;">Vase en c&#233;ramique artisanale bleu</strong></div>
+                    </div>
+
+                    <div class="section-subtitle">&#128221; Description &amp; Caract&#233;ristiques</div>
+                    <div class="info-row">
+                        <div class="info-label">Description :</div>
+                        <div class="info-value">Vase unique fait &#224; la main avec des techniques traditionnelles de poterie. &#201;maill&#233; avec des couleurs naturelles inspir&#233;es de la mer.</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Cat&#233;gorie :</div>
+                        <div class="info-value">&#127994; Poterie &amp; C&#233;ramique</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Mat&#233;riaux :</div>
+                        <div class="info-value">Argile rouge, &#233;mail naturel</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Dimensions :</div>
+                        <div class="info-value"><strong>L:</strong> 20 cm &nbsp;|&nbsp; <strong>l:</strong> 15 cm &nbsp;|&nbsp; <strong>H:</strong> 30 cm</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Poids :</div>
+                        <div class="info-value">800 grammes</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Couleur principale :</div>
+                        <div class="info-value">Bleu turquoise</div>
+                    </div>
+
+                    <div class="section-subtitle">&#128176; Tarification &amp; Stock</div>
+                    <div class="info-row">
+                        <div class="info-label">Prix de vente :</div>
+                        <div class="info-value"><strong style="color: var(--primary); font-size: 20px;">45.00 DT</strong></div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Stock disponible :</div>
+                        <div class="info-value">5 unit&#233;s</div>
+                    </div>
+
+                    <div class="section-subtitle">&#128736;&#65039; Labels &amp; Certifications</div>
+                    <div class="info-row">
+                        <div class="info-label">Badges :</div>
+                        <div class="info-value"><span class="badge">&#128080; 100% Fait main</span></div>
+                    </div>
+
+                    <div class="section-subtitle">&#128248; Photos du Produit</div>
+                    <div class="info-row">
+                        <div class="product-images">
+                            <img src="https://via.placeholder.com/120" alt="Photo 1" class="product-image">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION D&#201;CISION -->
+                <div class="validation-section">
+                    <h3>&#9878;&#65039; D&#233;cision de Validation</h3>
+
+                    <div class="form-group">
+                        <label>Votre d&#233;cision *</label>
+                        <div class="radio-group">
+                            <div class="radio-item approve" id="item-approve">
+                                <input type="radio" id="approve" name="decision" value="approuver" onchange="changerDecision('approuver')">
+                                <label for="approve">&#9989; Approuver ce produit</label>
+                            </div>
+                            <div class="radio-item reject" id="item-reject">
+                                <input type="radio" id="reject" name="decision" value="refuser" onchange="changerDecision('refuser')">
+                                <label for="reject">&#10060; Refuser ce produit</label>
+                            </div>
+                        </div>
+                        <!-- Erreur decision ecrite directement dans le HTML -->
+                        <span class="error-msg" id="err_decision"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="raison">Raison du refus (obligatoire si refus&#233;)</label>
+                        <textarea id="raison" name="raison" placeholder="Expliquez en d&#233;tail pourquoi ce produit est refus&#233;..." oninput="mettreAJourCompteur('raison', 'count_raison', 500)" onblur="validerRaisonBlur()"></textarea>
+                        <!-- Erreur raison ecrite directement dans le HTML -->
+                        <span class="error-msg" id="err_raison"></span>
+                        <div class="char-counter" id="count_raison">0 / 500 caract&#232;res</div>
+                        <div class="reason-examples">
+                            <p><strong>&#128161; Exemples de raisons de refus :</strong></p>
+                            <ul>
+                                <li>Images de mauvaise qualit&#233;, floues ou mal cadr&#233;es</li>
+                                <li>Description insuffisante ou non claire</li>
+                                <li>Prix inappropri&#233;, trop &#233;lev&#233; ou non justifi&#233;</li>
+                                <li>Mat&#233;riaux non conformes ou potentiellement dangereux</li>
+                                <li>Produit non conforme aux r&#232;gles de la plateforme</li>
+                                <li>Contenu inappropri&#233; ou offensant</li>
+                                <li>Dimensions ou poids incoh&#233;rents</li>
+                                <li>Labels faux ou trompeurs</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="btn-container">
+                        <button type="button" class="btn btn-secondary" onclick="annulerValidation()">Annuler</button>
+                        <button type="submit" class="btn btn-approve">Confirmer la d&#233;cision</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    </div>
+  </div>
+
+
+  <!-- =========================================================
+       OVERLAY : MODAL REFUS
+       ========================================================= -->
+  <div id="rejectModal" class="modal" style="z-index:3000;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>&#10060; Refuser le produit</h2>
+        <button class="close-btn" onclick="fermerRefus()">&times;</button>
+      </div>
+      <form id="rejectForm" onsubmit="soumettreRefus(event)">
+        <div class="form-group">
+          <label for="rejectReason">Raison du refus *</label>
+          <textarea id="rejectReason" placeholder="Expliquez pourquoi ce produit est refus&#233;..." required></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-edit" onclick="fermerRefus()">Annuler</button>
+          <button type="submit" class="btn btn-reject">Confirmer le refus</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- =========================================================
+       OVERLAY : FORMULAIRE MODIFIER
+       ========================================================= -->
+  <div class="form-overlay" id="overlay-modifier">
+    <div class="form-overlay-inner">
+      <button class="overlay-close" onclick="fermerOverlay('modifier')">&times;</button>
+
+    <div class="container">
+        <div class="header">
+            <h1>Modifier un Produit</h1>
+            <p>Interface Administrateur - Mod&#233;ration et correction de produits</p>
+        </div>
+
+        <div class="form-content">
+            <div class="info-box">
+                <p>&#128274; <strong>Mode Administrateur :</strong> Vous pouvez modifier tous les aspects du produit pour corriger des erreurs ou mod&#233;rer le contenu. Les modifications seront visibles imm&#233;diatement.</p>
+            </div>
+
+            <div class="product-info">
+                <h4 style="color: var(--primary); margin-bottom: 10px;">&#128230; Produit s&#233;lectionn&#233;</h4>
+                <p><strong>Artisan :</strong> Ahmed Ben Salem</p>
+                <p><strong>Date d'ajout :</strong> 10 f&#233;vrier 2026</p>
+                <p><strong>Statut actuel :</strong> <span style="color: #28a745; font-weight: bold;">Approuv&#233;</span></p>
+            </div>
+
+            <form id="adminEditForm" onsubmit="soumettreModification(event)">
+                <h3 class="section-title">&#128203; Identification du Produit</h3>
+
+                <div class="form-group">
+                    <label for="id_produit">ID du produit *</label>
+                    <input type="text" id="id_produit" name="id_produit" value="PROD-2026-001" disabled>
+                    <p class="helper-text">&#128274; Identifiant unique g&#233;n&#233;r&#233; automatiquement</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="titre">Titre du produit *</label>
+                    <input type="text" id="titre" name="titre" value="Vase en c&#233;ramique artisanale bleu" onblur="validerTitre()" oninput="mettreAJourCompteur('titre', 'count_titre', 100)">
+                    <!-- Erreur titre dans le HTML -->
+                    <span class="error-msg" id="err_titre"></span>
+                    <div class="char-counter" id="count_titre">36 / 100 caract&#232;res</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="sous_titre">Sous-titre / Slogan (optionnel)</label>
+                    <input type="text" id="sous_titre" name="sous_titre" value="Inspir&#233; par les profondeurs marines">
+                </div>
+
+                <h3 class="section-title">&#128221; Description &amp; Caract&#233;ristiques</h3>
+
+                <div class="form-group">
+                    <label for="description">Description d&#233;taill&#233;e *</label>
+                    <textarea id="description" name="description" onblur="validerDescription()" oninput="mettreAJourCompteur('description', 'count_description', 1000)">Vase unique fait &#224; la main avec des techniques traditionnelles de poterie. &#201;maill&#233; avec des couleurs naturelles inspir&#233;es de la mer.</textarea>
+                    <!-- Erreur description dans le HTML -->
+                    <span class="error-msg" id="err_description"></span>
+                    <div class="char-counter" id="count_description">0 / 1000 caract&#232;res</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="categorie">Cat&#233;gorie *</label>
+                    <select id="categorie" name="categorie" onchange="validerCategorie()">
+                        <option value="">-- S&#233;lectionnez --</option>
+                        <option value="poterie" selected>&#127994; Poterie &amp; C&#233;ramique</option>
+                        <option value="tissage">&#129525; Tissage &amp; Textile</option>
+                        <option value="bijouterie">&#128142; Bijouterie</option>
+                        <option value="sculpture">&#128511; Sculpture</option>
+                        <option value="maroquinerie">&#128092; Maroquinerie</option>
+                        <option value="bois">&#129717; Travail du Bois</option>
+                        <option value="verre">&#128302; Soufflage de Verre</option>
+                        <option value="peinture">&#127912; Peinture &amp; Art</option>
+                        <option value="autre">&#10024; Autre</option>
+                    </select>
+                    <!-- Erreur categorie dans le HTML -->
+                    <span class="error-msg" id="err_categorie"></span>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="materiaux">Mat&#233;riaux utilis&#233;s *</label>
+                        <input type="text" id="materiaux" name="materiaux" value="Argile rouge, &#233;mail naturel" onblur="validerMateriaux()">
+                        <!-- Erreur materiaux dans le HTML -->
+                        <span class="error-msg" id="err_materiaux"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="origine">Origine des mat&#233;riaux (optionnel)</label>
+                        <select id="origine" name="origine">
+                            <option value="">-- S&#233;lectionnez --</option>
+                            <option value="local" selected>&#127481;&#127475; Local (Tunisie)</option>
+                            <option value="regional">R&#233;gional (Maghreb)</option>
+                            <option value="importe">Import&#233;</option>
+                            <option value="recycle">&#9851;&#65039; Recycl&#233;</option>
+                            <option value="bio">&#127807; Bio/Naturel</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row-3">
+                    <div class="form-group">
+                        <label for="longueur">Longueur (cm)</label>
+                        <input type="number" id="longueur" name="longueur" step="0.1" min="0" value="20">
+                    </div>
+                    <div class="form-group">
+                        <label for="largeur">Largeur (cm)</label>
+                        <input type="number" id="largeur" name="largeur" step="0.1" min="0" value="15">
+                    </div>
+                    <div class="form-group">
+                        <label for="hauteur">Hauteur (cm)</label>
+                        <input type="number" id="hauteur" name="hauteur" step="0.1" min="0" value="30">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="poids">Poids (grammes)</label>
+                        <input type="number" id="poids" name="poids" min="0" value="800">
+                    </div>
+                    <div class="form-group">
+                        <label for="couleur">Couleur principale</label>
+                        <input type="text" id="couleur" name="couleur" value="Bleu turquoise">
+                    </div>
+                </div>
+
+                <h3 class="section-title">&#128176; Tarification &amp; Stock</h3>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="prix">Prix de vente (DT) *</label>
+                        <input type="number" id="prix" name="prix" step="0.01" min="0" value="45.00" onblur="validerPrix()">
+                        <!-- Erreur prix dans le HTML -->
+                        <span class="error-msg" id="err_prix"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="stock">Stock disponible *</label>
+                        <input type="number" id="stock" name="stock" min="0" value="5" onblur="validerStock()">
+                        <!-- Erreur stock dans le HTML -->
+                        <span class="error-msg" id="err_stock"></span>
+                    </div>
+                </div>
+
+                <h3 class="section-title">&#128736;&#65039; Informations de Fabrication</h3>
+
+                <div class="form-group">
+                    <label>Labels &amp; Certifications</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="fait_main" name="fait_main" checked>
+                            <label for="fait_main">&#128080; 100% Fait main</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="ecologique" name="ecologique" checked>
+                            <label for="ecologique">&#127807; &#201;cologique</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="recyclable" name="recyclable">
+                            <label for="recyclable">&#9851;&#65039; Recyclable</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="local" name="local" checked>
+                            <label for="local">&#127481;&#127475; Made in Tunisia</label>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="section-title">&#128248; Photos</h3>
+
+                <div class="form-group">
+                    <label>Modifier les photos (optionnel)</label>
+                    <div class="file-upload-wrapper">
+                        <input type="file" id="photos" name="photos" accept="image/*" multiple onchange="validerPhotos()">
+                        <div class="upload-icon">&#128248;</div>
+                        <div class="upload-text">Cliquez pour remplacer/ajouter des photos</div>
+                        <div class="upload-subtext">JPG, PNG ou WEBP - Max 5MB par image</div>
+                    </div>
+                    <!-- Erreur photos dans le HTML -->
+                    <span class="error-msg" id="err_photos"></span>
+                    <div class="helper-text">Laisser vide pour conserver les photos actuelles</div>
+                </div>
+
+                <div class="admin-section">
+                    <h3>&#9881;&#65039; Param&#232;tres de Mod&#233;ration</h3>
+
+                    <div class="form-group">
+                        <label>Visibilit&#233; du produit *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="visible-oui" name="visibilite" value="actif" checked>
+                                <label for="visible-oui">&#128065;&#65039; Actif (visible sur le site)</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="visible-non" name="visibilite" value="inactif">
+                                <label for="visible-non">&#128683; Inactif (masqu&#233;)</label>
+                            </div>
+                        </div>
+                        <div class="helper-text">Masquer temporairement un produit sans le supprimer</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Options promotionnelles</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="vedette" name="vedette">
+                                <label for="vedette">&#11088; Mettre en vedette sur la page d'accueil</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="nouveau" name="nouveau" checked>
+                                <label for="nouveau">&#128258; Marquer comme "Nouveau"</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="populaire" name="populaire">
+                                <label for="populaire">&#128293; Marquer comme "Populaire"</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="coup-coeur" name="coup-coeur">
+                                <label for="coup-coeur">&#128150; Marquer comme "Coup de c&#339;ur"</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="note-admin">Note administrative (optionnel)</label>
+                        <textarea id="note-admin" name="note-admin" style="min-height: 80px;" placeholder="Notes internes visibles uniquement par les administrateurs..."></textarea>
+                        <div class="helper-text">Cette note n'est pas visible par l'artisan ou les clients</div>
+                    </div>
+                </div>
+
+                <div class="btn-container">
+                    <button type="button" class="btn btn-secondary" onclick="annulerModification()">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    </div>
+  </div>
+
+
+  <!-- =========================================================
+       OVERLAY : FORMULAIRE CATEGORIE
+       ========================================================= -->
+  <div class="form-overlay" id="overlay-categorie">
+    <div class="form-overlay-inner">
+      <button class="overlay-close" onclick="fermerOverlay('categorie')">&times;</button>
+
+    <div class="container">
+        <div class="header">
+            <h1>Gestion des Cat&#233;gories</h1>
+            <p>Cr&#233;ez et g&#233;rez les cat&#233;gories de produits artisanaux</p>
+        </div>
+
+        <div class="form-content">
+            <div class="info-box">
+                <p>&#128204; Cr&#233;ez une nouvelle cat&#233;gorie pour organiser les produits sur la plateforme. Les artisans pourront ensuite classer leurs produits dans ces cat&#233;gories.</p>
+            </div>
+
+            <form id="categoryForm" onsubmit="soumettreCategorie(event)">
+                <div class="form-group">
+                    <label for="nom">Nom de la cat&#233;gorie *</label>
+                    <input type="text" id="nom" name="nom" placeholder="Ex: Poterie &amp; C&#233;ramique" onblur="validerNom()" oninput="mettreAJourCompteur('nom', 'count_nom', 50)">
+                    <!-- Erreur nom dans le HTML -->
+                    <span class="error-msg" id="err_nom"></span>
+                    <div class="char-counter" id="count_nom">0 / 50 caract&#232;res</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="cat_desc">Description *</label>
+                    <textarea id="cat_desc" name="description" placeholder="D&#233;crivez cette cat&#233;gorie et les types de produits qu'elle inclut..." onblur="validerDescCat()" oninput="mettreAJourCompteur('cat_desc', 'count_cat_desc', 300)"></textarea>
+                    <!-- Erreur description categorie dans le HTML -->
+                    <span class="error-msg" id="err_cat_desc"></span>
+                    <div class="char-counter" id="count_cat_desc">0 / 300 caract&#232;res</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Ic&#244;ne/Emoji de la cat&#233;gorie *</label>
+                    <div class="icon-selector">
+                        <label class="icon-option" id="ico-poterie" onclick="selectionnerIcone('ico-poterie')">
+                            <input type="radio" name="icone" value="poterie">
+                            <div class="icon-display">&#127994;</div>
+                            <span class="icon-label">Poterie</span>
+                        </label>
+                        <label class="icon-option" id="ico-tissage" onclick="selectionnerIcone('ico-tissage')">
+                            <input type="radio" name="icone" value="tissage">
+                            <div class="icon-display">&#129525;</div>
+                            <span class="icon-label">Tissage</span>
+                        </label>
+                        <label class="icon-option" id="ico-bijouterie" onclick="selectionnerIcone('ico-bijouterie')">
+                            <input type="radio" name="icone" value="bijouterie">
+                            <div class="icon-display">&#128142;</div>
+                            <span class="icon-label">Bijouterie</span>
+                        </label>
+                        <label class="icon-option" id="ico-sculpture" onclick="selectionnerIcone('ico-sculpture')">
+                            <input type="radio" name="icone" value="sculpture">
+                            <div class="icon-display">&#128511;</div>
+                            <span class="icon-label">Sculpture</span>
+                        </label>
+                        <label class="icon-option" id="ico-maroquinerie" onclick="selectionnerIcone('ico-maroquinerie')">
+                            <input type="radio" name="icone" value="maroquinerie">
+                            <div class="icon-display">&#128092;</div>
+                            <span class="icon-label">Maroquinerie</span>
+                        </label>
+                        <label class="icon-option" id="ico-bois" onclick="selectionnerIcone('ico-bois')">
+                            <input type="radio" name="icone" value="bois">
+                            <div class="icon-display">&#129717;</div>
+                            <span class="icon-label">Bois</span>
+                        </label>
+                        <label class="icon-option" id="ico-verre" onclick="selectionnerIcone('ico-verre')">
+                            <input type="radio" name="icone" value="verre">
+                            <div class="icon-display">&#128302;</div>
+                            <span class="icon-label">Verre</span>
+                        </label>
+                        <label class="icon-option" id="ico-peinture" onclick="selectionnerIcone('ico-peinture')">
+                            <input type="radio" name="icone" value="peinture">
+                            <div class="icon-display">&#127912;</div>
+                            <span class="icon-label">Peinture</span>
+                        </label>
+                        <label class="icon-option" id="ico-decoration" onclick="selectionnerIcone('ico-decoration')">
+                            <input type="radio" name="icone" value="decoration">
+                            <div class="icon-display">&#127800;</div>
+                            <span class="icon-label">D&#233;coration</span>
+                        </label>
+                        <label class="icon-option" id="ico-autre" onclick="selectionnerIcone('ico-autre')">
+                            <input type="radio" name="icone" value="autre">
+                            <div class="icon-display">&#10024;</div>
+                            <span class="icon-label">Autre</span>
+                        </label>
+                    </div>
+                    <!-- Erreur icone dans le HTML -->
+                    <span class="error-msg" id="err_icone"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="ordre">Ordre d'affichage</label>
+                    <input type="number" id="ordre" name="ordre" min="1" placeholder="Ex: 1" value="1" onblur="validerOrdre()">
+                    <small style="color: #666; font-size: 12px; display: block; margin-top: 5px;">
+                        L'ordre d&#233;termine la position d'affichage de la cat&#233;gorie (1 = premi&#232;re position)
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label>Statut de la cat&#233;gorie *</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="actif" name="statut" value="actif" checked>
+                            <label for="actif">&#9989; Actif (visible sur le site)</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="inactif" name="statut" value="inactif">
+                            <label for="inactif">&#10060; Inactif (masqu&#233;)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-container">
+                    <button type="button" class="btn btn-secondary" onclick="annulerCategorie()">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Cr&#233;er la cat&#233;gorie</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    </div>
+  </div>
+  <script src="back_produits.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produits - Appolart</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles_form_front.css">
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-content">
+    <span>&#128222; Assistance: +216 15 15 15 15</span>
+    <div class="top-bar-right">
+      <a href="#">&#128100; Connexion</a>
+      <a href="#">&#128221; Inscription</a>
+    </div>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="header-content">
+    <a href="index.html" class="logo">Appolart</a>
+  </div>
+</header>
+
+<nav class="site-nav">
+  <div class="nav-content">
+    <ul class="nav-links">
+      <li><a href="index.html">&#127968; Accueil</a></li>
+      <li><a href="#" class="active" onclick="afficherVue('vue-produits'); return false;">&#128230; Produits</a></li>
+      <li><a href="#">&#127912; Artisans</a></li>
+      <li><a href="#">&#128203; R&#233;clamations</a></li>
+      <li><a href="#">&#127991;&#65039; Promotions</a></li>
+      <li><a href="#">&#128197; événement</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<!-- ============================================================ -->
+<!-- VUE 1 : PAGE PRINCIPALE PRODUITS                            -->
+<!-- ============================================================ -->
+<div id="vue-produits" class="view active">
+  <div class="page-wrap">
+    <div class="manage-bar">
+      <h2>Gérer les Produits</h2>
+      <div class="manage-bar-btns">
+        <button class="btn-manage btn-add" onclick="allerVueAjout()">Ajouter un Produit</button>
+        <button class="btn-manage btn-edit" onclick="allerVueModif()">Modifier / Supprimer</button>
+      </div>
+    </div>
+
+    <div class="content-area">
+      <!-- SIDEBAR FILTRES -->
+      <aside class="sidebar">
+        <div class="sidebar-header">&#128269; Filtrer les Produits</div>
+        <div class="sidebar-body">
+
+          <!-- Recherche texte -->
+          <div class="filter-section">
+            <input type="text" class="search-input-side" id="sf_motcle" placeholder="&#128269; Mot-cl&#233;, artisan...">
+          </div>
+
+          <!-- Catégorie — déroulant collapsible -->
+          <div class="filter-section">
+            <div class="filter-toggle open" id="catToggle" onclick="toggleFilter('catToggle','catBody')">
+              <div class="filter-title">&#127991;&#65039; Cat&#233;gorie</div>
+              <span class="toggle-arrow">&#9660;</span>
+            </div>
+            <div class="collapsible-body open" id="catBody">
+              <div class="checkbox-group">
+                <div class="checkbox-item" id="si_cat1"><input type="checkbox" id="sc1" value="poterie"      onchange="sColorier('sc1','si_cat1')"><label for="sc1">&#127994; Poterie &amp; C&#233;ramique</label></div>
+                <div class="checkbox-item" id="si_cat2"><input type="checkbox" id="sc2" value="tissage"      onchange="sColorier('sc2','si_cat2')"><label for="sc2">&#129525; Tissage &amp; Textile</label></div>
+                <div class="checkbox-item" id="si_cat3"><input type="checkbox" id="sc3" value="bijouterie"   onchange="sColorier('sc3','si_cat3')"><label for="sc3">&#128142; Bijouterie</label></div>
+                <div class="checkbox-item" id="si_cat4"><input type="checkbox" id="sc4" value="sculpture"    onchange="sColorier('sc4','si_cat4')"><label for="sc4">&#128511; Sculpture</label></div>
+                <div class="checkbox-item" id="si_cat5"><input type="checkbox" id="sc5" value="maroquinerie" onchange="sColorier('sc5','si_cat5')"><label for="sc5">&#128092; Maroquinerie</label></div>
+                <div class="checkbox-item" id="si_cat6"><input type="checkbox" id="sc6" value="bois"         onchange="sColorier('sc6','si_cat6')"><label for="sc6">&#129717; Travail du Bois</label></div>
+                <div class="checkbox-item" id="si_cat7"><input type="checkbox" id="sc7" value="verre"        onchange="sColorier('sc7','si_cat7')"><label for="sc7">&#128302; Soufflage de Verre</label></div>
+                <div class="checkbox-item" id="si_cat8"><input type="checkbox" id="sc8" value="peinture"     onchange="sColorier('sc8','si_cat8')"><label for="sc8">&#127912; Peinture &amp; Art</label></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Prix slider -->
+          <div class="filter-section">
+            <div class="filter-title">&#128176; Prix (DT)</div>
+            <div class="price-slider-wrap">
+              <div class="price-slider-labels">
+                <span id="lbl_pmin">0 DT</span>
+                <span id="lbl_pmax">700 DT</span>
+              </div>
+              <!-- Double range slider -->
+              <div style="position:relative; height:6px; background:var(--border); border-radius:3px; margin:14px 0 12px;">
+                <div id="sliderRange" style="position:absolute;height:6px;background:var(--primary);border-radius:3px;top:0;pointer-events:none;"></div>
+                <input type="range" id="sliderMin" min="0" max="700" value="0"   step="5"
+                       oninput="majSlider()" style="position:absolute;width:100%;height:6px;background:transparent;-webkit-appearance:none;appearance:none;pointer-events:none;outline:none;top:0;left:0;">
+                <input type="range" id="sliderMax" min="0" max="700" value="700" step="5"
+                       oninput="majSlider()" style="position:absolute;width:100%;height:6px;background:transparent;-webkit-appearance:none;appearance:none;pointer-events:none;outline:none;top:0;left:0;">
+              </div>
+              <div class="price-inputs-row">
+                <input type="number" class="price-input-box" id="sf_pmin" value="0"   min="0" max="700" step="5" oninput="majSliderDepuisInput()">
+                <span class="price-sep">—</span>
+                <input type="number" class="price-input-box" id="sf_pmax" value="700" min="0" max="700" step="5" oninput="majSliderDepuisInput()">
+              </div>
+              <span class="err-msg" id="sf_err_prix"></span>
+            </div>
+          </div>
+
+          <!-- Artisan -->
+          <div class="filter-section">
+            <div class="filter-title">&#128104;&#8205;&#127912; Artisan</div>
+            <select class="filter-select" id="sf_artisan">
+              <option value="">-- Tous les artisans --</option>
+              <option value="1">Ahmed Ben Salem</option>
+              <option value="2">Fatma Mejri</option>
+              <option value="3">Karim Trabelsi</option>
+              <option value="4">Leila Hamdi</option>
+              <option value="5">Mohamed Arbi</option>
+            </select>
+          </div>
+
+          <!-- Disponibilité -->
+          <div class="filter-section">
+            <div class="filter-title">&#128230; Disponibilit&#233;</div>
+            <div class="radio-group">
+              <div class="radio-item"><input type="radio" id="sd1" name="sf_dispo" value="tous"    checked><label for="sd1">Tous les produits</label></div>
+              <div class="radio-item"><input type="radio" id="sd2" name="sf_dispo" value="stock">          <label for="sd2">En stock uniquement</label></div>
+              <div class="radio-item"><input type="radio" id="sd3" name="sf_dispo" value="rupture">        <label for="sd3">Rupture de stock</label></div>
+            </div>
+          </div>
+
+          <!-- Trier -->
+          <div class="filter-section">
+            <div class="filter-title">&#128202; Trier par</div>
+            <select class="filter-select" id="sf_tri">
+              <option value="pertinence">Pertinence</option>
+              <option value="prix_croissant">Prix croissant</option>
+              <option value="prix_decroissant">Prix d&#233;croissant</option>
+              <option value="nouveautes">Nouveaut&#233;s</option>
+              <option value="nom_az">Nom (A-Z)</option>
+            </select>
+          </div>
+
+          <div class="sidebar-btns">
+            <button class="btn-filter btn-filter-primary"   onclick="appliquerFiltres()">&#128269; Appliquer</button>
+            <button class="btn-filter btn-filter-secondary" onclick="reinitialiserSidebar()">&#8635; R&#233;initialiser</button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- GRILLE PRODUITS -->
+      <div class="products-area">
+        <p class="products-count" id="prodCount">Affichage de <span>0</span> produit(s)</p>
+        <div class="products-grid" id="productsGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="logo">Appolart</a><p>La marketplace de l'artisanat tunisien authentique.</p></div>
+      <div class="footer-links"><h4>Liens rapides</h4><ul><li><a href="index.html">Accueil</a></li><li><a href="#">Produits</a></li><li><a href="#">Artisans</a></li><li><a href="#">Promotions</a></li></ul></div>
+      <div class="footer-contacts"><h4>Contacts</h4><ul><li><a href="#">Nous contacter</a></li><li><a href="tel:+21615151515">&#128222; +216 15 15 15 15</a></li><li><a href="mailto:contact@appolart.com">&#128231; contact@appolart.com</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>&#169; 2026 Appolart. Tous droits r&#233;serv&#233;s.</p></div>
+  </footer>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- VUE 2 : HISTORIQUE DES PRODUITS AJOUTÉS (artisan Ahmed)    -->
+<!-- ============================================================ -->
+<div id="vue-ajout" class="view">
+  <div class="history-wrap">
+    <div class="history-topbar">
+      <h2>Historique — Mes Produits</h2>
+      <div class="history-topbar-btns">
+        <button class="btn-back" onclick="afficherVue('vue-produits')">&#8592; Retour</button>
+        <button class="btn-new"  onclick="ouvrirFormulaireAjout()">Ajouter un Produit</button>
+      </div>
+    </div>
+    <div class="history-card">
+      <div class="history-card-header">
+        <span>Artisan : <strong>Ahmed Ben Salem</strong> &nbsp;|&nbsp; Total : <strong id="nbAjout">0</strong> produit(s)</span>
+      </div>
+      <table class="prod-table">
+        <thead>
+          <tr><th>ID</th><th>Titre</th><th>Cat&#233;gorie</th><th>Prix (DT)</th><th>Stock</th><th>Artisan</th><th>Date d'ajout</th></tr>
+        </thead>
+        <tbody id="historiqueBody"></tbody>
+      </table>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="logo">Appolart</a><p>La marketplace de l'artisanat tunisien authentique.</p></div>
+      <div class="footer-links"><h4>Liens rapides</h4><ul><li><a href="#" onclick="afficherVue('vue-produits');return false;">Produits</a></li></ul></div>
+      <div class="footer-contacts"><h4>Contacts</h4><ul><li><a href="tel:+21615151515">&#128222; +216 15 15 15 15</a></li><li><a href="mailto:contact@appolart.com">&#128231; contact@appolart.com</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>&#169; 2026 Appolart. Tous droits r&#233;serv&#233;s.</p></div>
+  </footer>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- VUE 3 : MODIFIER / SUPPRIMER (artisan Ahmed)                -->
+<!-- ============================================================ -->
+<div id="vue-modif" class="view">
+  <div class="history-wrap">
+    <div class="history-topbar">
+      <h2>Modifier / Supprimer — Mes Produits</h2>
+      <div class="history-topbar-btns">
+        <button class="btn-back" onclick="afficherVue('vue-produits')">&#8592; Retour</button>
+      </div>
+    </div>
+    <div class="history-card">
+      <div class="history-card-header">
+        <span>Artisan : <strong>Ahmed Ben Salem</strong> &nbsp;|&nbsp; Total : <strong id="nbModif">0</strong> produit(s)</span>
+      </div>
+      <table class="prod-table">
+        <thead>
+          <tr><th>ID</th><th>Titre</th><th>Cat&#233;gorie</th><th>Prix (DT)</th><th>Stock</th><th>Artisan</th><th>Actions</th></tr>
+        </thead>
+        <tbody id="modifBody"></tbody>
+      </table>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="logo">Appolart</a><p>La marketplace de l'artisanat tunisien authentique.</p></div>
+      <div class="footer-links"><h4>Liens rapides</h4><ul><li><a href="#" onclick="afficherVue('vue-produits');return false;">Produits</a></li></ul></div>
+      <div class="footer-contacts"><h4>Contacts</h4><ul><li><a href="tel:+21615151515">&#128222; +216 15 15 15 15</a></li><li><a href="mailto:contact@appolart.com">&#128231; contact@appolart.com</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>&#169; 2026 Appolart. Tous droits r&#233;serv&#233;s.</p></div>
+  </footer>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- POPUP : AJOUTER UN PRODUIT                                  -->
+<!-- ============================================================ -->
+<div class="form-overlay" id="form-ajout">
+  <div class="form-popup-container">
+    <div class="form-popup-header">
+      <button class="form-popup-close" onclick="fermerFormulaire('form-ajout')" title="Fermer">&#215;</button>
+      <h1>Ajouter un Nouveau Produit</h1>
+      <p>Partagez votre cr&#233;ation artisanale avec la communaut&#233;</p>
+    </div>
+    <div class="form-popup-body">
+      <div class="info-box">&#128204; Tous les champs marqu&#233;s d'un ast&#233;risque (*) sont obligatoires.</div>
+      <form id="formAjouter" onsubmit="soumettreAjout(event)">
+
+        <h3 class="section-title">&#128203; Identification du Produit</h3>
+        <div class="form-group">
+          <label for="fa_id">ID du produit</label>
+          <input type="text" id="fa_id" disabled>
+          <p class="helper-text">&#128274; Identifiant unique g&#233;n&#233;r&#233; automatiquement</p>
+        </div>
+        <div class="form-group">
+          <label for="fa_titre">Titre du produit *</label>
+          <input type="text" id="fa_titre" placeholder="Ex: Vase en c&#233;ramique artisanale" maxlength="100"
+                 onblur="fa_validerTitre()" oninput="fa_compteur('fa_titre','fa_cnt_titre',100)">
+          <span class="error-msg" id="fa_err_titre"></span>
+          <div class="char-counter" id="fa_cnt_titre">0 / 100 caract&#232;res</div>
+        </div>
+        <div class="form-group">
+          <label for="fa_sous_titre">Sous-titre / Slogan (optionnel)</label>
+          <input type="text" id="fa_sous_titre" placeholder="Ex: Inspir&#233; par les profondeurs marines">
+        </div>
+
+        <h3 class="section-title">&#128221; Description &amp; Caract&#233;ristiques</h3>
+        <div class="form-group">
+          <label for="fa_description">Description d&#233;taill&#233;e *</label>
+          <textarea id="fa_description" placeholder="D&#233;crivez votre produit : histoire, techniques, savoir-faire..."
+                    onblur="fa_validerDescription()" oninput="fa_compteur('fa_description','fa_cnt_desc',1000)"></textarea>
+          <span class="error-msg" id="fa_err_description"></span>
+          <div class="char-counter" id="fa_cnt_desc">0 / 1000 caract&#232;res</div>
+        </div>
+        <div class="form-group">
+          <label for="fa_categorie">Cat&#233;gorie *</label>
+          <select id="fa_categorie" onchange="fa_validerCategorie()">
+            <option value="">-- S&#233;lectionnez --</option>
+            <option value="poterie">&#127994; Poterie &amp; C&#233;ramique</option>
+            <option value="tissage">&#129525; Tissage &amp; Textile</option>
+            <option value="bijouterie">&#128142; Bijouterie</option>
+            <option value="sculpture">&#128511; Sculpture</option>
+            <option value="maroquinerie">&#128092; Maroquinerie</option>
+            <option value="bois">&#129717; Travail du Bois</option>
+            <option value="verre">&#128302; Soufflage de Verre</option>
+            <option value="peinture">&#127912; Peinture &amp; Art</option>
+            <option value="autre">&#10024; Autre</option>
+          </select>
+          <span class="error-msg" id="fa_err_categorie"></span>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fa_materiaux">Mat&#233;riaux utilis&#233;s *</label>
+            <input type="text" id="fa_materiaux" placeholder="Ex: Argile rouge, &#233;mail naturel" onblur="fa_validerMateriaux()">
+            <span class="error-msg" id="fa_err_materiaux"></span>
+          </div>
+          <div class="form-group">
+            <label for="fa_origine">Origine des mat&#233;riaux (optionnel)</label>
+            <select id="fa_origine">
+              <option value="">-- S&#233;lectionnez --</option>
+              <option value="local">&#127481;&#127475; Local (Tunisie)</option>
+              <option value="regional">R&#233;gional (Maghreb)</option>
+              <option value="importe">Import&#233;</option>
+              <option value="recycle">&#9851;&#65039; Recycl&#233;</option>
+              <option value="bio">&#127807; Bio/Naturel</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row-3">
+          <div class="form-group"><label for="fa_long">Longueur (cm)</label><input type="number" id="fa_long" step="0.1" min="0" placeholder="20"></div>
+          <div class="form-group"><label for="fa_larg">Largeur (cm)</label><input type="number" id="fa_larg" step="0.1" min="0" placeholder="15"></div>
+          <div class="form-group"><label for="fa_haut">Hauteur (cm)</label><input type="number" id="fa_haut" step="0.1" min="0" placeholder="30"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label for="fa_poids">Poids (grammes)</label><input type="number" id="fa_poids" min="0" placeholder="Ex: 500"></div>
+          <div class="form-group"><label for="fa_couleur">Couleur principale</label><input type="text" id="fa_couleur" placeholder="Ex: Bleu turquoise"></div>
+        </div>
+
+        <h3 class="section-title">&#128176; Tarification &amp; Stock</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fa_prix">Prix de vente (DT) *</label>
+            <input type="number" id="fa_prix" step="0.01" min="0" placeholder="45.00" onblur="fa_validerPrix()">
+            <span class="error-msg" id="fa_err_prix"></span>
+          </div>
+          <div class="form-group">
+            <label for="fa_stock">Stock disponible *</label>
+            <input type="number" id="fa_stock" min="0" placeholder="10" onblur="fa_validerStock()">
+            <span class="error-msg" id="fa_err_stock"></span>
+          </div>
+        </div>
+
+        <h3 class="section-title">&#128736;&#65039; Informations de Fabrication</h3>
+        <div class="form-group">
+          <label>Labels &amp; Certifications</label>
+          <div class="cbk-group">
+            <div class="cbk-item"><input type="checkbox" id="fa_main"><label for="fa_main">&#128080; 100% Fait main</label></div>
+            <div class="cbk-item"><input type="checkbox" id="fa_eco"><label for="fa_eco">&#127807; &#201;cologique</label></div>
+            <div class="cbk-item"><input type="checkbox" id="fa_recycle"><label for="fa_recycle">&#9851;&#65039; Recyclable</label></div>
+            <div class="cbk-item"><input type="checkbox" id="fa_local"><label for="fa_local">&#127481;&#127475; Made in Tunisia</label></div>
+          </div>
+        </div>
+
+        <h3 class="section-title">&#128248; Photos</h3>
+        <div class="form-group">
+          <label>Photos du produit * (1 &#224; 5 images)</label>
+          <div class="file-upload-wrapper" onclick="document.getElementById('fa_photos').click()">
+            <input type="file" id="fa_photos" accept="image/jpeg,image/png,image/webp" multiple
+                   onchange="previewImages('fa_photos','fa_preview')" style="display:none">
+            <div class="upload-icon">&#128247;</div>
+            <div class="upload-text">Cliquez pour ajouter des photos</div>
+            <div class="upload-subtext">JPG, PNG ou WEBP — Max 5MB par image</div>
+          </div>
+          <div class="image-preview-container" id="fa_preview"></div>
+          <span class="error-msg" id="fa_err_photos"></span>
+        </div>
+
+        <div class="btn-container">
+          <button type="button" class="btn btn-secondary" onclick="fermerFormulaire('form-ajout')">Annuler</button>
+          <button type="submit" class="btn btn-primary">Publier le produit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- POPUP : MODIFIER UN PRODUIT                                 -->
+<!-- ============================================================ -->
+<div class="form-overlay" id="form-modif">
+  <div class="form-popup-container">
+    <div class="form-popup-header">
+      <button class="form-popup-close" onclick="fermerFormulaire('form-modif')" title="Fermer">&#215;</button>
+      <h1>Modifier le Produit</h1>
+      <p>Mettez &#224; jour les informations de votre cr&#233;ation</p>
+    </div>
+    <div class="form-popup-body">
+      <form id="formModifier" onsubmit="soumettreModif(event)">
+        <input type="hidden" id="fm_idx">
+
+        <h3 class="section-title">&#128203; Identification du Produit</h3>
+        <div class="form-group">
+          <label for="fm_id">ID du produit</label>
+          <input type="text" id="fm_id" disabled>
+        </div>
+        <div class="form-group">
+          <label for="fm_titre">Titre du produit *</label>
+          <input type="text" id="fm_titre" maxlength="100"
+                 onblur="fm_validerTitre()" oninput="fa_compteur('fm_titre','fm_cnt_titre',100)">
+          <span class="error-msg" id="fm_err_titre"></span>
+          <div class="char-counter" id="fm_cnt_titre">0 / 100 caract&#232;res</div>
+        </div>
+        <div class="form-group">
+          <label for="fm_sous_titre">Sous-titre / Slogan (optionnel)</label>
+          <input type="text" id="fm_sous_titre">
+        </div>
+
+        <h3 class="section-title">&#128221; Description &amp; Caract&#233;ristiques</h3>
+        <div class="form-group">
+          <label for="fm_description">Description d&#233;taill&#233;e *</label>
+          <textarea id="fm_description" onblur="fm_validerDescription()" oninput="fa_compteur('fm_description','fm_cnt_desc',1000)"></textarea>
+          <span class="error-msg" id="fm_err_description"></span>
+          <div class="char-counter" id="fm_cnt_desc">0 / 1000 caract&#232;res</div>
+        </div>
+        <div class="form-group">
+          <label for="fm_categorie">Cat&#233;gorie *</label>
+          <select id="fm_categorie" onchange="fm_validerCategorie()">
+            <option value="">-- S&#233;lectionnez --</option>
+            <option value="poterie">&#127994; Poterie &amp; C&#233;ramique</option>
+            <option value="tissage">&#129525; Tissage &amp; Textile</option>
+            <option value="bijouterie">&#128142; Bijouterie</option>
+            <option value="sculpture">&#128511; Sculpture</option>
+            <option value="maroquinerie">&#128092; Maroquinerie</option>
+            <option value="bois">&#129717; Travail du Bois</option>
+            <option value="verre">&#128302; Soufflage de Verre</option>
+            <option value="peinture">&#127912; Peinture &amp; Art</option>
+            <option value="autre">&#10024; Autre</option>
+          </select>
+          <span class="error-msg" id="fm_err_categorie"></span>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fm_materiaux">Mat&#233;riaux utilis&#233;s *</label>
+            <input type="text" id="fm_materiaux" onblur="fm_validerMateriaux()">
+            <span class="error-msg" id="fm_err_materiaux"></span>
+          </div>
+          <div class="form-group">
+            <label for="fm_origine">Origine des mat&#233;riaux</label>
+            <select id="fm_origine">
+              <option value="">-- S&#233;lectionnez --</option>
+              <option value="local">&#127481;&#127475; Local (Tunisie)</option>
+              <option value="regional">R&#233;gional (Maghreb)</option>
+              <option value="importe">Import&#233;</option>
+              <option value="recycle">&#9851;&#65039; Recycl&#233;</option>
+              <option value="bio">&#127807; Bio/Naturel</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row-3">
+          <div class="form-group"><label>Longueur (cm)</label><input type="number" id="fm_long" step="0.1" min="0"></div>
+          <div class="form-group"><label>Largeur (cm)</label><input type="number" id="fm_larg" step="0.1" min="0"></div>
+          <div class="form-group"><label>Hauteur (cm)</label><input type="number" id="fm_haut" step="0.1" min="0"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Poids (grammes)</label><input type="number" id="fm_poids" min="0"></div>
+          <div class="form-group"><label>Couleur principale</label><input type="text" id="fm_couleur"></div>
+        </div>
+
+        <h3 class="section-title">&#128176; Tarification &amp; Stock</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fm_prix">Prix de vente (DT) *</label>
+            <input type="number" id="fm_prix" step="0.01" min="0" onblur="fm_validerPrix()">
+            <span class="error-msg" id="fm_err_prix"></span>
+          </div>
+          <div class="form-group">
+            <label for="fm_stock">Stock disponible *</label>
+            <input type="number" id="fm_stock" min="0" onblur="fm_validerStock()">
+            <span class="error-msg" id="fm_err_stock"></span>
+          </div>
+        </div>
+
+        <h3 class="section-title">&#128736;&#65039; Informations de Fabrication</h3>
+        <div class="form-group">
+          <label>Labels &amp; Certifications</label>
+          <div class="cbk-group">
+            <div class="cbk-item"><input type="checkbox" id="fm_main"><label for="fm_main">&#128080; 100% Fait main</label></div>
+            <div class="cbk-item"><input type="checkbox" id="fm_eco"><label for="fm_eco">&#127807; &#201;cologique</label></div>
+            <div class="cbk-item"><input type="checkbox" id="fm_recycle"><label for="fm_recycle">&#9851;&#65039; Recyclable</label></div>
+            <div class="cbk-item"><input type="checkbox" id="fm_local"><label for="fm_local">&#127481;&#127475; Made in Tunisia</label></div>
+          </div>
+        </div>
+
+        <div class="btn-container">
+          <button type="button" class="btn btn-secondary" onclick="fermerFormulaire('form-modif')">Annuler</button>
+          <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="produits.js"></script>
+</body>
+</html>

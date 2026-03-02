@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appolart — Tableau de bord</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="temp-back.css">
+</head>
+<body>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="sidebar-logo">
+      <div class="logo-mark">
+        <img src="logo_app.png" alt="Appolart" class="logo-img">
+        <span>Appolart</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-item active"><span class="nav-icon">&#9638;</span> Dashboard</div>
+      <div class="nav-item" onclick="window.location.href='back_produits.html'" style="cursor:pointer;"><span class="nav-icon">&#128722;</span> Produits</div>
+      <div class="nav-item"><span class="nav-icon">&#128101;</span> Utilisateurs</div>
+      <div class="nav-item"><span class="nav-icon">&#10084;</span> Artisans</div>
+      <div class="nav-item"><span class="nav-icon">&#128722;</span> Commandes</div>
+      <div class="nav-item"><span class="nav-icon">&#9888;</span> Réclamations</div>
+      <div class="nav-item"><span class="nav-icon">&#127991;</span> Promotions</div>
+      <div class="nav-item"><span class="nav-icon">&#128197;</span> événement</div>
+      <div class="nav-item"><span class="nav-icon">&#128202;</span> Statistiques</div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <span class="sidebar-version">Appolart Admin · v1.0</span>
+    </div>
+
+  </aside>
+
+  <!-- CONTENU PRINCIPAL -->
+  <div class="main-wrapper">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="search-box">
+        <span class="search-icon">&#128269;</span>
+        <input type="text" class="search-input" placeholder="Rechercher..." readonly>
+      </div>
+
+      <div class="topbar-actions">
+        <div class="topbar-btn">
+          <span class="topbar-icon">&#128276;</span>
+          <span class="topbar-badge">3</span>
+        </div>
+        <div class="topbar-btn">
+          <span class="topbar-icon">&#9993;</span>
+          <span class="topbar-badge">7</span>
+        </div>
+        <div class="admin-chip">
+          <div class="admin-avatar">A</div>
+          <span class="admin-name">Admin</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+
+      <h1 class="page-title">Tableau de bord</h1>
+
+      <!-- KPIs principaux -->
+      <div class="cards-grid">
+        <div class="card card--rouge">
+          <span class="card-label">Total Produits</span>
+          <span class="card-value">127</span>
+          <span class="card-trend trend--up">&#9650; +12% ce mois</span>
+        </div>
+        <div class="card card--orange">
+          <span class="card-label">En Attente</span>
+          <span class="card-value">8</span>
+          <span class="card-sub">Nécessitent validation</span>
+        </div>
+        <div class="card card--vert">
+          <span class="card-label">Approuvés</span>
+          <span class="card-value">112</span>
+          <span class="card-trend trend--up">88% taux approbation</span>
+        </div>
+        <div class="card card--bleu">
+          <span class="card-label">Valeur Stock</span>
+          <span class="card-value card-value--md">3 450 DT</span>
+          <span class="card-trend trend--up">&#9650; +5.7%</span>
+        </div>
+      </div>
+
+      <!-- Métriques secondaires -->
+      <div class="cards-grid cards-grid--secondary">
+        <div class="card card--bleu">
+          <span class="card-label-2">Prix Moyen</span>
+          <span class="card-value-2 val--bleu">85,50 DT</span>
+          <span class="card-trend trend--up">&#9650; +8.2%</span>
+        </div>
+        <div class="card card--orange">
+          <span class="card-label-2">Stock Faible</span>
+          <span class="card-value-2 val--orange">12</span>
+          <span class="card-sub-sm">produits</span>
+        </div>
+        <div class="card card--vert">
+          <span class="card-label-2">Top Catégorie</span>
+          <span class="card-value-2 val--dark">Bijouterie</span>
+          <span class="card-sub-sm sub--vert">34 produits (27%)</span>
+        </div>
+        <div class="card card--bleu">
+          <span class="card-label-2">Délai Validation</span>
+          <span class="card-value-2 val--bleu">2.4j</span>
+          <span class="card-trend trend--down">&#9660; −0.5j</span>
+        </div>
+      </div>
+
+      <!-- Insights -->
+      <h2 class="section-title">Insights</h2>
+
+      <div class="insight insight--green">
+        <span class="insight-icon">&#9989;</span>
+        <div class="insight-body">
+          <strong class="insight-title">Performance exceptionnelle</strong>
+          <p class="insight-text">La catégorie Bijouterie affiche un taux de vente de 85% ce mois-ci.</p>
+        </div>
+      </div>
+
+      <div class="insight insight--yellow">
+        <span class="insight-icon">&#9888;&#65039;</span>
+        <div class="insight-body">
+          <strong class="insight-title">Attention requise</strong>
+          <p class="insight-text">12 produits ont un stock inférieur à 5 unités.</p>
+        </div>
+      </div>
+
+      <div class="insight insight--red">
+        <span class="insight-icon">&#10071;</span>
+        <div class="insight-body">
+          <strong class="insight-title">Action recommandée</strong>
+          <p class="insight-text">18 produits n'ont généré aucune vente ce mois — révision des prix suggérée.</p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+</body>
+</html>
