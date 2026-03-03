@@ -1,0 +1,129 @@
+/* ─── Page header ─── */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.btn-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 22px;
+  background: var(--rouge);
+  color: #ffffff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-add:hover {
+  background: var(--rouge-dark);
+}
+
+/* ─── Table container ─── */
+.table-container {
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-table thead {
+  background: var(--creme);
+}
+
+.user-table th {
+  padding: 14px 20px;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-400);
+  border-bottom: 1px solid var(--border);
+}
+
+.user-table td {
+  padding: 14px 20px;
+  font-size: 0.88rem;
+  color: var(--text-900);
+  border-bottom: 1px solid var(--border);
+}
+
+.user-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.user-table tbody tr:hover {
+  background: rgba(237, 220, 198, 0.18);
+}
+
+/* ─── Badges statut ─── */
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.badge--actif {
+  background: var(--vert-light);
+  color: var(--vert);
+}
+
+.badge--inactif {
+  background: var(--rouge-light);
+  color: var(--rouge);
+}
+
+.badge--attente {
+  background: var(--orange-light);
+  color: var(--orange);
+}
+
+/* ─── Actions ─── */
+.actions-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-action {
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.btn-action:hover {
+  opacity: 0.85;
+}
+
+.btn-edit {
+  background: var(--bleu-light);
+  color: var(--bleu);
+}
+
+.btn-delete {
+  background: var(--rouge-light);
+  color: var(--rouge);
+}

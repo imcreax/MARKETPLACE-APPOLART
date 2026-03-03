@@ -1,0 +1,293 @@
+/* ===========================
+   connexion.css
+   Formulaire Connexion Client
+   Marketplace Artisanale – Appolart
+=========================== */
+
+:root {
+    --rouge:      #bf4646;
+    --rouge-dark: #a03a3a;
+    --beige:      #eddcc6;
+    --blanc:      #fff4ea;
+    --bleu:       #7eacb5;
+    --bleu-dark:  #5a8590;
+    --text:       #2c2c2c;
+    --muted:      #666666;
+    --border:     #eddcc6;
+    --white:      #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--blanc);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(circle at 15% 25%, rgba(126,172,181,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 85% 75%, rgba(191,70,70,0.06) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ── Conteneur centré ── */
+.form-wrapper {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 440px;
+}
+
+/* ── Logo ── */
+.logo-block {
+    text-align: center;
+    margin-bottom: 1.4rem;
+}
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-img {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* ── Bande de couleur ── */
+.header-band {
+    background: var(--rouge);
+    border-radius: 12px 12px 0 0;
+    padding: 1.2rem 2rem;
+}
+
+.band-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--white);
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+}
+
+.band-sub {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.82rem;
+}
+
+/* ── Carte formulaire ── */
+.form-card {
+    background: var(--white);
+    border-radius: 0 0 18px 18px;
+    padding: 2.2rem 2.5rem 2.5rem;
+    box-shadow: 0 8px 40px rgba(191,70,70,0.1);
+    border: 1px solid var(--border);
+    border-top: none;
+    margin-bottom: 1.2rem;
+}
+
+/* ── Groupes de champs ── */
+.field-group {
+    margin-bottom: 1.4rem;
+}
+
+.field-group label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.3px;
+}
+
+.field-group input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text);
+    background: var(--white);
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.field-group input::placeholder {
+    color: #b0a090;
+}
+
+.field-group input:focus {
+    border-color: var(--bleu);
+    box-shadow: 0 0 0 3px rgba(126,172,181,0.15);
+}
+
+/* ── Ligne mémo + mot de passe oublié ── */
+.field-extras {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.6rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    color: var(--muted);
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    accent-color: var(--bleu);
+}
+
+.forgot-link {
+    font-size: 0.82rem;
+    color: var(--rouge);
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.forgot-link:hover {
+    opacity: 0.7;
+    text-decoration: underline;
+}
+
+/* ── Bouton Se connecter ── */
+.btn-submit {
+    width: 100%;
+    padding: 1rem;
+    background: var(--rouge);
+    color: var(--blanc);
+    border: none;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 4px 15px rgba(191,70,70,0.25);
+}
+
+.btn-submit:hover {
+    background: var(--rouge-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 22px rgba(191,70,70,0.35);
+}
+
+.btn-submit:active {
+    transform: translateY(0);
+}
+
+/* ── Séparateur social ── */
+.social-divider {
+    display: flex;
+    align-items: center;
+    margin: 1.5rem 0;
+}
+
+.social-divider::before,
+.social-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+.social-divider span {
+    padding: 0 1rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    white-space: nowrap;
+}
+
+/* ── Boutons sociaux ── */
+.social-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.btn-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s, border-color 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+.btn-social .social-icon {
+    flex-shrink: 0;
+}
+
+/* Google */
+.btn-google {
+    background: var(--white);
+    color: var(--text);
+}
+
+.btn-google:hover {
+    border-color: #4285F4;
+    background: #f5f9ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(66, 133, 244, 0.15);
+}
+
+/* Facebook */
+.btn-facebook {
+    background: #1877F2;
+    color: var(--white);
+    border-color: #1877F2;
+}
+
+.btn-facebook:hover {
+    background: #1565c0;
+    border-color: #1565c0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3);
+}
+
+/* ── Lien bas de page ── */
+.bottom-link {
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--muted);
+}
+
+.bottom-link a {
+    color: var(--rouge);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.bottom-link a:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier un Membre - Appolart</title>
+    <link rel="stylesheet" href="Modif_user.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <img src="logo_app.jpg" alt="Appolart" class="logo-img">
+        </header>
+        <main class="form-container">
+            <div class="form-header">
+                <h2>Modifier un utilisateur</h2>
+                <p>Modifiez les informations du compte utilisateur</p>
+            </div>
+            <form action="#" method="POST" class="member-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="prenom">Prénom *</label>
+                        <input type="text" id="prenom" name="prenom" placeholder="Prénom" value="Ahmed" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nom">Nom *</label>
+                        <input type="text" id="nom" name="nom" placeholder="Nom" value="Ben Ali" required>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="email">Adresse e-mail *</label>
+                    <input type="text" id="email" name="email" placeholder="exemple@domaine.com" value="ahmed.benali@email.com" required>
+                </div>
+                <div class="form-group full-width">
+                    <label for="telephone">Téléphone *</label>
+                    <input type="tel" id="telephone" name="telephone" placeholder="+216 20 000 000" value="+216 25 123 456" required>
+                </div>
+                <div class="form-group full-width">
+                    <label for="adresse">Adresse de livraison *</label>
+                    <input type="text" id="adresse" name="adresse" placeholder="Rue, numéro, appartement..." value="12 Rue de la Liberté, Apt 3" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ville">Ville *</label>
+                        <input type="text" id="ville" name="ville" placeholder="Tunis" value="Tunis" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pays">Pays *</label>
+                        <select id="pays" name="pays" required>
+                            <option value="tunisie" selected>Tunisie</option>
+                            <option value="france">France</option>
+                            <option value="maroc">Maroc</option>
+                            <option value="algerie">Algérie</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="password">Mot de passe</label>
+                        <input type="password" id="password" name="password" placeholder="Laisser vide si inchangé">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirmer</label>
+                        <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirmer le mot de passe">
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="statut">Statut du compte *</label>
+                    <select id="statut" name="statut" required>
+                        <option value="actif" selected>Actif</option>
+                        <option value="inactif">Inactif</option>
+                        <option value="en-attente">En attente</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Enregistrer les modifications</button>
+            </form>
+            <div class="form-footer">
+                <p><a href="../../temp-backoffice/dashboard.html">Retour au tableau de bord</a></p>
+            </div>
+        </main>
+    </div>
+    <script src="back_user.js"></script>
+</body>
+</html>

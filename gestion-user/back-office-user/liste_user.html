@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liste des Utilisateurs - Appolart</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../temp-backoffice/dashboard.css">
+  <link rel="stylesheet" href="liste_user.css">
+</head>
+<body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-mark">
+        <img src="logo_app.jpg" alt="Appolart" class="logo-img">
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="../../temp-backoffice/dashboard.html" class="nav-item"><span class="nav-icon">&#9638;</span> Dashboard</a>
+      <div class="nav-item"><span class="nav-icon">&#128722;</span> Produits</div>
+      <div class="nav-item active"><span class="nav-icon">&#128101;</span> Utilisateurs</div>
+      <a href="liste_artisan.html" class="nav-item"><span class="nav-icon">&#10084;</span> Artisans</a>
+      <div class="nav-item"><span class="nav-icon">&#128722;</span> Commandes</div>
+      <div class="nav-item"><span class="nav-icon">&#9888;</span> Réclamations</div>
+      <div class="nav-item"><span class="nav-icon">&#127991;</span> Promotions</div>
+      <div class="nav-item"><span class="nav-icon">&#128202;</span> Statistiques</div>
+      <div class="nav-item"><span class="nav-icon">&#128197;</span> Événements</div>
+    </nav>
+    <div class="sidebar-footer">
+      <span class="sidebar-version">Appolart Admin · v1.0</span>
+    </div>
+  </aside>
+
+  <!-- CONTENU PRINCIPAL -->
+  <div class="main-wrapper">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="search-box">
+        <span class="search-icon">&#128269;</span>
+        <input type="text" class="search-input" id="search-user" placeholder="Rechercher un utilisateur...">
+      </div>
+      <div class="topbar-actions">
+        <div class="topbar-btn">
+          <span class="topbar-icon">&#128276;</span>
+          <span class="topbar-badge">3</span>
+        </div>
+        <div class="topbar-btn">
+          <span class="topbar-icon">&#9993;</span>
+          <span class="topbar-badge">7</span>
+        </div>
+        <div class="admin-chip">
+          <div class="admin-avatar">A</div>
+          <span class="admin-name">Admin</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+
+      <div class="page-header">
+        <h1 class="page-title">Liste des Utilisateurs</h1>
+        <a href="ajou_user.html" class="btn-add">+ Ajouter un utilisateur</a>
+      </div>
+
+      <!-- Tableau -->
+      <div class="table-container">
+        <table class="user-table">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Email</th>
+              <th>Téléphone</th>
+              <th>Ville</th>
+              <th>Statut</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Ahmed Ben Ali</td>
+              <td>ahmed.benali@email.com</td>
+              <td>+216 25 123 456</td>
+              <td>Tunis</td>
+              <td><span class="badge badge--actif">Actif</span></td>
+              <td class="actions-cell">
+                <a href="Modif_user.html" class="btn-action btn-edit">Modifier</a>
+                <button class="btn-action btn-delete">Supprimer</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Sana Trabelsi</td>
+              <td>sana.trabelsi@email.com</td>
+              <td>+216 22 456 789</td>
+              <td>Sfax</td>
+              <td><span class="badge badge--actif">Actif</span></td>
+              <td class="actions-cell">
+                <a href="Modif_user.html" class="btn-action btn-edit">Modifier</a>
+                <button class="btn-action btn-delete">Supprimer</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Mohamed Karray</td>
+              <td>m.karray@email.com</td>
+              <td>+216 98 765 432</td>
+              <td>Sousse</td>
+              <td><span class="badge badge--inactif">Inactif</span></td>
+              <td class="actions-cell">
+                <a href="Modif_user.html" class="btn-action btn-edit">Modifier</a>
+                <button class="btn-action btn-delete">Supprimer</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Fatma Jaziri</td>
+              <td>fatma.jaziri@email.com</td>
+              <td>+216 55 111 222</td>
+              <td>Nabeul</td>
+              <td><span class="badge badge--attente">En attente</span></td>
+              <td class="actions-cell">
+                <a href="Modif_user.html" class="btn-action btn-edit">Modifier</a>
+                <button class="btn-action btn-delete">Supprimer</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Youssef Hamdi</td>
+              <td>y.hamdi@email.com</td>
+              <td>+216 20 333 444</td>
+              <td>Bizerte</td>
+              <td><span class="badge badge--actif">Actif</span></td>
+              <td class="actions-cell">
+                <a href="Modif_user.html" class="btn-action btn-edit">Modifier</a>
+                <button class="btn-action btn-delete">Supprimer</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="back_user.js"></script>
+</body>
+</html>

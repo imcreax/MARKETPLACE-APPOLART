@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vérification OTP - Appolart</title>
+    <link rel="stylesheet" href="verif.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <img src="logo_app.jpg" alt="Appolart" class="logo-img">
+        </header>
+        <main class="form-container">
+            <div class="form-header">
+                <h2>Vérification du Code OTP</h2>
+            </div>
+            <form action="#" method="POST" class="member-form">
+                <p class="otp-description">
+                    Pour vérifier votre identité et finaliser la connexion, veuillez entrer le code OTP que vous avez
+                    reçu par email. Ce code est composé de 6 chiffres.
+                </p>
+                <div class="form-group">
+                    <label for="otp">Entrez votre OTP :</label>
+                    <input type="text" id="otp" name="otp" placeholder="_ _ _ _ _ _" maxlength="6">
+                </div>
+                <button type="submit" class="submit-btn">Vérifier</button>
+                <button type="button" class="resend-btn">Renvoyer le code</button>
+            </form>
+            <div class="form-footer">
+                <p><a href="connexion.html">Retour à la connexion</a></p>
+            </div>
+        </main>
+    </div>
+    <script src="front_user.js"></script>
+</body>
+
+</html>
