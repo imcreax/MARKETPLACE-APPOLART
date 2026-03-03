@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appolart - Marketplace Artisanale</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="acceuil.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="top-bar-content">
+      <div class="top-bar-left">
+        <span>&#128222; Assistance: +216 15 15 15 15</span>
+      </div>
+      <div class="top-bar-right">
+        <a href="../gestion-user/front-office-user/connexion.html">&#128100; Connexion</a>
+        <a href="../gestion-user/front-office-user/inscription.html">&#128221; Inscription</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-content">
+      <a href="#" class="logo">
+        <img src="logo_app.jpg" alt="Appolart" class="logo-img">
+      </a>
+
+      <div class="search-bar">
+        <select class="category-select">
+          <option>Toutes cat&#233;gories</option>
+          <option>Poterie &amp; C&#233;ramique</option>
+          <option>Tissage &amp; Textile</option>
+          <option>Bijouterie</option>
+          <option>Sculpture</option>
+          <option>Maroquinerie</option>
+          <option>Travail du Bois</option>
+          <option>Soufflage de Verre</option>
+          <option>Peinture &amp; Art</option>
+          <option>Autre</option>
+        </select>
+        <input type="text" class="search-input" placeholder="Rechercher plus de 20,000 produits...">
+        <button class="search-btn">&#128269;</button>
+      </div>
+
+      <div class="header-actions">
+        <a href="#account" class="header-action">
+          <span class="header-action-icon">&#128100;</span>
+          <span>Compte</span>
+        </a>
+        <a href="#wishlist" class="header-action">
+          <span class="header-action-icon">&#10084;&#65039;</span>
+        </a>
+        <a href="#cart" class="header-action">
+          <span class="header-action-icon">&#128722;</span>
+          <span>Panier: 1290.00 DT</span>
+          <span class="cart-badge">2</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-content">
+      <button class="departments-btn">&#9776; Cat&#233;gories</button>
+      <ul class="nav-links">
+        <li><a href="#produits">&#128230; Produits</a></li>
+        <li><a href="../gestion-user/front-office-user/artisans.html">&#127912; Artisans</a></li>
+        <li><a href="#evenements">&#127881; &#201;v&#233;nements</a></li>
+        <li><a href="#reclamations">&#128203; R&#233;clamations</a></li>
+        <li><a href="#promotions">&#127991;&#65039; Promotions</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero-section">
+    <div class="hero-slider">
+      <div class="hero-content">
+        <span class="hero-badge">100% Fait Main</span>
+        <h1 class="hero-title">Cr&#233;ations Artisanales<br>Authentiques</h1>
+        <p class="hero-subtitle">D&#233;couvrez des pi&#232;ces uniques cr&#233;&#233;es par des artisans passionn&#233;s</p>
+        <a href="#shop" class="hero-btn">D&#233;couvrir maintenant &#8594;</a>
+      </div>
+    </div>
+    <div class="promo-cards">
+      <div class="promo-card">
+        <span class="promo-badge">20% OFF</span>
+        <h3>Promotions</h3>
+        <p>Collection printemps</p>
+        <a href="#" class="promo-link">Voir collection &#8594;</a>
+      </div>
+      <div class="promo-card">
+        <span class="promo-badge">15% OFF</span>
+        <h3>Produits Artisanaux</h3>
+        <p>Nouveaut&#233;s du mois</p>
+        <a href="#" class="promo-link">Voir collection &#8594;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cat&#233;gories -->
+  <section class="category-section">
+    <div class="section-header">
+      <h2 class="section-title">Nos Services</h2>
+      <a href="#all-categories" class="view-all">Voir tout &#8594;</a>
+    </div>
+    <div class="category-grid">
+      <div class="category-card"><div class="category-icon">&#127994;</div><h3>Poterie &amp; C&#233;ramique</h3></div>
+      <div class="category-card"><div class="category-icon">&#129525;</div><h3>Tissage &amp; Textile</h3></div>
+      <div class="category-card"><div class="category-icon">&#128142;</div><h3>Bijouterie</h3></div>
+      <div class="category-card"><div class="category-icon">&#128511;</div><h3>Sculpture</h3></div>
+      <div class="category-card"><div class="category-icon">&#128092;</div><h3>Maroquinerie</h3></div>
+      <div class="category-card"><div class="category-icon">&#129717;</div><h3>Travail du Bois</h3></div>
+      <div class="category-card"><div class="category-icon">&#128302;</div><h3>Soufflage de Verre</h3></div>
+      <div class="category-card"><div class="category-icon">&#127912;</div><h3>Peinture &amp; Art</h3></div>
+      <div class="category-card"><div class="category-icon">&#10024;</div><h3>Autre</h3></div>
+    </div>
+  </section>
+
+  <!-- Produits -->
+  <section class="product-section">
+    <div class="section-header">
+      <h2 class="section-title">Produits Populaires</h2>
+      <a href="#all-products" class="view-all">Voir tout &#8594;</a>
+    </div>
+    <div class="product-grid">
+
+      <div class="product-card">
+        <div class="product-image"></div>
+        <div class="product-info">
+          <p class="product-category">C&#233;ramique</p>
+          <h3 class="product-title">Vase artisanal bleu</h3>
+          <p class="product-artisan">Par Atelier C&#233;ramique</p>
+          <div class="product-footer">
+            <span class="product-price">45DT</span>
+            <button class="add-to-cart">Ajouter</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image"></div>
+        <div class="product-info">
+          <p class="product-category">Textile</p>
+          <h3 class="product-title">Couverture en laine</h3>
+          <p class="product-artisan">Par Tissage Traditionnel</p>
+          <div class="product-footer">
+            <span class="product-price">89DT</span>
+            <button class="add-to-cart">Ajouter</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image"></div>
+        <div class="product-info">
+          <p class="product-category">Bois</p>
+          <h3 class="product-title">Planche &#224; d&#233;couper</h3>
+          <p class="product-artisan">Par Bois &amp; Cr&#233;ations</p>
+          <div class="product-footer">
+            <span class="product-price">35DT</span>
+            <button class="add-to-cart">Ajouter</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image"></div>
+        <div class="product-info">
+          <p class="product-category">Cuir</p>
+          <h3 class="product-title">Sac en cuir vintage</h3>
+          <p class="product-artisan">Par Maroquinerie Fine</p>
+          <div class="product-footer">
+            <span class="product-price">120DT</span>
+            <button class="add-to-cart">Ajouter</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image"></div>
+        <div class="product-info">
+          <p class="product-category">Bijoux</p>
+          <h3 class="product-title">Collier artisanal</h3>
+          <p class="product-artisan">Par Bijoux d'Art</p>
+          <div class="product-footer">
+            <span class="product-price">55DT</span>
+            <button class="add-to-cart">Ajouter</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image"></div>
+        <div class="product-info">
+          <p class="product-category">D&#233;coration</p>
+          <h3 class="product-title">Miroir en rotin</h3>
+          <p class="product-artisan">Par D&#233;co Nature</p>
+          <div class="product-footer">
+            <span class="product-price">65DT</span>
+            <button class="add-to-cart">Ajouter</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image"></div>
+        <div class="product-info">
+          <p class="product-category">C&#233;ramique</p>
+          <h3 class="product-title">Assiettes artisanales</h3>
+          <p class="product-artisan">Par Poterie du Sud</p>
+          <div class="product-footer">
+            <span class="product-price">38DT</span>
+            <button class="add-to-cart">Ajouter</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image"></div>
+        <div class="product-info">
+          <p class="product-category">Textile</p>
+          <h3 class="product-title">Coussin brod&#233;</h3>
+          <p class="product-artisan">Par Broderie d'Art</p>
+          <div class="product-footer">
+            <span class="product-price">28DT</span>
+            <button class="add-to-cart">Ajouter</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Artisans -->
+  <section class="brands-section">
+    <div class="brands-content">
+      <div class="section-header">
+        <h2 class="section-title">Nos Artisans</h2>
+        <a href="#all-artisans" class="view-all">Voir tous &#8594;</a>
+      </div>
+      <div class="brands-grid">
+        <div class="brand-card">
+          <div class="brand-image">&#127994;</div>
+          <div class="brand-info"><h4>Atelier C&#233;ramique</h4><p>Poterie artisanale</p></div>
+        </div>
+        <div class="brand-card">
+          <div class="brand-image">&#129526;</div>
+          <div class="brand-info"><h4>Tissage Traditionnel</h4><p>Textile fait main</p></div>
+        </div>
+        <div class="brand-card">
+          <div class="brand-image">&#129717;</div>
+          <div class="brand-info"><h4>Bois &amp; Cr&#233;ations</h4><p>Menuiserie d'art</p></div>
+        </div>
+        <div class="brand-card">
+          <div class="brand-image">&#128092;</div>
+          <div class="brand-info"><h4>Maroquinerie Fine</h4><p>Cuir artisanal</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-about">
+        <div class="footer-logo">
+          <img src="logo_app.jpg" alt="Appolart" class="footer-logo-img">
+          <h3>Appolart</h3>
+        </div>
+        <p>Votre marketplace de r&#233;f&#233;rence pour d&#233;couvrir et acheter des cr&#233;ations artisanales authentiques. Nous connectons artisans passionn&#233;s et clients exigeants.</p>
+      </div>
+      <div class="footer-contacts">
+        <h4>Contacts</h4>
+        <ul>
+          <li><a href="#contact">Nous contacter</a></li>
+          <li><a href="tel:+21615151515">&#128222; +216 15 15 15 15</a></li>
+          <li><a href="mailto:contact@appolart.com">&#128231; contact@appolart.com</a></li>
+          <li><a href="#support">Support client</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Appolart. Tous droits r&#233;serv&#233;s. Marketplace artisanale.</p>
+    </div>
+  </footer>
+
+  <!-- ✅ Script JS - Navigation vers Événements -->
+  <script src="acceuil.js"></script>
+
+</body>
+</html>

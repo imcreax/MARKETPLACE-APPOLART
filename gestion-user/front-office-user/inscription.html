@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription – Appolart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="inscription.css">
+</head>
+<body>
+    <div class="form-wrapper">
+
+        <!-- Logo -->
+        <div class="logo-block">
+            <div class="logo">
+                <img src="logo_app.jpg" alt="Appolart" class="logo-img">
+            </div>
+        </div>
+
+        <!-- Bande de couleur -->
+        <div class="header-band">
+            <h2 class="band-title">Créer un compte</h2>
+            <p class="band-sub">Rejoignez la marketplace artisanale tunisienne</p>
+        </div>
+
+        <!-- Onglets de navigation -->
+        <div class="tabs-nav">
+            <button class="tab-btn active" data-tab="tab-utilisateur">Inscription Utilisateur</button>
+            <button class="tab-btn" data-tab="tab-artisan">Inscription Artisan</button>
+        </div>
+
+        <div class="form-card">
+
+            <!-- ══════ Onglet Utilisateur ══════ -->
+            <div id="tab-utilisateur" class="tab-content active">
+                <form action="verif.html" method="POST">
+
+                    <!-- Prénom + Nom -->
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label for="prenom">Prénom *</label>
+                            <input type="text" id="prenom" name="prenom"
+                                   placeholder="Sana">
+                        </div>
+                        <div class="field-group">
+                            <label for="nom">Nom *</label>
+                            <input type="text" id="nom" name="nom"
+                                   placeholder="Ben Ali">
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="field-group">
+                        <label for="email">Adresse e-mail *</label>
+                        <input type="text" id="email" name="email"
+                               placeholder="exemple@domaine.com">
+                    </div>
+
+                    <!-- Téléphone -->
+                    <div class="field-group">
+                        <label for="tel">Téléphone *</label>
+                        <input type="tel" id="tel" name="telephone"
+                               placeholder="+216 20 000 000">
+                    </div>
+
+                    <!-- Adresse -->
+                    <div class="field-group">
+                        <label for="adresse">Adresse de livraison *</label>
+                        <input type="text" id="adresse" name="adresse"
+                               placeholder="Rue, numéro, appartement…">
+                    </div>
+
+                    <!-- Ville + Pays -->
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label for="ville">Ville *</label>
+                            <input type="text" id="ville" name="ville"
+                                   placeholder="Tunis">
+                        </div>
+                        <div class="field-group">
+                            <label for="pays">Pays *</label>
+                            <select id="pays" name="pays">
+                                <option value="">-- Pays --</option>
+                                <option value="TN" selected>Tunisie</option>
+                                <option value="FR">France</option>
+                                <option value="DE">Allemagne</option>
+                                <option value="IT">Italie</option>
+                                <option value="other">Autre</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Mot de passe + Confirmation -->
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label for="password">Mot de passe *</label>
+                            <input type="password" id="password" name="password"
+                                   placeholder="Min. 8 caractères">
+                        </div>
+                        <div class="field-group">
+                            <label for="confirm">Confirmer *</label>
+                            <input type="password" id="confirm" name="confirm_password"
+                                   placeholder="••••••••">
+                        </div>
+                    </div>
+
+                    <!-- CGU -->
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="cgu">
+                        J'accepte les <a href="#">conditions générales</a>
+                        et la <a href="#">politique de confidentialité</a>
+                    </label>
+
+                    <!-- Bouton S'inscrire -->
+                    <button type="submit" class="btn-submit">Créer mon compte</button>
+
+                </form>
+            </div>
+
+            <!-- ══════ Onglet Artisan ══════ -->
+            <div id="tab-artisan" class="tab-content">
+                <form action="#" method="POST" enctype="multipart/form-data">
+
+                    <!-- ── Section : Informations Personnelles ── -->
+                    <div class="section-title">Informations Personnelles</div>
+
+                    <div class="info-box">
+                        <p>Ces informations permettront de créer votre profil public et de vous contacter.</p>
+                    </div>
+
+                    <!-- Photo de profil -->
+                    <div class="field-group">
+                        <label>Photo de profil *</label>
+                        <div class="file-upload-wrapper">
+                            <input type="file" id="art-photo-profil" name="photo_profil" accept="image/*">
+                            <div class="upload-text">Cliquez pour ajouter votre photo de profil</div>
+                            <div class="upload-subtext">JPG, PNG ou WEBP - Max 5MB</div>
+                        </div>
+                    </div>
+
+                    <!-- Prénom + Nom -->
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label for="art-prenom">Prénom *</label>
+                            <input type="text" id="art-prenom" name="prenom"
+                                   placeholder="Ex: Sana">
+                        </div>
+                        <div class="field-group">
+                            <label for="art-nom">Nom *</label>
+                            <input type="text" id="art-nom" name="nom"
+                                   placeholder="Ex: Ben Ali">
+                        </div>
+                    </div>
+
+                    <!-- Nom atelier -->
+                    <div class="field-group">
+                        <label for="art-nom-atelier">Nom de l'atelier / Nom artistique *</label>
+                        <input type="text" id="art-nom-atelier" name="nom_atelier"
+                               placeholder="Ex: Atelier Poterie Traditions">
+                    </div>
+
+                    <!-- Email + Téléphone -->
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label for="art-email">Adresse e-mail *</label>
+                            <input type="text" id="art-email" name="email"
+                                   placeholder="votre.email@exemple.com">
+                        </div>
+                        <div class="field-group">
+                            <label for="art-telephone">Téléphone *</label>
+                            <input type="tel" id="art-telephone" name="telephone"
+                                   placeholder="+216 XX XXX XXX">
+                        </div>
+                    </div>
+
+                    <!-- CIN -->
+                    <div class="field-group">
+                        <label for="art-cin">Numéro CIN *</label>
+                        <input type="text" id="art-cin" name="cin"
+                               placeholder="Ex: 12345678">
+                    </div>
+
+                    <!-- Mot de passe + Confirmation -->
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label for="art-password">Mot de passe *</label>
+                            <input type="password" id="art-password" name="password"
+                                   placeholder="Min. 8 caractères">
+                        </div>
+                        <div class="field-group">
+                            <label for="art-confirm">Confirmer *</label>
+                            <input type="password" id="art-confirm" name="confirm_password"
+                                   placeholder="••••••••">
+                        </div>
+                    </div>
+
+                    <!-- ── Section : Compétences Artisanales ── -->
+                    <div class="section-title">Compétences & Spécialités Artisanales</div>
+
+                    <!-- Spécialités (checkboxes) -->
+                    <div class="field-group">
+                        <label>Sélectionnez vos spécialités * (plusieurs choix possibles)</label>
+                        <div class="specialites-grid">
+                            <label class="specialite-option">
+                                <input type="checkbox" name="specialites" value="poterie">
+                                <span>Poterie & Céramique</span>
+                            </label>
+                            <label class="specialite-option">
+                                <input type="checkbox" name="specialites" value="tissage">
+                                <span>Tissage & Textile</span>
+                            </label>
+                            <label class="specialite-option">
+                                <input type="checkbox" name="specialites" value="bijouterie">
+                                <span>Bijouterie</span>
+                            </label>
+                            <label class="specialite-option">
+                                <input type="checkbox" name="specialites" value="sculpture">
+                                <span>Sculpture</span>
+                            </label>
+                            <label class="specialite-option">
+                                <input type="checkbox" name="specialites" value="maroquinerie">
+                                <span>Maroquinerie</span>
+                            </label>
+                            <label class="specialite-option">
+                                <input type="checkbox" name="specialites" value="bois">
+                                <span>Travail du Bois</span>
+                            </label>
+                            <label class="specialite-option">
+                                <input type="checkbox" name="specialites" value="verre">
+                                <span>Soufflage de Verre</span>
+                            </label>
+                            <label class="specialite-option">
+                                <input type="checkbox" name="specialites" value="peinture">
+                                <span>Peinture & Art</span>
+                            </label>
+                            <label class="specialite-option">
+                                <input type="checkbox" name="specialites" value="autre">
+                                <span>Autre</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Expérience -->
+                    <div class="field-group">
+                        <label for="art-experience">Années d'expérience *</label>
+                        <select id="art-experience" name="experience">
+                            <option value="">-- Sélectionner --</option>
+                            <option value="debutant">Débutant (moins de 2 ans)</option>
+                            <option value="intermediaire">Intermédiaire (2-5 ans)</option>
+                            <option value="confirme">Confirmé (5-10 ans)</option>
+                            <option value="expert">Expert (plus de 10 ans)</option>
+                        </select>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="field-group">
+                        <label for="art-description">Description de votre travail et savoir-faire *</label>
+                        <textarea id="art-description" name="description"
+                                  placeholder="Décrivez votre parcours, vos techniques, vos inspirations et ce qui rend votre travail unique..."></textarea>
+                    </div>
+
+                    <!-- ── Section : Localisation ── -->
+                    <div class="section-title">Localisation de l'Atelier</div>
+
+                    <!-- Ville + Gouvernorat -->
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label for="art-ville">Ville *</label>
+                            <input type="text" id="art-ville" name="ville"
+                                   placeholder="Ex: Tunis">
+                        </div>
+                        <div class="field-group">
+                            <label for="art-gouvernorat">Gouvernorat *</label>
+                            <select id="art-gouvernorat" name="gouvernorat">
+                                <option value="">-- Sélectionner --</option>
+                                <option value="tunis">Tunis</option>
+                                <option value="ariana">Ariana</option>
+                                <option value="ben_arous">Ben Arous</option>
+                                <option value="manouba">Manouba</option>
+                                <option value="nabeul">Nabeul</option>
+                                <option value="zaghouan">Zaghouan</option>
+                                <option value="bizerte">Bizerte</option>
+                                <option value="beja">Béja</option>
+                                <option value="jendouba">Jendouba</option>
+                                <option value="kef">Le Kef</option>
+                                <option value="siliana">Siliana</option>
+                                <option value="sousse">Sousse</option>
+                                <option value="monastir">Monastir</option>
+                                <option value="mahdia">Mahdia</option>
+                                <option value="sfax">Sfax</option>
+                                <option value="kairouan">Kairouan</option>
+                                <option value="kasserine">Kasserine</option>
+                                <option value="sidi_bouzid">Sidi Bouzid</option>
+                                <option value="gabes">Gabès</option>
+                                <option value="medenine">Médenine</option>
+                                <option value="tataouine">Tataouine</option>
+                                <option value="gafsa">Gafsa</option>
+                                <option value="tozeur">Tozeur</option>
+                                <option value="kebili">Kébili</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Adresse atelier -->
+                    <div class="field-group">
+                        <label for="art-adresse">Adresse de l'atelier *</label>
+                        <input type="text" id="art-adresse" name="adresse"
+                               placeholder="Ex: 15 Avenue Habib Bourguiba">
+                    </div>
+
+                    <!-- ── Section : Présence en Ligne ── -->
+                    <div class="section-title">Présence en Ligne (Optionnel)</div>
+
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label for="art-site-web">Site Web</label>
+                            <input type="text" id="art-site-web" name="site_web"
+                                   placeholder="https://www.monsite.com">
+                        </div>
+                        <div class="field-group">
+                            <label for="art-facebook">Page Facebook</label>
+                            <input type="text" id="art-facebook" name="facebook"
+                                   placeholder="https://facebook.com/mon-atelier">
+                        </div>
+                    </div>
+
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label for="art-instagram">Instagram</label>
+                            <input type="text" id="art-instagram" name="instagram"
+                                   placeholder="@mon_atelier">
+                        </div>
+                        <div class="field-group">
+                            <label for="art-linkedin">LinkedIn</label>
+                            <input type="text" id="art-linkedin" name="linkedin"
+                                   placeholder="https://linkedin.com/in/mon-profil">
+                        </div>
+                    </div>
+
+                    <!-- ── Section : Portfolio ── -->
+                    <div class="section-title">Portfolio & Justificatifs</div>
+
+                    <!-- Photos créations -->
+                    <div class="field-group">
+                        <label>Photos de vos créations * (1 à 10 images)</label>
+                        <div class="file-upload-wrapper">
+                            <input type="file" id="art-portfolio" name="portfolio" accept="image/*" multiple>
+                            <div class="upload-text">Cliquez pour ajouter des photos de votre travail</div>
+                            <div class="upload-subtext">JPG, PNG ou WEBP - Max 5MB par image</div>
+                        </div>
+                    </div>
+
+                    <!-- Certificat -->
+                    <div class="field-group">
+                        <label>Certificat ou diplôme professionnel (optionnel)</label>
+                        <div class="file-upload-wrapper">
+                            <input type="file" id="art-certificat" name="certificat" accept="image/*,application/pdf">
+                            <div class="upload-text">Cliquez pour ajouter un certificat</div>
+                            <div class="upload-subtext">PDF, JPG ou PNG - Max 5MB</div>
+                        </div>
+                    </div>
+
+                    <!-- ── Section : Informations Complémentaires ── -->
+                    <div class="section-title">Informations Complémentaires</div>
+
+                    <!-- Motivation -->
+                    <div class="field-group">
+                        <label for="art-motivation">Pourquoi souhaitez-vous rejoindre notre plateforme ? *</label>
+                        <textarea id="art-motivation" name="motivation"
+                                  placeholder="Expliquez vos motivations et vos objectifs..."></textarea>
+                    </div>
+
+                    <!-- Production + Délai -->
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label for="art-production">Capacité de production mensuelle</label>
+                            <input type="number" id="art-production" name="production_mensuelle"
+                                   placeholder="Ex: 20" min="1">
+                        </div>
+                        <div class="field-group">
+                            <label for="art-delai">Délai moyen de fabrication</label>
+                            <select id="art-delai" name="delai_fabrication">
+                                <option value="">-- Sélectionner --</option>
+                                <option value="immediat">Stock immédiat</option>
+                                <option value="1-3">1 à 3 jours</option>
+                                <option value="3-7">3 à 7 jours</option>
+                                <option value="1-2">1 à 2 semaines</option>
+                                <option value="2-4">2 à 4 semaines</option>
+                                <option value="plus">Plus de 4 semaines</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Conditions -->
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="conditions">
+                        J'accepte les <a href="#">conditions générales d'utilisation</a>
+                        et la <a href="#">charte artisan</a>
+                    </label>
+
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="certifie">
+                        Je certifie que tous mes produits sont faits à la main et authentiques
+                    </label>
+
+                    <!-- Bouton Envoyer -->
+                    <button type="submit" class="btn-submit">Créer mon compte</button>
+
+                </form>
+            </div>
+
+        </div>
+
+        <p class="bottom-link">Déjà un compte ? <a href="connexion.html">Se connecter</a></p>
+
+    </div>
+
+    <script src="front_user.js"></script>
+</body>
+</html>

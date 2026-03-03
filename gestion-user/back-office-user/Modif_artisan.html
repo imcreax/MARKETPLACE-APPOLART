@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier un Artisan - Appolart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Modif_artisan.css">
+</head>
+<body>
+    <div class="form-wrapper">
+
+        <!-- Logo -->
+        <div class="logo-block">
+            <div class="logo">
+                <img src="logo_app.jpg" alt="Appolart" class="logo-img">
+            </div>
+        </div>
+
+        <!-- Bande de couleur -->
+        <div class="header-band">
+            <h2 class="band-title">Modifier un artisan</h2>
+            <p class="band-sub">Modifiez les informations du compte artisan</p>
+        </div>
+
+        <div class="form-card">
+            <form action="#" method="POST" enctype="multipart/form-data" class="artisan-form">
+
+                <!-- ── Section : Informations Personnelles ── -->
+                <div class="section-title">Informations Personnelles</div>
+
+                <div class="info-box">
+                    <p>Modifiez les informations du profil public de l'artisan.</p>
+                </div>
+
+                <!-- Photo de profil -->
+                <div class="field-group">
+                    <label>Photo de profil (laisser vide si inchangée)</label>
+                    <div class="file-upload-wrapper">
+                        <input type="file" id="photo-profil" name="photo_profil" accept="image/*">
+                        <div class="upload-text">Cliquez pour changer la photo de profil</div>
+                        <div class="upload-subtext">JPG, PNG ou WEBP - Max 5MB</div>
+                    </div>
+                </div>
+
+                <!-- Prénom + Nom -->
+                <div class="field-row">
+                    <div class="field-group">
+                        <label for="prenom">Prénom *</label>
+                        <input type="text" id="prenom" name="prenom" placeholder="Ex: Sana" value="Khaled">
+                    </div>
+                    <div class="field-group">
+                        <label for="nom">Nom *</label>
+                        <input type="text" id="nom" name="nom" placeholder="Ex: Ben Ali" value="Mansouri">
+                    </div>
+                </div>
+
+                <!-- Nom atelier -->
+                <div class="field-group">
+                    <label for="nom_atelier">Nom de l'atelier / Nom artistique *</label>
+                    <input type="text" id="nom_atelier" name="nom_atelier" placeholder="Ex: Atelier Poterie Traditions" value="Atelier Terre & Feu">
+                </div>
+
+                <!-- Email + Téléphone -->
+                <div class="field-row">
+                    <div class="field-group">
+                        <label for="email">Adresse e-mail *</label>
+                        <input type="text" id="email" name="email" placeholder="votre.email@exemple.com" value="k.mansouri@email.com">
+                    </div>
+                    <div class="field-group">
+                        <label for="telephone">Téléphone *</label>
+                        <input type="tel" id="telephone" name="telephone" placeholder="+216 XX XXX XXX" value="+216 25 789 456">
+                    </div>
+                </div>
+
+                <!-- CIN -->
+                <div class="field-group">
+                    <label for="cin">Numéro CIN *</label>
+                    <input type="text" id="cin" name="cin" placeholder="Ex: 12345678" value="09876543">
+                </div>
+
+                <!-- Mot de passe + Confirmation -->
+                <div class="field-row">
+                    <div class="field-group">
+                        <label for="password">Mot de passe (laisser vide si inchangé)</label>
+                        <input type="password" id="password" name="password" placeholder="Laisser vide si inchangé">
+                    </div>
+                    <div class="field-group">
+                        <label for="confirm-password">Confirmer</label>
+                        <input type="password" id="confirm-password" name="confirm_password" placeholder="Confirmer le mot de passe">
+                    </div>
+                </div>
+
+                <!-- ── Section : Compétences Artisanales ── -->
+                <div class="section-title">Compétences & Spécialités Artisanales</div>
+
+                <!-- Spécialités (checkboxes) -->
+                <div class="field-group">
+                    <label>Sélectionnez les spécialités * (plusieurs choix possibles)</label>
+                    <div class="specialites-grid">
+                        <label class="specialite-option">
+                            <input type="checkbox" name="specialites" value="poterie" checked>
+                            <span>Poterie & Céramique</span>
+                        </label>
+                        <label class="specialite-option">
+                            <input type="checkbox" name="specialites" value="tissage">
+                            <span>Tissage & Textile</span>
+                        </label>
+                        <label class="specialite-option">
+                            <input type="checkbox" name="specialites" value="bijouterie">
+                            <span>Bijouterie</span>
+                        </label>
+                        <label class="specialite-option">
+                            <input type="checkbox" name="specialites" value="sculpture">
+                            <span>Sculpture</span>
+                        </label>
+                        <label class="specialite-option">
+                            <input type="checkbox" name="specialites" value="maroquinerie">
+                            <span>Maroquinerie</span>
+                        </label>
+                        <label class="specialite-option">
+                            <input type="checkbox" name="specialites" value="bois">
+                            <span>Travail du Bois</span>
+                        </label>
+                        <label class="specialite-option">
+                            <input type="checkbox" name="specialites" value="verre">
+                            <span>Soufflage de Verre</span>
+                        </label>
+                        <label class="specialite-option">
+                            <input type="checkbox" name="specialites" value="peinture">
+                            <span>Peinture & Art</span>
+                        </label>
+                        <label class="specialite-option">
+                            <input type="checkbox" name="specialites" value="autre">
+                            <span>Autre</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Expérience -->
+                <div class="field-group">
+                    <label for="experience">Années d'expérience *</label>
+                    <select id="experience" name="experience">
+                        <option value="">-- Sélectionner --</option>
+                        <option value="debutant">Débutant (moins de 2 ans)</option>
+                        <option value="intermediaire">Intermédiaire (2-5 ans)</option>
+                        <option value="confirme" selected>Confirmé (5-10 ans)</option>
+                        <option value="expert">Expert (plus de 10 ans)</option>
+                    </select>
+                </div>
+
+                <!-- Description -->
+                <div class="field-group">
+                    <label for="description">Description du travail et savoir-faire *</label>
+                    <textarea id="description" name="description"
+                              placeholder="Décrivez le parcours, les techniques, les inspirations...">Artisan potier spécialisé dans la céramique traditionnelle de Nabeul. Techniques ancestrales transmises depuis trois générations, combinées à des designs contemporains.</textarea>
+                </div>
+
+                <!-- ── Section : Localisation ── -->
+                <div class="section-title">Localisation de l'Atelier</div>
+
+                <!-- Ville + Gouvernorat -->
+                <div class="field-row">
+                    <div class="field-group">
+                        <label for="ville">Ville *</label>
+                        <input type="text" id="ville" name="ville" placeholder="Ex: Tunis" value="Nabeul">
+                    </div>
+                    <div class="field-group">
+                        <label for="gouvernorat">Gouvernorat *</label>
+                        <select id="gouvernorat" name="gouvernorat">
+                            <option value="">-- Sélectionner --</option>
+                            <option value="tunis">Tunis</option>
+                            <option value="ariana">Ariana</option>
+                            <option value="ben_arous">Ben Arous</option>
+                            <option value="manouba">Manouba</option>
+                            <option value="nabeul" selected>Nabeul</option>
+                            <option value="zaghouan">Zaghouan</option>
+                            <option value="bizerte">Bizerte</option>
+                            <option value="beja">Béja</option>
+                            <option value="jendouba">Jendouba</option>
+                            <option value="kef">Le Kef</option>
+                            <option value="siliana">Siliana</option>
+                            <option value="sousse">Sousse</option>
+                            <option value="monastir">Monastir</option>
+                            <option value="mahdia">Mahdia</option>
+                            <option value="sfax">Sfax</option>
+                            <option value="kairouan">Kairouan</option>
+                            <option value="kasserine">Kasserine</option>
+                            <option value="sidi_bouzid">Sidi Bouzid</option>
+                            <option value="gabes">Gabès</option>
+                            <option value="medenine">Médenine</option>
+                            <option value="tataouine">Tataouine</option>
+                            <option value="gafsa">Gafsa</option>
+                            <option value="tozeur">Tozeur</option>
+                            <option value="kebili">Kébili</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Adresse atelier -->
+                <div class="field-group">
+                    <label for="adresse">Adresse de l'atelier *</label>
+                    <input type="text" id="adresse" name="adresse" placeholder="Ex: 15 Avenue Habib Bourguiba" value="23 Rue des Potiers">
+                </div>
+
+                <!-- ── Section : Présence en Ligne ── -->
+                <div class="section-title">Présence en Ligne (Optionnel)</div>
+
+                <div class="field-row">
+                    <div class="field-group">
+                        <label for="site-web">Site Web</label>
+                        <input type="text" id="site-web" name="site_web" placeholder="https://www.monsite.com" value="https://www.terrefeu-nabeul.tn">
+                    </div>
+                    <div class="field-group">
+                        <label for="facebook">Page Facebook</label>
+                        <input type="text" id="facebook" name="facebook" placeholder="https://facebook.com/mon-atelier" value="https://facebook.com/terrefeu.nabeul">
+                    </div>
+                </div>
+
+                <div class="field-row">
+                    <div class="field-group">
+                        <label for="instagram">Instagram</label>
+                        <input type="text" id="instagram" name="instagram" placeholder="@mon_atelier" value="@terrefeu_nabeul">
+                    </div>
+                    <div class="field-group">
+                        <label for="linkedin">LinkedIn</label>
+                        <input type="text" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/mon-profil">
+                    </div>
+                </div>
+
+                <!-- ── Section : Portfolio ── -->
+                <div class="section-title">Portfolio & Justificatifs</div>
+
+                <!-- Photos créations -->
+                <div class="field-group">
+                    <label>Photos des créations (laisser vide si inchangées, 1 à 10 images)</label>
+                    <div class="file-upload-wrapper">
+                        <input type="file" id="portfolio" name="portfolio" accept="image/*" multiple>
+                        <div class="upload-text">Cliquez pour remplacer les photos du travail</div>
+                        <div class="upload-subtext">JPG, PNG ou WEBP - Max 5MB par image</div>
+                    </div>
+                </div>
+
+                <!-- Certificat -->
+                <div class="field-group">
+                    <label>Certificat ou diplôme professionnel (optionnel)</label>
+                    <div class="file-upload-wrapper">
+                        <input type="file" id="certificat" name="certificat" accept="image/*,application/pdf">
+                        <div class="upload-text">Cliquez pour changer le certificat</div>
+                        <div class="upload-subtext">PDF, JPG ou PNG - Max 5MB</div>
+                    </div>
+                </div>
+
+                <!-- ── Section : Informations Complémentaires ── -->
+                <div class="section-title">Informations Complémentaires</div>
+
+                <!-- Motivation -->
+                <div class="field-group">
+                    <label for="motivation">Motivation pour rejoindre la plateforme *</label>
+                    <textarea id="motivation" name="motivation"
+                              placeholder="Expliquez les motivations et objectifs de l'artisan...">Partager mon savoir-faire ancestral avec une clientèle plus large et contribuer à la préservation de l'artisanat tunisien traditionnel.</textarea>
+                </div>
+
+                <!-- Production + Délai -->
+                <div class="field-row">
+                    <div class="field-group">
+                        <label for="production">Capacité de production mensuelle</label>
+                        <input type="number" id="production" name="production_mensuelle" placeholder="Ex: 20" min="1" value="30">
+                    </div>
+                    <div class="field-group">
+                        <label for="delai">Délai moyen de fabrication</label>
+                        <select id="delai" name="delai_fabrication">
+                            <option value="">-- Sélectionner --</option>
+                            <option value="immediat">Stock immédiat</option>
+                            <option value="1-3">1 à 3 jours</option>
+                            <option value="3-7" selected>3 à 7 jours</option>
+                            <option value="1-2">1 à 2 semaines</option>
+                            <option value="2-4">2 à 4 semaines</option>
+                            <option value="plus">Plus de 4 semaines</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- ── Section : Administration ── -->
+                <div class="section-title">Administration</div>
+
+                <div class="field-group">
+                    <label for="statut">Statut du compte *</label>
+                    <select id="statut" name="statut">
+                        <option value="actif" selected>Actif</option>
+                        <option value="inactif">Inactif</option>
+                        <option value="en-attente">En attente</option>
+                    </select>
+                </div>
+
+                <!-- Conditions -->
+                <label class="checkbox-label">
+                    <input type="checkbox" name="conditions" checked>
+                    L'artisan accepte les <a href="#">conditions générales d'utilisation</a>
+                    et la <a href="#">charte artisan</a>
+                </label>
+
+                <label class="checkbox-label">
+                    <input type="checkbox" name="certifie" checked>
+                    L'artisan certifie que tous ses produits sont faits à la main et authentiques
+                </label>
+
+                <!-- Bouton Enregistrer -->
+                <button type="submit" class="btn-submit">Enregistrer les modifications</button>
+
+            </form>
+            <div class="form-footer">
+                <p><a href="liste_artisan.html">Retour à la liste des artisans</a></p>
+            </div>
+        </div>
+
+    </div>
+    <script src="back_user.js"></script>
+</body>
+</html>

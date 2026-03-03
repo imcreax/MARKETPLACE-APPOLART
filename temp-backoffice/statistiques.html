@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appolart — Statistiques Utilisateurs & Artisans</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="dashboard.css">
+  <style>
+    /* ─── ONGLETS ─── */
+    .tab-nav {
+      display: flex;
+      gap: 0;
+      margin-bottom: 28px;
+      border-bottom: 2px solid var(--sable);
+    }
+    .tab-btn {
+      padding: 12px 28px;
+      background: none;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-400);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.25s;
+    }
+    .tab-btn:hover { color: var(--rouge); }
+    .tab-btn.active {
+      color: var(--rouge);
+      border-bottom-color: var(--rouge);
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ─── KPI GRID ─── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 30px;
+    }
+    .kpi-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-card);
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 4px;
+    }
+    .kpi-card.kpi-rouge::before  { background: var(--rouge); }
+    .kpi-card.kpi-bleu::before   { background: var(--bleu); }
+    .kpi-card.kpi-vert::before   { background: var(--vert); }
+    .kpi-card.kpi-orange::before { background: var(--orange); }
+    .kpi-icon {
+      font-size: 1.6rem;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .kpi-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-900);
+    }
+    .kpi-label {
+      font-size: 0.78rem;
+      color: var(--text-400);
+      margin-top: 4px;
+    }
+
+    /* ─── DEUX COLONNES ─── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-bottom: 26px;
+    }
+    @media (max-width: 900px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .two-col { grid-template-columns: 1fr; }
+    }
+
+    /* ─── CHART CARD ─── */
+    .chart-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-card);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+    }
+    .chart-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-900);
+      margin-bottom: 18px;
+    }
+
+    /* ─── BARRES HORIZONTALES ─── */
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .bar-label {
+      width: 120px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-600);
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .bar-track {
+      flex: 1;
+      height: 22px;
+      background: var(--creme);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 8px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: white;
+      transition: width 0.6s ease;
+    }
+    .bar-fill.fill-rouge  { background: var(--rouge); }
+    .bar-fill.fill-bleu   { background: var(--bleu); }
+    .bar-fill.fill-vert   { background: var(--vert); }
+    .bar-fill.fill-orange { background: var(--orange); }
+    .bar-val {
+      width: 40px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .bar-val.rouge  { color: var(--rouge); }
+    .bar-val.bleu   { color: var(--bleu); }
+    .bar-val.vert   { color: var(--vert); }
+    .bar-val.orange { color: var(--orange); }
+
+    /* ─── DONUT SVG ─── */
+    .donut-wrap {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      justify-content: center;
+    }
+    .donut-svg { width: 140px; height: 140px; }
+    .donut-legend { display: flex; flex-direction: column; gap: 10px; }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.84rem; }
+    .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ─── TABLEAU ─── */
+    .stat-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .stat-table thead tr {
+      background: var(--creme);
+    }
+    .stat-table th, .stat-table td {
+      padding: 12px 14px;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+    .stat-table th {
+      font-weight: 600;
+      color: var(--text-600);
+      border-bottom: 2px solid var(--sable);
+    }
+    .stat-table td {
+      border-bottom: 1px solid var(--sable);
+      color: var(--text-900);
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .badge-actif   { background: rgba(90,170,126,0.15); color: var(--vert); }
+    .badge-inactif { background: rgba(191,70,70,0.10); color: var(--rouge); }
+    .badge-attente { background: rgba(232,152,78,0.12); color: var(--orange); }
+
+    /* ─── SECTION SEPARATOR ─── */
+    .section-sep {
+      margin: 30px 0 18px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--sable);
+    }
+    .section-sep h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-900);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-mark">
+        <img src="logo_app.jpg" alt="Appolart" class="logo-img">
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="nav-item"><span class="nav-icon">&#9638;</span> Dashboard</a>
+      <div class="nav-item"><span class="nav-icon">&#128722;</span> Produits</div>
+      <a href="../gestion-user/back-office-user/liste_user.html" class="nav-item"><span class="nav-icon">&#128101;</span> Utilisateurs</a>
+      <a href="../gestion-user/back-office-user/liste_artisan.html" class="nav-item"><span class="nav-icon">&#10084;</span> Artisans</a>
+      <div class="nav-item"><span class="nav-icon">&#128722;</span> Commandes</div>
+      <div class="nav-item"><span class="nav-icon">&#9888;</span> Réclamations</div>
+      <div class="nav-item"><span class="nav-icon">&#127991;</span> Promotions</div>
+      <div class="nav-item"><span class="nav-icon">&#128197;</span> Événements</div>
+      <a href="statistiques.html" class="nav-item active"><span class="nav-icon">&#128202;</span> Statistiques</a>
+    </nav>
+    <div class="sidebar-footer">
+      <span class="sidebar-version">Appolart Admin · v1.0</span>
+    </div>
+  </aside>
+
+  <!-- CONTENU PRINCIPAL -->
+  <div class="main-wrapper">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="search-box">
+        <span class="search-icon">&#128269;</span>
+        <input type="text" class="search-input" placeholder="Rechercher..." readonly>
+      </div>
+      <div class="topbar-actions">
+        <div class="topbar-btn">
+          <span class="topbar-icon">&#128276;</span>
+          <span class="topbar-badge">3</span>
+        </div>
+        <div class="topbar-btn">
+          <span class="topbar-icon">&#9993;</span>
+          <span class="topbar-badge">7</span>
+        </div>
+        <div class="admin-chip">
+          <div class="admin-avatar">A</div>
+          <span class="admin-name">Admin</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+
+      <h1 class="page-title">Statistiques Utilisateurs & Artisans</h1>
+
+      <!-- ONGLETS -->
+      <div class="tab-nav">
+        <button class="tab-btn active" data-tab="panel-users">&#128101; Utilisateurs</button>
+        <button class="tab-btn" data-tab="panel-artisans">&#10084; Artisans</button>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+           ONGLET 1 : UTILISATEURS
+      ═══════════════════════════════════════════ -->
+      <div class="tab-panel active" id="panel-users">
+
+        <!-- KPIs Utilisateurs -->
+        <div class="kpi-grid">
+          <div class="kpi-card kpi-rouge">
+            <span class="kpi-icon">&#128101;</span>
+            <div class="kpi-val">248</div>
+            <div class="kpi-label">Total utilisateurs</div>
+          </div>
+          <div class="kpi-card kpi-vert">
+            <span class="kpi-icon">&#9989;</span>
+            <div class="kpi-val">205</div>
+            <div class="kpi-label">Actifs</div>
+          </div>
+          <div class="kpi-card kpi-orange">
+            <span class="kpi-icon">&#8987;</span>
+            <div class="kpi-val">28</div>
+            <div class="kpi-label">En attente</div>
+          </div>
+          <div class="kpi-card kpi-bleu">
+            <span class="kpi-icon">&#128200;</span>
+            <div class="kpi-val">+18%</div>
+            <div class="kpi-label">Croissance / mois</div>
+          </div>
+        </div>
+
+        <div class="two-col">
+
+          <!-- Utilisateurs par ville -->
+          <div class="chart-card">
+            <h3>&#128205; Utilisateurs par ville</h3>
+            <div class="bar-row">
+              <span class="bar-label">Tunis</span>
+              <div class="bar-track"><div class="bar-fill fill-rouge" style="width:72%;">89</div></div>
+              <span class="bar-val rouge">89</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Sfax</span>
+              <div class="bar-track"><div class="bar-fill fill-bleu" style="width:48%;">52</div></div>
+              <span class="bar-val bleu">52</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Sousse</span>
+              <div class="bar-track"><div class="bar-fill fill-vert" style="width:35%;">38</div></div>
+              <span class="bar-val vert">38</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Nabeul</span>
+              <div class="bar-track"><div class="bar-fill fill-orange" style="width:28%;">30</div></div>
+              <span class="bar-val orange">30</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Bizerte</span>
+              <div class="bar-track"><div class="bar-fill fill-bleu" style="width:22%;">24</div></div>
+              <span class="bar-val bleu">24</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Autres</span>
+              <div class="bar-track"><div class="bar-fill fill-rouge" style="width:13%;">15</div></div>
+              <span class="bar-val rouge">15</span>
+            </div>
+          </div>
+
+          <!-- Statut des utilisateurs -->
+          <div class="chart-card">
+            <h3>&#9874; Statut des utilisateurs</h3>
+            <div class="donut-wrap">
+              <svg class="donut-svg" viewBox="0 0 42 42">
+                <circle cx="21" cy="21" r="15.91549" fill="transparent"
+                  stroke="#5aaa7e" stroke-width="6"
+                  stroke-dasharray="82.7 17.3"
+                  stroke-dashoffset="25"
+                  transform="rotate(-90 21 21)"/>
+                <circle cx="21" cy="21" r="15.91549" fill="transparent"
+                  stroke="#e8984e" stroke-width="6"
+                  stroke-dasharray="11.3 88.7"
+                  stroke-dashoffset="-57.7"
+                  transform="rotate(-90 21 21)"/>
+                <circle cx="21" cy="21" r="15.91549" fill="transparent"
+                  stroke="#bf4646" stroke-width="6"
+                  stroke-dasharray="6 94"
+                  stroke-dashoffset="-69"
+                  transform="rotate(-90 21 21)"/>
+                <text x="21" y="21.5" text-anchor="middle" dy=".3em"
+                  fill="#2c1e1e" font-size="7" font-family="DM Sans,sans-serif" font-weight="700">248</text>
+              </svg>
+              <div class="donut-legend">
+                <div class="legend-item">
+                  <div class="legend-dot" style="background:#5aaa7e;"></div>
+                  <span><strong>205</strong> Actifs (82.7%)</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background:#e8984e;"></div>
+                  <span><strong>28</strong> En attente (11.3%)</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background:#bf4646;"></div>
+                  <span><strong>15</strong> Inactifs (6%)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Inscriptions par mois -->
+        <div class="chart-card" style="margin-bottom:26px;">
+          <h3>&#128197; Inscriptions par mois (Oct 2025 — Fev 2026)</h3>
+          <div class="bar-row">
+            <span class="bar-label">Oct 2025</span>
+            <div class="bar-track"><div class="bar-fill fill-bleu" style="width:36%;">32</div></div>
+            <span class="bar-val bleu">32</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Nov 2025</span>
+            <div class="bar-track"><div class="bar-fill fill-bleu" style="width:44%;">40</div></div>
+            <span class="bar-val bleu">40</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Dec 2025</span>
+            <div class="bar-track"><div class="bar-fill fill-bleu" style="width:50%;">45</div></div>
+            <span class="bar-val bleu">45</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Jan 2026</span>
+            <div class="bar-track"><div class="bar-fill fill-vert" style="width:68%;">62</div></div>
+            <span class="bar-val vert">62</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Fev 2026</span>
+            <div class="bar-track"><div class="bar-fill fill-vert" style="width:76%;">69</div></div>
+            <span class="bar-val vert">69</span>
+          </div>
+        </div>
+
+        <!-- Top utilisateurs -->
+        <div class="chart-card">
+          <h3>&#127942; Top 5 utilisateurs (par commandes)</h3>
+          <table class="stat-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nom</th>
+                <th>Ville</th>
+                <th>Commandes</th>
+                <th>Statut</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Ahmed Ben Ali</td>
+                <td>Tunis</td>
+                <td><strong>23</strong></td>
+                <td><span class="badge badge-actif">Actif</span></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Sana Trabelsi</td>
+                <td>Sfax</td>
+                <td><strong>19</strong></td>
+                <td><span class="badge badge-actif">Actif</span></td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Youssef Hamdi</td>
+                <td>Bizerte</td>
+                <td><strong>16</strong></td>
+                <td><span class="badge badge-actif">Actif</span></td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Fatma Jaziri</td>
+                <td>Nabeul</td>
+                <td><strong>14</strong></td>
+                <td><span class="badge badge-attente">En attente</span></td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Mohamed Karray</td>
+                <td>Sousse</td>
+                <td><strong>11</strong></td>
+                <td><span class="badge badge-inactif">Inactif</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+           ONGLET 2 : ARTISANS
+      ═══════════════════════════════════════════ -->
+      <div class="tab-panel" id="panel-artisans">
+
+        <!-- KPIs Artisans -->
+        <div class="kpi-grid">
+          <div class="kpi-card kpi-rouge">
+            <span class="kpi-icon">&#10084;</span>
+            <div class="kpi-val">64</div>
+            <div class="kpi-label">Total artisans</div>
+          </div>
+          <div class="kpi-card kpi-vert">
+            <span class="kpi-icon">&#9989;</span>
+            <div class="kpi-val">52</div>
+            <div class="kpi-label">Actifs</div>
+          </div>
+          <div class="kpi-card kpi-orange">
+            <span class="kpi-icon">&#128230;</span>
+            <div class="kpi-val">347</div>
+            <div class="kpi-label">Produits total</div>
+          </div>
+          <div class="kpi-card kpi-bleu">
+            <span class="kpi-icon">&#11088;</span>
+            <div class="kpi-val">4.2</div>
+            <div class="kpi-label">Note moyenne / 5</div>
+          </div>
+        </div>
+
+        <div class="two-col">
+
+          <!-- Artisans par specialite -->
+          <div class="chart-card">
+            <h3>&#127912; Artisans par specialite</h3>
+            <div class="bar-row">
+              <span class="bar-label">Poterie</span>
+              <div class="bar-track"><div class="bar-fill fill-rouge" style="width:60%;">16</div></div>
+              <span class="bar-val rouge">16</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Tissage</span>
+              <div class="bar-track"><div class="bar-fill fill-bleu" style="width:48%;">12</div></div>
+              <span class="bar-val bleu">12</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Bijouterie</span>
+              <div class="bar-track"><div class="bar-fill fill-vert" style="width:44%;">11</div></div>
+              <span class="bar-val vert">11</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Travail du Bois</span>
+              <div class="bar-track"><div class="bar-fill fill-orange" style="width:36%;">9</div></div>
+              <span class="bar-val orange">9</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Maroquinerie</span>
+              <div class="bar-track"><div class="bar-fill fill-bleu" style="width:32%;">8</div></div>
+              <span class="bar-val bleu">8</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Autres</span>
+              <div class="bar-track"><div class="bar-fill fill-rouge" style="width:32%;">8</div></div>
+              <span class="bar-val rouge">8</span>
+            </div>
+          </div>
+
+          <!-- Artisans par ville -->
+          <div class="chart-card">
+            <h3>&#128205; Artisans par ville</h3>
+            <div class="donut-wrap">
+              <svg class="donut-svg" viewBox="0 0 42 42">
+                <circle cx="21" cy="21" r="15.91549" fill="transparent"
+                  stroke="#bf4646" stroke-width="6"
+                  stroke-dasharray="28 72"
+                  stroke-dashoffset="25"
+                  transform="rotate(-90 21 21)"/>
+                <circle cx="21" cy="21" r="15.91549" fill="transparent"
+                  stroke="#7eacb5" stroke-width="6"
+                  stroke-dasharray="22 78"
+                  stroke-dashoffset="-3"
+                  transform="rotate(-90 21 21)"/>
+                <circle cx="21" cy="21" r="15.91549" fill="transparent"
+                  stroke="#5aaa7e" stroke-width="6"
+                  stroke-dasharray="19 81"
+                  stroke-dashoffset="-25"
+                  transform="rotate(-90 21 21)"/>
+                <circle cx="21" cy="21" r="15.91549" fill="transparent"
+                  stroke="#e8984e" stroke-width="6"
+                  stroke-dasharray="16 84"
+                  stroke-dashoffset="-44"
+                  transform="rotate(-90 21 21)"/>
+                <circle cx="21" cy="21" r="15.91549" fill="transparent"
+                  stroke="#eddcc6" stroke-width="6"
+                  stroke-dasharray="15 85"
+                  stroke-dashoffset="-60"
+                  transform="rotate(-90 21 21)"/>
+                <text x="21" y="21.5" text-anchor="middle" dy=".3em"
+                  fill="#2c1e1e" font-size="7" font-family="DM Sans,sans-serif" font-weight="700">64</text>
+              </svg>
+              <div class="donut-legend">
+                <div class="legend-item">
+                  <div class="legend-dot" style="background:#bf4646;"></div>
+                  <span><strong>18</strong> Nabeul (28%)</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background:#7eacb5;"></div>
+                  <span><strong>14</strong> Kairouan (22%)</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background:#5aaa7e;"></div>
+                  <span><strong>12</strong> Sfax (19%)</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background:#e8984e;"></div>
+                  <span><strong>10</strong> Sousse (16%)</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background:#eddcc6;"></div>
+                  <span><strong>10</strong> Autres (15%)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Produits par artisan -->
+        <div class="chart-card" style="margin-bottom:26px;">
+          <h3>&#128230; Produits par artisan (moyenne et top)</h3>
+          <div style="display:flex;gap:30px;align-items:center;margin-bottom:20px;">
+            <div style="text-align:center;padding:18px 30px;background:var(--creme);border-radius:12px;">
+              <div style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--rouge);">5.4</div>
+              <div style="font-size:0.8rem;color:var(--text-400);">Produits / artisan (moy.)</div>
+            </div>
+            <div style="text-align:center;padding:18px 30px;background:var(--creme);border-radius:12px;">
+              <div style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--vert);">82.5%</div>
+              <div style="font-size:0.8rem;color:var(--text-400);">Taux de vente</div>
+            </div>
+            <div style="text-align:center;padding:18px 30px;background:var(--creme);border-radius:12px;">
+              <div style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--bleu);">12 450 DT</div>
+              <div style="font-size:0.8rem;color:var(--text-400);">CA total artisans</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Top artisans -->
+        <div class="chart-card">
+          <h3>&#127942; Top 5 artisans (par note et ventes)</h3>
+          <table class="stat-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nom</th>
+                <th>Atelier</th>
+                <th>Specialite</th>
+                <th>Produits</th>
+                <th>Note</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Khaled Mansouri</td>
+                <td>Terre & Feu</td>
+                <td>Poterie</td>
+                <td><strong>12</strong></td>
+                <td><span style="color:#f5a623;font-weight:700;">5.0 &#9733;</span></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Amira Bouazizi</td>
+                <td>Fils de Soie</td>
+                <td>Tissage</td>
+                <td><strong>9</strong></td>
+                <td><span style="color:#f5a623;font-weight:700;">4.8 &#9733;</span></td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Riadh Chaabane</td>
+                <td>Bois d'Olivier</td>
+                <td>Travail du Bois</td>
+                <td><strong>7</strong></td>
+                <td><span style="color:#f5a623;font-weight:700;">4.6 &#9733;</span></td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Nour Haddad</td>
+                <td>Bijoux du Sahel</td>
+                <td>Bijouterie</td>
+                <td><strong>8</strong></td>
+                <td><span style="color:#f5a623;font-weight:700;">4.3 &#9733;</span></td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Walid Mekni</td>
+                <td>Cuir Artisanal</td>
+                <td>Maroquinerie</td>
+                <td><strong>6</strong></td>
+                <td><span style="color:#f5a623;font-weight:700;">4.1 &#9733;</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    // Onglets
+    document.querySelectorAll('.tab-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+        document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+        this.classList.add('active');
+        document.getElementById(this.dataset.tab).classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

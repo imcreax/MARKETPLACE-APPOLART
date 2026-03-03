@@ -1,0 +1,384 @@
+/* ============================
+   Modif_artisan.css
+   Formulaire Modification Artisan (Back-Office)
+   Marketplace Artisanale – Appolart
+   Basé sur inscription.css
+============================ */
+
+:root {
+    --rouge:      #bf4646;
+    --rouge-dark: #a03a3a;
+    --beige:      #eddcc6;
+    --blanc:      #fff4ea;
+    --bleu:       #7eacb5;
+    --bleu-dark:  #5a8590;
+    --text:       #2c2c2c;
+    --muted:      #666666;
+    --border:     #eddcc6;
+    --white:      #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--blanc);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(circle at 15% 25%, rgba(126,172,181,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 85% 75%, rgba(191,70,70,0.06) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ── Conteneur centré ── */
+.form-wrapper {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 700px;
+}
+
+/* ── Logo ── */
+.logo-block {
+    text-align: center;
+    margin-bottom: 1.4rem;
+}
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-img {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* ── Bande de couleur ── */
+.header-band {
+    background: var(--rouge);
+    border-radius: 12px 12px 0 0;
+    padding: 1.2rem 2rem;
+}
+
+.band-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--white);
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+}
+
+.band-sub {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.82rem;
+}
+
+/* ── Carte formulaire ── */
+.form-card {
+    background: var(--white);
+    border-radius: 0 0 18px 18px;
+    padding: 2.2rem 2.5rem 2.5rem;
+    box-shadow: 0 8px 40px rgba(191,70,70,0.1);
+    border: 1px solid var(--border);
+    border-top: none;
+    margin-bottom: 1.2rem;
+}
+
+/* ── Ligne double ── */
+.field-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.field-row .field-group {
+    flex: 1;
+}
+
+/* ── Groupes de champs ── */
+.field-group {
+    margin-bottom: 1.3rem;
+}
+
+.field-group label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.3px;
+}
+
+.field-group input,
+.field-group select {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text);
+    background: var(--white);
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.field-group input::placeholder {
+    color: #b0a090;
+}
+
+.field-group input:focus,
+.field-group select:focus {
+    border-color: var(--bleu);
+    box-shadow: 0 0 0 3px rgba(126,172,181,0.15);
+}
+
+/* ── Titres de section ── */
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--rouge);
+    padding-bottom: 0.6rem;
+    margin-bottom: 1.3rem;
+    margin-top: 1.8rem;
+    border-bottom: 2px solid var(--beige);
+}
+
+.section-title:first-child {
+    margin-top: 0;
+}
+
+/* ── Boîte info ── */
+.info-box {
+    background: var(--blanc);
+    border-left: 4px solid var(--bleu);
+    padding: 0.9rem 1rem;
+    margin-bottom: 1.3rem;
+    border-radius: 0 8px 8px 0;
+}
+
+.info-box p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+/* ── Zone d'upload fichier ── */
+.file-upload-wrapper {
+    position: relative;
+    background: var(--beige);
+    border: 2px dashed var(--bleu);
+    border-radius: 10px;
+    padding: 1.8rem 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.file-upload-wrapper:hover {
+    background: var(--blanc);
+    border-color: var(--rouge);
+}
+
+.file-upload-wrapper input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.upload-text {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--rouge);
+    margin-bottom: 0.3rem;
+}
+
+.upload-subtext {
+    font-size: 0.75rem;
+    color: var(--muted);
+}
+
+/* ── Grille spécialités ── */
+.specialites-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.specialite-option {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.6rem 1rem;
+    background: var(--blanc);
+    border: 2px solid var(--beige);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
+    font-size: 0.82rem;
+    color: var(--text);
+}
+
+.specialite-option:hover {
+    border-color: var(--bleu);
+    background: var(--white);
+}
+
+.specialite-option input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    accent-color: var(--rouge);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.specialite-option:has(input:checked) {
+    background: var(--white);
+    border-color: var(--rouge);
+    box-shadow: 0 2px 8px rgba(191,70,70,0.15);
+}
+
+/* ── Textarea ── */
+.field-group textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 0.85rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text);
+    background: var(--white);
+    outline: none;
+    resize: vertical;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.field-group textarea::placeholder {
+    color: #b0a090;
+}
+
+.field-group textarea:focus {
+    border-color: var(--bleu);
+    box-shadow: 0 0 0 3px rgba(126,172,181,0.15);
+}
+
+/* ── Checkbox ── */
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.82rem;
+    color: var(--muted);
+    cursor: pointer;
+    line-height: 1.5;
+    margin-bottom: 1.6rem;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    accent-color: var(--rouge);
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.checkbox-label a {
+    color: var(--rouge);
+    text-decoration: underline;
+}
+
+/* ── Bouton Enregistrer ── */
+.btn-submit {
+    width: 100%;
+    padding: 1rem;
+    background: var(--rouge);
+    color: var(--blanc);
+    border: none;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 4px 15px rgba(191,70,70,0.25);
+}
+
+.btn-submit:hover {
+    background: var(--rouge-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 22px rgba(191,70,70,0.35);
+}
+
+.btn-submit:active {
+    transform: translateY(0);
+}
+
+/* ── Footer du formulaire ── */
+.form-footer {
+    text-align: center;
+    padding: 1.2rem 0 0;
+    border-top: 1px solid var(--border);
+    margin-top: 1.5rem;
+}
+
+.form-footer p {
+    font-size: 0.82rem;
+    color: var(--muted);
+}
+
+.form-footer a {
+    color: var(--rouge);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+    .form-card {
+        padding: 1.8rem 1.4rem;
+    }
+
+    .field-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .header-band {
+        padding: 1rem 1.4rem;
+    }
+
+    .specialites-grid {
+        flex-direction: column;
+    }
+
+    .specialite-option {
+        width: 100%;
+    }
+}
